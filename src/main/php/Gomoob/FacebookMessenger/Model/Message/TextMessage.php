@@ -27,7 +27,6 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Message;
 
-use Gomoob\FacebookMessenger\Model\MessageInterface;
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 
 /**
@@ -36,7 +35,7 @@ use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
  * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference/text-message
  */
-class TextMessage implements MessageInterface
+class TextMessage extends AbstractMessage
 {
     /**
      * The message text.
