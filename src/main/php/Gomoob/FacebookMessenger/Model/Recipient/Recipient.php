@@ -27,7 +27,9 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Recipient;
 
+use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 use Gomoob\FacebookMessenger\Model\RecipientInterface;
+use Gomoob\FacebookMessenger\Model\NameInterface;
 
 /**
  * Class which represents a recepient to which one to send a Facebook Messenger message.
@@ -37,10 +39,27 @@ use Gomoob\FacebookMessenger\Model\RecipientInterface;
  */
 class Recipient implements RecipientInterface
 {
+    /**
+     * The page-scoped user ID of the recipient. This is the field most developers will commonly use to send messages.
+     *
+     * @var string
+     */
     private $id;
 
+    /**
+     * The Phone number of the recipient with the format `+1(212)555-2368`. Your bot must be approved for Customer
+     * Matching to send messages this way.
+     *
+     * @var string
+     */
     private $name;
 
+    /**
+     * The Phone number of the recipient with the format `+1(212)555-2368`. Your bot must be approved for Customer
+     * Matching to send messages this way.
+     *
+     * @var string
+     */
     private $phoneNumber;
 
     /**
@@ -54,7 +73,7 @@ class Recipient implements RecipientInterface
     /**
      * {@inheritDoc}
      */
-    public function getName(): string
+    public function getName(): NameInterface
     {
         return $this->name;
     }
@@ -72,7 +91,38 @@ class Recipient implements RecipientInterface
      */
     public function jsonSerialize()
     {
-        // TODO
+        $json = [];
+
+        // One of the 'id' or 'phoneNumber' property must have been defined.
+        if(!isset($this->id) && !isset($this->phoneNumber))
+        {
+            throw new FacebookMessengerException('None of the \'id\' or \'phoneNumber\' properties are set !');
+        }
+
+        // If the 'id' or 'phoneNumber' parameters are both set this is an error
+        elseif(isset($this->id) && isset($this->phoneNumber))
+        {
+            throw new FacebookMessengerException('Both \'id\' and \'phoneNumber\' properties are set !');
+        }
+
+        // The 'id' property is set
+        elseif(isset($this->id))
+        {
+            $json['id'] = $this->id;
+        }
+
+        // The 'phoneNumber' property is set
+        else {
+            $json['phoneNumber'] = $this->phoneNumber;
+        }
+
+        // The 'name' property is set
+        if(isset($this->name))
+        {
+            $json['name'] = $this->name;
+        }
+
+        return $json;
     }
 
     /**
@@ -88,7 +138,7 @@ class Recipient implements RecipientInterface
     /**
      * {@inheritDoc}
      */
-    public function setName(string $name)
+    public function setName(NameInterface $name)
     {
         $this->name = $name;
 

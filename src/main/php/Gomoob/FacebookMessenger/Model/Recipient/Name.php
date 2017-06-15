@@ -25,20 +25,23 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-namespace Gomoob\FacebookMessenger\Model;
+namespace Gomoob\FacebookMessenger\Model\Recipient;
+
+use Gomoob\FacebookMessenger\Model\NameInterface;
 
 /**
- * Interface which represents a recepient to which one to send a Facebook Messenger message.
+ * Class which represents a Facebook Messenger name to be attached to a recipient.
  *
  * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient
  */
-interface RecipientInterface extends \JsonSerializable
+class Name implements NameInterface
 {
-    public function getId(): string;
-    public function getName(): NameInterface;
-    public function getPhoneNumber(): string;
-    public function setId(string $id);
-    public function setName(NameInterface $name);
-    public function setPhoneNumber(string $phoneNumber);
+    /**
+     * {@inheritDoc}
+     */
+    public function jsonSerialize()
+    {
+        return [];
+    }
 }

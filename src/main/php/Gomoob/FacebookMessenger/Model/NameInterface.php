@@ -28,17 +28,12 @@
 namespace Gomoob\FacebookMessenger\Model;
 
 /**
- * Interface which represents a recepient to which one to send a Facebook Messenger message.
+ * Interface which represents a Facebook Messenger name to be attached to a recipient.
  *
  * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
- * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient
+ * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference
  */
-interface RecipientInterface extends \JsonSerializable
+interface NameInterface extends \JsonSerializable
 {
-    public function getId(): string;
-    public function getName(): NameInterface;
-    public function getPhoneNumber(): string;
-    public function setId(string $id);
-    public function setName(NameInterface $name);
-    public function setPhoneNumber(string $phoneNumber);
+
 }
