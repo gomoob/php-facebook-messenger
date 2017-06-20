@@ -32,42 +32,28 @@ use Gomoob\FacebookMessenger\Model\RecipientInterface;
 use Gomoob\FacebookMessenger\Model\MessageInterface;
 
 /**
- * @author Arnaud LavallÃ©e (arnaud.lavallee@gomoob.com)
+ * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
  *
  */
 abstract class AbstractRequest implements RequestInterface {
-	
-	/**
-	 * The message link to the request
-	 * @var MessageInterface
-	 */
-	private $message;
 
 	/**
-	 * The notification type of the request
+	 * The notification type of the request.
 	 * @var String
 	 */
     private $notificationType;
 
     /**
-     * The recipient of the message link to the request
+     * The recipient of the message link to the request.
      * @var RecipientInterface
      */
     private $recipient;
 
     /**
-     * The sender action of the request
+     * The sender action of the request.
      * @var String
      */
     private $senderAction;
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getMessage(): MessageInterface
-    {
-        return $this->message;
-    }
 
     /**
      * {@inheritDoc}
@@ -106,16 +92,6 @@ abstract class AbstractRequest implements RequestInterface {
     	];
     	
     	return $json;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setMessage(MessageInterface $message)
-    {
-        $this->message = $message;
-
-        return $this;
     }
 
     /**

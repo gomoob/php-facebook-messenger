@@ -28,7 +28,7 @@
 namespace Gomoob\FacebookMessenger\Model;
 
 /**
- * Interface which represents a Facebook Messenger message.
+ * Interface which represents a Facebook Messenger attachment to be attached to a message.
  *
  * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference

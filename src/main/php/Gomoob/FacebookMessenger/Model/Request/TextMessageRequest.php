@@ -36,5 +36,32 @@ use Gomoob\FacebookMessenger\Model\Recipient\AbstractRequest;
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference#request
  */
 class TextMessageRequest extends AbstractRequest {
-    
+	
+	/**
+	 * The message to send.
+	 *
+	 * @var \Gomoob\FacebookMessenger\Model\TextMessageInterface
+	 */
+	private $message;
+	
+	/**
+	 * Get the message to send.
+	 * 
+	 * @return \Gomoob\FacebookMessenger\Model\TextMessageInterface
+	 */
+	public function getMessage() {
+		return $this->message;
+	}
+	
+	/**
+	 * Set the message to send.
+	 * 
+	 * @param TextMessageInterface $message
+	 * @return \Gomoob\FacebookMessenger\Model\TextMessageInterface
+	 */
+	public function setMessage($message) {
+		$this->message= $message;
+		return $this;
+	}
+	
 }

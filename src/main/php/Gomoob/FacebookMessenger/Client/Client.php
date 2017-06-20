@@ -30,6 +30,9 @@ namespace Gomoob\FacebookMessenger\Model\Client;
 use Gomoob\FacebookMessenger\ClientInterface;
 use Gomoob\FacebookMessenger\Model\MessageInterface;
 use Gomoob\FacebookMessenger\Model\Recipient\Request;
+use Gomoob\FacebookMessenger\Model\Request\TextMessageRequest;
+use Gomoob\FacebookMessenger\Model\Message\TextMessage;
+use Gomoob\FacebookMessenger\Model\Recipient\Recipient;
 
 /**
  * Class which defines a Facebook Messenger client.
@@ -58,26 +61,40 @@ class Client implements ClientInterface
             ]
         );
     }
+    
+    /**
+     * Utility function used to create a new instance of the <tt>TextMessageRequest</tt>.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\Request\TextMessageRequest the new created instance.
+     */
+    public static function createTextMessageRequest()
+    {
+    	return new TextMessageRequest();
+    }
 
     /**
      * {@inheritDoc}
      */
-    public function sendMessage(MessageInterface $message)
+    public function sendMessage(/*MessageInterface $message*/)
     {
-    	$messageToSend = http_build_query($message);
+    	// Create a message to send.
+    	$message = new TextMessage();
+    	$message->setText("Hello World");
     	
-    	$context_options = [
-    		'http' => [
-    			'method'  => 'POST',
-    			'header'  => 'Content-type: application/json\r\n'. 
-    			             'Content-Length: ' . strlen($messageToSend) . '\r\n',
-    			'content' => $messageToSend
-    		]
-    	];
+    	$recipient = new Recipient();
+    	$recipient->setName('Toto');
+    	$recipient->setPhoneNumber('0700112233');
     	
-    	$context = stream_context_create($context_options);
-        $request = fopen('https://graph.facebook.com/v2.6/me/messages', 'r', false, $context);
-        
-        return $request;
+    	// Create a Facebook Messenger client
+    	// $client = Client::createTextMessageRequest()->setPageAccessToken('XXXX-XXX');
+    	$client = Client::createTextMessageRequest()->setMessage($message);
+    	
+    	// Create a request to send a simple Text Message
+    	$textMessagerequest = TextMessageRequest::create();
+    	$textMessagerequest->setText('Hello John !');
+    	$textMessagerequest->setRecipient($recipient);
+    	
+    	// Call the REST Web Service
+    	$response = $client->sendMessage($textMessagerequest);
     }
 }
