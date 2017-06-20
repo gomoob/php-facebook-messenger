@@ -28,6 +28,7 @@
 namespace Gomoob\FacebookMessenger\Model\Message;
 
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
+use Gomoob\FacebookMessenger\Model\TextMessageInterface;
 
 /**
  * Class which represents a a Facebook Messenger text message.
