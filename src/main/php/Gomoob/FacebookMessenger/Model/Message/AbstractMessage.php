@@ -34,7 +34,48 @@ use Gomoob\FacebookMessenger\Model\MessageInterface;
  *
  * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
  */
-abstract class AbstractMessage implements MessageInterface
-{
-
+abstract class AbstractMessage implements MessageInterface {
+	
+	/**
+	 * The technical identifier of the message to send.
+	 * @var String
+	 */
+	private $id;
+	
+	/**
+	 * The content of the message to send.
+	 * @var String
+	 */
+	private $text;
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public function getId() {
+		return $this->id;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public function setId($id) {
+		$this->id = $id;
+		return $this;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public function getText() {
+		return $this->text;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public function setText($text) {
+		$this->text = $text;
+		return $this;
+	}
+	
 }

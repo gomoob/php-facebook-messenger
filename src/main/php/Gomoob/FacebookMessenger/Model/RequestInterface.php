@@ -36,50 +36,62 @@ namespace Gomoob\FacebookMessenger\Model;
 interface RequestInterface extends \JsonSerializable
 {
     /**
+     * Gets the message link to the request
      *
      * @return \Gomoob\FacebookMessenger\Model\MessageInterface
+     *
      */
     public function getMessage(): MessageInterface;
 
     /**
+     * Gets the notification type of the request
      *
-     * @return string
+     * @return String the notificationType of the request 
+     *
      */
     public function getNotificationType(): string;
 
     /**
+     * Gets the recipient of the message link to the request
      *
      * @return \Gomoob\FacebookMessenger\Model\RecipientInterface
      */
     public function getRecipient(): RecipientInterface;
 
     /**
+     * Gets the sender action of the request
      *
-     * @return string
+     * @return String the sender action of the request 
+     *
      */
-    public function getSendAction(): string;
+    public function getSenderAction(): string;
 
     /**
+     * Set the message link to the request
      *
-     * @param \Gomoob\FacebookMessenger\Model\MessageInterface $message
+     * @param \Gomoob\FacebookMessenger\Model\MessageInterface $message the message link to the request
      */
     public function setMessage(MessageInterface $message);
 
     /**
+     * Set the notification type of the request
      *
-     * @param string $notificationType
+     * @param string $notificationType the notification type of the request
      */
     public function setNotificationType(string $notificationType);
 
     /**
+     * Set the recipient of the message link to the request
      *
-     * @param \Gomoob\FacebookMessenger\Model\RecipientInterface $recipient
+     * @param \Gomoob\FacebookMessenger\Model\RecipientInterface $recipient the recipient of the message link to 
+     * the request
      */
     public function setRecipient(RecipientInterface $recipient);
 
     /**
+     * Set the sender action of the request
      *
-     * @param string $sendAction
+     * @param string $senderAction the sender action of the request
      */
-    public function setSendAction(string $sendAction);
+    public function setSenderAction(string $senderAction);
 }

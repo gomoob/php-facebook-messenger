@@ -29,9 +29,10 @@ namespace Gomoob\FacebookMessenger\Model\Client;
 
 use Gomoob\FacebookMessenger\ClientInterface;
 use Gomoob\FacebookMessenger\Model\MessageInterface;
+use Gomoob\FacebookMessenger\Model\Recipient\Request;
 
 /**
- * Class which which defines a Facebook Messenger client.
+ * Class which defines a Facebook Messenger client.
  *
  * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference/text-message
@@ -63,5 +64,20 @@ class Client implements ClientInterface
      */
     public function sendMessage(MessageInterface $message)
     {
+    	$messageToSend = http_build_query($message);
+    	
+    	$context_options = [
+    		'http' => [
+    			'method'  => 'POST',
+    			'header'  => 'Content-type: application/json\r\n'. 
+    			             'Content-Length: ' . strlen($messageToSend) . '\r\n',
+    			'content' => $messageToSend
+    		]
+    	];
+    	
+    	$context = stream_context_create($context_options);
+        $request = fopen('https://graph.facebook.com/v2.6/me/messages', 'r', false, $context);
+        
+        return $request;
     }
 }

@@ -25,39 +25,16 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-namespace Gomoob\FacebookMessenger\Model;
+namespace Gomoob\FacebookMessenger\Model\Request;
+
+use Gomoob\FacebookMessenger\Model\Recipient\AbstractRequest;
 
 /**
- * Interface which represents a Facebook Messenger message.
+ * Class which represents a Facebook Messenger request.
  *
  * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
- * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference
+ * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference#request
  */
-interface MessageInterface extends \JsonSerializable {
-
-	/**
-	 * Get the techical identifier of the message to send.
-	 * @return string
-	 */
-	public function getId(): string;
-	
-	/**
-	 * Get the text content of the message to send.
-	 * @return string
-	 */
-	public function getText();
-	
-	/**
-     * Set the techical identifier of the message to send.
-     *
-     * @param string $id the notification type of the request
-     */
-	public function setId($id);
-	
-	/**
-     * Set the text content of the message to send.
-     *
-     * @param string $text the notification type of the request
-     */
-	public function setText($text);
+class ImageMessageRequest extends AbstractRequest {
+    
 }

@@ -25,39 +25,39 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-namespace Gomoob\FacebookMessenger\Model;
+namespace Gomoob\FacebookMessenger\Model\Message;
 
 /**
- * Interface which represents a Facebook Messenger message.
+ * Abstract class common to all Facebook Messenger messages.
  *
  * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
- * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference
  */
-interface MessageInterface extends \JsonSerializable {
-
+abstract class AbstractAttachmentMessage extends AbstractMessage {
+	
 	/**
-	 * Get the techical identifier of the message to send.
-	 * @return string
+	 * The technical identifier of the message to send.
+	 * 
+	 * @var AttachmentInterface
 	 */
-	public function getId(): string;
+	private $attachment;
 	
 	/**
-	 * Get the text content of the message to send.
-	 * @return string
+	 * 
+	 * @return \Gomoob\FacebookMessenger\Model\Message\AttachmentInterface
 	 */
-	public function getText();
+	public function getAttachment() {
+		return $this->attachment;
+	}
 	
 	/**
-     * Set the techical identifier of the message to send.
-     *
-     * @param string $id the notification type of the request
-     */
-	public function setId($id);
+	 * 
+	 * @param unknown $attachment
+	 * @return \Gomoob\FacebookMessenger\Model\Message\AbstractAttachmentMessage
+	 */
+	public function setAttachment($attachment) {
+		$this->attachment = $attachment;
+		return $this;
+	}
 	
-	/**
-     * Set the text content of the message to send.
-     *
-     * @param string $text the notification type of the request
-     */
-	public function setText($text);
+	
 }
