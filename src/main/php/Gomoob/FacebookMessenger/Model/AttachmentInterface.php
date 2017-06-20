@@ -25,65 +25,39 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-namespace Gomoob\FacebookMessenger\Model\Message;
-
-use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
+namespace Gomoob\FacebookMessenger\Model;
 
 /**
- * Class which represents a a Facebook Messenger text message.
+ * Interface which represents a Facebook Messenger message.
  *
- * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
- * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference/text-message
+ * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
+ * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference
  */
-class TextMessage extends AbstractMessage implements TextMessageInterface
-{
-    /**
-     * The message text.
+interface AttachmentInterface extends \JsonSerializable {
+	
+	/**
+	 * Get the payload of the attachment.
+	 * @return \Gomoob\FacebookMessenger\Model\PayloadInterface
+	 */
+	public function getPayload();
+	
+	/**
+     * Set the payload of the attachment.
      *
-     * @var string
+     * @param string $payload the payload of the attachment.
      */
-    private $text;
-
-    /**
-     * Utility function used to create a new instance of the <tt>TextMessage</tt> class.
+	public function setPayload($payload);
+	
+	/**
+	 * Get the type of the attachment.
+	 * @return string
+	 */
+	public function getType();
+	
+	/**
+     * Set the type of the attachment.
      *
-     * @return \Gomoob\FacebookMessenger\Model\Message\TextMessage the new created instance.
+     * @param string $type the type of the attachment.
      */
-    public static function create()
-    {
-        return new TextMessage();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getText() /*: string */
-    {
-        return $this->text;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setText(/* string */ $text)
-    {
-        $this->text = $text;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function jsonSerialize()
-    {
-        // The 'text' property must have been defined
-        if(!isset($this->text)) {
-            throw new FacebookMessengerException('The \'text\' property is not set !');
-        }
-
-        return [
-            'text' => $this->text
-        ];
-    }
+	public function setType($type);
 }

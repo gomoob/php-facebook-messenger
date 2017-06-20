@@ -25,65 +25,26 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-namespace Gomoob\FacebookMessenger\Model\Message;
-
-use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
+namespace Gomoob\FacebookMessenger\Model;
 
 /**
- * Class which represents a a Facebook Messenger text message.
+ * Interface which represents a Facebook Messenger image message.
  *
  * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
- * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference/text-message
+ * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference
  */
-class TextMessage extends AbstractMessage implements TextMessageInterface
-{
-    /**
-     * The message text.
+interface ImageMessageInterface extends \JsonSerializable {
+	
+	/**
+	 * Get the image message attachment.
+	 * @return \Gomoob\FacebookMessenger\Model\AttachmentInterface the image message attachment.
+	 */
+	public function getAttachment();
+	
+	/**
+     * Set the image message attachment.
      *
-     * @var string
+     * @param \Gomoob\FacebookMessenger\Model\AttachmentInterface $attachment the image message attachment.
      */
-    private $text;
-
-    /**
-     * Utility function used to create a new instance of the <tt>TextMessage</tt> class.
-     *
-     * @return \Gomoob\FacebookMessenger\Model\Message\TextMessage the new created instance.
-     */
-    public static function create()
-    {
-        return new TextMessage();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getText() /*: string */
-    {
-        return $this->text;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setText(/* string */ $text)
-    {
-        $this->text = $text;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function jsonSerialize()
-    {
-        // The 'text' property must have been defined
-        if(!isset($this->text)) {
-            throw new FacebookMessengerException('The \'text\' property is not set !');
-        }
-
-        return [
-            'text' => $this->text
-        ];
-    }
+	public function setAttachment($attachment);
 }

@@ -25,65 +25,26 @@
 * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-namespace Gomoob\FacebookMessenger\Model\Message;
-
-use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
-use Gomoob\FacebookMessenger\Model\AttachmentInterface;
-use Gomoob\FacebookMessenger\Model\ImageMessageInterface;
+namespace Gomoob\FacebookMessenger\Model;
 
 /**
- * Class which represents a a Facebook Messenger image message.
+ * Interface which represents a Facebook Messenger video message.
  *
- * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
- * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference/image-attachment
+ * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
+ * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference
  */
-class ImageMessage extends AbstractMessage implements ImageMessageInterface
-{
+interface VideoMessageInterface extends \JsonSerializable {
 
 	/**
-	 * The attachment of the image message.
-	 * @var MessageInterface
+	 * Get the video message attachment.
+	 * @return \Gomoob\FacebookMessenger\Model\AttachmentInterface the video message attachment.
 	 */
-	private $attachment;
-	
+	public function getAttachment();
+
 	/**
-	 * Utility function used to create a new instance of the <tt>ImageMessage</tt> class.
+	 * Set the video message attachment.
 	 *
-	 * @return \Gomoob\FacebookMessenger\Model\Message\ImageMessage the new created instance.
+	 * @param \Gomoob\FacebookMessenger\Model\AttachmentInterface $attachment the video message attachment.
 	 */
-	public static function create()
-	{
-		return new ImageMessage();
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public function getAttachment() {
-		return $this->attachment;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function jsonSerialize()
-	{
-		// The 'attachment' property must have been defined
-		if(!isset($this->attachment)) {
-			throw new FacebookMessengerException('The \'attachment\' property is not set !');
-		}
-
-		return [
-		    'attachment' => $this->attachment
-		];
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public function setAttachment(AttachmentInterface $attachment) {
-		$this->attachment = $attachment;
-		return $this;
-	}
-	
+	public function setAttachment($attachment);
 }

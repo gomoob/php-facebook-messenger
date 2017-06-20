@@ -30,14 +30,14 @@ namespace Gomoob\FacebookMessenger\Model\Message;
 /**
  * Abstract class common to all Facebook Messenger messages.
  *
- * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
+ * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
  */
 abstract class AbstractAttachmentMessage extends AbstractMessage {
 	
 	/**
 	 * The technical identifier of the message to send.
 	 * 
-	 * @var AttachmentInterface
+	 * @var \Gomoob\FacebookMessenger\Model\AttachmentInterface
 	 */
 	private $attachment;
 	

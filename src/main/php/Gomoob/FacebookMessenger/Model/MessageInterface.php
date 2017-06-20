@@ -34,30 +34,5 @@ namespace Gomoob\FacebookMessenger\Model;
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference
  */
 interface MessageInterface extends \JsonSerializable {
-
-	/**
-	 * Get the techical identifier of the message to send.
-	 * @return string
-	 */
-	public function getId(): string;
 	
-	/**
-	 * Get the text content of the message to send.
-	 * @return string
-	 */
-	public function getText();
-	
-	/**
-     * Set the techical identifier of the message to send.
-     *
-     * @param string $id the notification type of the request
-     */
-	public function setId($id);
-	
-	/**
-     * Set the text content of the message to send.
-     *
-     * @param string $text the notification type of the request
-     */
-	public function setText($text);
 }
