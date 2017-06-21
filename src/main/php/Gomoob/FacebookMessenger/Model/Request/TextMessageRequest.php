@@ -132,7 +132,7 @@ class TextMessageRequest extends AbstractRequest {
     /**
      * {@inheritDoc}
      */
-    public function setRecipient(RecipientInterface $recipient)
+    public function setRecipient(/* RecipientInterface */ $recipient)
     {
         $this->recipient = $recipient;
 
@@ -142,7 +142,7 @@ class TextMessageRequest extends AbstractRequest {
     /**
      * {@inheritDoc}
      */
-    public function setSenderAction(string $senderAction)
+    public function setSenderAction(/* string */ $senderAction)
     {
         $this->senderAction = $senderAction;
 
