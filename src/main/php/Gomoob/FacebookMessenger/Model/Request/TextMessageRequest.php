@@ -122,7 +122,7 @@ class TextMessageRequest extends AbstractRequest {
     /**
      * {@inheritDoc}
      */
-    public function setNotificationType(string $notificationType)
+    public function setNotificationType(/* string */ $notificationType)
     {
         $this->notificationType = $notificationType;
 
