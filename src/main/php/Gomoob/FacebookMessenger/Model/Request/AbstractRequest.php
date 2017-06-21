@@ -57,7 +57,7 @@ abstract class AbstractRequest implements RequestInterface {
     /**
      * {@inheritDoc}
      */
-    public function getNotificationType(): string
+    public function getNotificationType()
     {
         return $this->notificationType;
     }
@@ -65,7 +65,7 @@ abstract class AbstractRequest implements RequestInterface {
     /**
      * {@inheritDoc}
      */
-    public function getRecipient(): RecipientInterface
+    public function getRecipient()
     {
         return $this->recipient;
     }
@@ -73,7 +73,7 @@ abstract class AbstractRequest implements RequestInterface {
     /**
      * {@inheritDoc}
      */
-    public function getSenderAction(): string
+    public function getSenderAction()
     {
         return $this->senderAction;
     }
@@ -96,7 +96,7 @@ abstract class AbstractRequest implements RequestInterface {
     /**
      * {@inheritDoc}
      */
-    public function setNotificationType(string $notificationType)
+    public function setNotificationType(/* string */ $notificationType)
     {
         $this->notificationType = $notificationType;
 
@@ -106,7 +106,7 @@ abstract class AbstractRequest implements RequestInterface {
     /**
      * {@inheritDoc}
      */
-    public function setSenderAction(string $senderAction)
+    public function setSenderAction(/* string */ $senderAction)
     {
         $this->senderAction = $senderAction;
 
@@ -116,7 +116,7 @@ abstract class AbstractRequest implements RequestInterface {
     /**
      * {@inheritDoc}
      */
-    public function setRecipient(RecipientInterface $recipient)
+    public function setRecipient(/* RecipientInterface */ $recipient)
     {
         $this->recipient = $recipient;
 

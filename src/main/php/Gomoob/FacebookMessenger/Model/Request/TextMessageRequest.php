@@ -73,7 +73,7 @@ class TextMessageRequest extends AbstractRequest {
     /**
      * {@inheritDoc}
      */
-    public function getRecipient(): RecipientInterface
+    public function getRecipient()
     {
         return $this->recipient;
     }
