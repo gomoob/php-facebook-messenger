@@ -27,7 +27,7 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Request;
 
-use Gomoob\FacebookMessenger\Model\Recipient\AbstractRequest;
+use Gomoob\FacebookMessenger\Model\Request\AbstractRequest;
 
 /**
  * Class which represents a Facebook Messenger request.

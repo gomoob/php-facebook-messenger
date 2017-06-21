@@ -35,5 +35,29 @@ namespace Gomoob\FacebookMessenger\Model;
  */
 interface NameInterface extends \JsonSerializable
 {
-
+	/**
+	 * Get the message text.
+	 * @return string
+	 */
+	public function getFirstName();
+	
+	/**
+	 * Get the message text.
+	 * @return string
+	 */
+	public function getLastName();
+	
+	/**
+	 * Set the first name.
+	 *
+	 * @param string $firstName the message text.
+	 */
+	public function setFirstName(/* string */ $firstName);
+	
+	/**
+	 * Set the last name.
+	 *
+	 * @param string $lastName the message text.
+	 */
+	public function setLastName(/* string */ $lastName);
 }

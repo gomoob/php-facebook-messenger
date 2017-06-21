@@ -52,7 +52,7 @@ abstract class AbstractMessage implements MessageInterface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function setText($text) {
+	public function setText(/*string*/ $text) {
 		$this->text = $text;
 		return $this;
 	}

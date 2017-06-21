@@ -47,8 +47,7 @@ class Recipient implements RecipientInterface
     private $id;
 
     /**
-     * The Phone number of the recipient with the format `+1(212)555-2368`. Your bot must be approved for Customer
-     * Matching to send messages this way.
+     * The name of the recipient.
      *
      * @var string
      */
@@ -65,7 +64,7 @@ class Recipient implements RecipientInterface
     /**
      * {@inheritDoc}
      */
-    public function getId(): string
+    public function getId()/* : string */
     {
         return $this->id;
     }
@@ -73,7 +72,7 @@ class Recipient implements RecipientInterface
     /**
      * {@inheritDoc}
      */
-    public function getName(): NameInterface
+    public function getName()/* : NameInterface */
     {
         return $this->name;
     }
@@ -81,7 +80,7 @@ class Recipient implements RecipientInterface
     /**
      * {@inheritDoc}
      */
-    public function getPhoneNumber(): string
+    public function getPhoneNumber()/* : string */
     {
         return $this->phoneNumber;
     }
@@ -128,7 +127,7 @@ class Recipient implements RecipientInterface
     /**
      * {@inheritDoc}
      */
-    public function setId(string $id)
+    public function setId(/* string */ $id)
     {
         $this->id = $id;
 
@@ -138,7 +137,7 @@ class Recipient implements RecipientInterface
     /**
      * {@inheritDoc}
      */
-    public function setName(NameInterface $name)
+    public function setName(/* NameInterface */ $name)
     {
         $this->name = $name;
 
@@ -148,7 +147,7 @@ class Recipient implements RecipientInterface
     /**
      * {@inheritDoc}
      */
-    public function setPhoneNumber(string $phoneNumber)
+    public function setPhoneNumber(/* string */ $phoneNumber)
     {
         $this->phoneNumber = $phoneNumber;
 

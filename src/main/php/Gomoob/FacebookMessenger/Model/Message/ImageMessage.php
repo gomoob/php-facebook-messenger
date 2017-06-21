@@ -81,7 +81,7 @@ class ImageMessage extends AbstractMessage implements ImageMessageInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function setAttachment(AttachmentInterface $attachment) {
+	public function setAttachment(/*AttachmentInterface*/ $attachment) {
 		$this->attachment = $attachment;
 		return $this;
 	}

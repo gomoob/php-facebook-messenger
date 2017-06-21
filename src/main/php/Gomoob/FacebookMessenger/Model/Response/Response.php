@@ -77,7 +77,7 @@ class Reponse implements ResponseInterface
     /**
      * {@inheritDoc}
      */
-    public function setAttachmentId(string $attachmentId)
+    public function setAttachmentId(/*string*/ $attachmentId)
     {
         $this->attachmentId = $attachmentId;
 
@@ -87,7 +87,7 @@ class Reponse implements ResponseInterface
     /**
      * {@inheritDoc}
      */
-    public function setMessageId(string $messageId)
+    public function setMessageId(/*string*/ $messageId)
     {
         $this->messageId = $messageId;
 
@@ -97,7 +97,7 @@ class Reponse implements ResponseInterface
     /**
      * {@inheritDoc}
      */
-    public function setRecipientId(string $recipientId)
+    public function setRecipientId(/*string*/ $recipientId)
     {
         $this->recipientId = $recipientId;
 

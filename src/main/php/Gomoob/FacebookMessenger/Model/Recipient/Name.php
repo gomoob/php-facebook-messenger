@@ -37,6 +37,18 @@ use Gomoob\FacebookMessenger\Model\NameInterface;
  */
 class Name implements NameInterface
 {
+	/**
+	 * The first name of the recipient
+	 * @var string
+	 */
+	private $firstName;
+	
+	/**
+	 * The last name of the recipient
+	 * @var string
+	 */
+	private $lastName;
+	
     /**
      * {@inheritDoc}
      */
@@ -44,4 +56,35 @@ class Name implements NameInterface
     {
         return [];
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+	public function getFirstName() {
+		return $this->firstName;
+	}
+    
+    /**
+     * {@inheritDoc}
+     */
+	public function getLastName() {
+		return $this->lastName;
+	}
+    
+    /**
+     * {@inheritDoc}
+     */
+	public function setFirstName($firstName) {
+		$this->firstName = $firstName;
+		return $this;
+	}
+    
+    /**
+     * {@inheritDoc}
+     */
+	public function setLastName($lastName) {
+		$this->lastName = $lastName;
+		return $this;
+	}
+	
 }

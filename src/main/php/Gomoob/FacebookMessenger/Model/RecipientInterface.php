@@ -35,10 +35,10 @@ namespace Gomoob\FacebookMessenger\Model;
  */
 interface RecipientInterface extends \JsonSerializable
 {
-    public function getId(): string;
-    public function getName(): NameInterface;
-    public function getPhoneNumber(): string;
-    public function setId(string $id);
-    public function setName(NameInterface $name);
-    public function setPhoneNumber(string $phoneNumber);
+    public function getId() /*: string*/;
+    public function getName() /*: NameInterface*/;
+    public function getPhoneNumber()/*: string*/;
+    public function setId(/*string*/ $id);
+    public function setName(/*NameInterface*/ $name);
+    public function setPhoneNumber(/*string*/ $phoneNumber);
 }
