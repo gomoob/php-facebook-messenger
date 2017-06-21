@@ -25,34 +25,35 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-namespace Gomoob\FacebookMessenger\Model\Request;
+namespace Gomoob\FacebookMessenger\Model\Recipient;
 
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 use Gomoob\FacebookMessenger\Model\Message\TextMessage;
 
 use PHPUnit\Framework\TestCase;
-use Gomoob\FacebookMessenger\Model\Recipient\Recipient;
-use Gomoob\FacebookMessenger\Model\Recipient\Name;
 
 /**
- * Test case used to test the `TextMessageRequest` class.
+ * Test case used to test the `Name` class.
  *
  * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
- * @group TextMessageRequestTest
+ * @group NameTest
  */
-class TextMessageRequestTest extends TestCase
+class NameTest extends TestCase
 {
     /**
-     * Test method for the `getMessage()` and `setMessage($text)` functions.
+     * Test method for the `getFirstName()` and `setFirstName($firstName)` functions.
      */
-    public function testGetSetMessage()
+    public function testGetSetFirstNameandLastName()
     {
-        $textMessageRequest = new TextMessageRequest();
-        $textMessage = new TextMessage();
-        $this->assertNull($textMessageRequest->getMessage());
-        $textMessage->setText('TEXT');
-        $textMessageRequest->setMessage($textMessage);
-        $this->assertSame($textMessage, $textMessageRequest->getMessage());
+        $name = new Name();
+        
+        $this->assertNull($name->getFirstName());
+        $this->assertNull($name->getLastName());
+        
+        $this->assertSame($name, $name->setFirstName('Toto'));
+        $this->assertSame($name, $name->setLastName('Tata'));
+        $this->assertSame('Toto', $name->getFirstName());
+        $this->assertSame('Tata', $name->getLastName());
     }
 
     /**
@@ -60,32 +61,23 @@ class TextMessageRequestTest extends TestCase
      */
     public function testJsonSerialize()
     {
-        $textMessageRequest = new TextMessageRequest();
+        $name = new Name();
 
-        // Test without the 'message' property
+        // Test without the 'firstName' and 'lastName' property
         try {
-        	$textMessageRequest->jsonSerialize();
+        	$name->jsonSerialize();
             $this->fail('Must have thrown a FacebookMessengerException !');
         } catch (FacebookMessengerException $fmex) {
-            $this->assertSame('The \'message\' property is not set !', $fmex->getMessage());
+            $this->assertSame('None of the \'firstName\' and \'lastName\' properties are set !', $fmex->getMessage());
         }
 
         // Test with valid settings
-        $textMessage = new TextMessage();
-        $textMessage->setText('TEXT');
-        
-        $recipient = new Recipient();
-        $recipient->setPhoneNumber(0102030405);
-        
-        $textMessageRequest->setMessage($textMessage);
-        $textMessageRequest->setRecipient($recipient);
-        $textMessageRequest->setSenderAction("mark_seen");
-        $textMessageRequest->setNotificationType('REGULAR');
+        $name->setFirstName('Toto');
+        $name->setLastName('Tata');
 
-        $json = $textMessageRequest->jsonSerialize();
-        $this->assertCount(4, $json);
-        $this->assertSame('REGULAR', $json['notificationType']);
-        $this->assertSame('mark_seen', $json['senderAction']);
-        $this->assertSame('TEXT', $json['message']->getText());
+        $json = $name->jsonSerialize();
+        $this->assertCount(2, $json);
+        $this->assertSame('Toto', $json['first_name']);
+        $this->assertSame('Tata', $json['last_name']);
     }
 }

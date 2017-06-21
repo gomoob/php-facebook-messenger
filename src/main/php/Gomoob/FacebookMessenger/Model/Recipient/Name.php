@@ -28,6 +28,7 @@
 namespace Gomoob\FacebookMessenger\Model\Recipient;
 
 use Gomoob\FacebookMessenger\Model\NameInterface;
+use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 
 /**
  * Class which represents a Facebook Messenger name to be attached to a recipient.
@@ -54,7 +55,16 @@ class Name implements NameInterface
      */
     public function jsonSerialize()
     {
-        return [];
+    	// One of the 'firstName' or 'lastName' property must have been defined.
+        if(!isset($this->firstName) && !isset($this->lastName))
+        {
+            throw new FacebookMessengerException('None of the \'firstName\' and \'lastName\' properties are set !');
+        }
+        
+        return [
+        	'first_name' => $this->firstName,
+        	'last_name' => $this->lastName
+        ];
     }
     
     /**

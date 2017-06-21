@@ -25,34 +25,49 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-namespace Gomoob\FacebookMessenger\Model\Request;
+namespace Gomoob\FacebookMessenger\Model\Recipient;
 
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 use Gomoob\FacebookMessenger\Model\Message\TextMessage;
 
 use PHPUnit\Framework\TestCase;
-use Gomoob\FacebookMessenger\Model\Recipient\Recipient;
-use Gomoob\FacebookMessenger\Model\Recipient\Name;
 
 /**
- * Test case used to test the `TextMessageRequest` class.
+ * Test case used to test the `Recipient` class.
  *
  * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
- * @group TextMessageRequestTest
+ * @group RecipientTest
  */
-class TextMessageRequestTest extends TestCase
+class RecipientTest extends TestCase
 {
     /**
-     * Test method for the `getMessage()` and `setMessage($text)` functions.
+     * Test method for the `getName()` and `setName($name)` functions.
      */
-    public function testGetSetMessage()
+    public function testGetSetName()
     {
-        $textMessageRequest = new TextMessageRequest();
-        $textMessage = new TextMessage();
-        $this->assertNull($textMessageRequest->getMessage());
-        $textMessage->setText('TEXT');
-        $textMessageRequest->setMessage($textMessage);
-        $this->assertSame($textMessage, $textMessageRequest->getMessage());
+        $recipient = new Recipient();
+        $name = new Name();
+        
+        $this->assertNull($recipient->getName());
+        $this->assertNull($name->getFirstName());
+        $this->assertNull($name->getLastName());
+        
+        $name->setFirstName('Toto')->setLastName('Tata');
+        $recipient->setName($name);
+        
+        $this->assertSame($recipient, $recipient->setName($name));
+        $this->assertSame($name, $recipient->getName());
+    }
+    
+    /**
+     * Test method for the `getPhoneNumber()` and `setPhoneNumber($phoneNumber)` functions.
+     */
+    public function testGetSetPhoneNumber()
+    {
+    	$recipient = new Recipient();
+        $this->assertNull($recipient->getPhoneNumber());
+        $this->assertSame($recipient, $recipient->setPhoneNumber('0102030405'));
+        $this->assertSame('0102030405', $recipient->getPhoneNumber());
     }
 
     /**
@@ -60,32 +75,21 @@ class TextMessageRequestTest extends TestCase
      */
     public function testJsonSerialize()
     {
-        $textMessageRequest = new TextMessageRequest();
+        $recipient = new Recipient();
 
-        // Test without the 'message' property
+        // Test without the 'id' and 'phoneNumber' property
         try {
-        	$textMessageRequest->jsonSerialize();
+        	$recipient->jsonSerialize();
             $this->fail('Must have thrown a FacebookMessengerException !');
         } catch (FacebookMessengerException $fmex) {
-            $this->assertSame('The \'message\' property is not set !', $fmex->getMessage());
+            $this->assertSame('None of the \'id\' or \'phoneNumber\' properties are set !', $fmex->getMessage());
         }
 
         // Test with valid settings
-        $textMessage = new TextMessage();
-        $textMessage->setText('TEXT');
-        
-        $recipient = new Recipient();
-        $recipient->setPhoneNumber(0102030405);
-        
-        $textMessageRequest->setMessage($textMessage);
-        $textMessageRequest->setRecipient($recipient);
-        $textMessageRequest->setSenderAction("mark_seen");
-        $textMessageRequest->setNotificationType('REGULAR');
+        $recipient->setId('Toto');
 
-        $json = $textMessageRequest->jsonSerialize();
-        $this->assertCount(4, $json);
-        $this->assertSame('REGULAR', $json['notificationType']);
-        $this->assertSame('mark_seen', $json['senderAction']);
-        $this->assertSame('TEXT', $json['message']->getText());
+        $json = $recipient->jsonSerialize();
+        $this->assertCount(1, $json);
+        $this->assertSame('Toto', $json['id']);
     }
 }
