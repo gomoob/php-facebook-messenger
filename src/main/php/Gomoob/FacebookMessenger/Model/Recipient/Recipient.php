@@ -29,10 +29,9 @@ namespace Gomoob\FacebookMessenger\Model\Recipient;
 
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 use Gomoob\FacebookMessenger\Model\RecipientInterface;
-use Gomoob\FacebookMessenger\Model\NameInterface;
 
 /**
- * Class which represents a recepient to which one to send a Facebook Messenger message.
+ * Class which represents a recipient to which one to send a Facebook Messenger message.
  *
  * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient

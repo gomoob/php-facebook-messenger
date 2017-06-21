@@ -1,6 +1,6 @@
 # php-facebook-messenger
 
-> A PHP Library to easily send push notifications with the Pushwoosh REST Web Services.
+> A PHP Library to easily send Facebook Messenger message with the REST Web Services.
 
 [![Total Downloads](https://img.shields.io/packagist/dt/gomoob/php-facebook-messenger.svg?style=flat)](https://packagist.org/packages/gomoob/php-facebook-messenger) 
 [![Latest Stable Version](https://img.shields.io/packagist/v/gomoob/php-facebook-messenger.svg?style=flat)](https://packagist.org/packages/gomoob/php-facebook-messenger) 
@@ -9,21 +9,24 @@
 [![Code Climate](https://img.shields.io/codeclimate/github/gomoob/php-facebook-messenger.svg?style=flat)](https://codeclimate.com/github/gomoob/php-facebook-messenger)
 [![License](https://img.shields.io/packagist/l/gomoob/php-facebook-messenger.svg?style=flat)](https://packagist.org/packages/gomoob/php-facebook-messenger)
 
-## First sample, creating a Facebook Messenger message
+## First sample, creating a Facebook Messenger text message
 
 ```php
 // Create a Facebook Messenger client
 $client = Client::create()->setPageAccessToken('XXXX-XXX');
 
+// Create a Facebook Messenger message to send
+$message = TextMessage::create()->setText('Hello World');
+
 // Create a request to send a simple Text Message
-$request = TextMessageRequest::create()->setText('Hello John !');
+$textMessageRequest = TextMessageRequest::create()->setMessage($message);
 
 // Call the REST Web Service
-$response = $client->sendMessage($request);
+$response = $client->sendMessage($textMessageRequest);
 
 // Check if its ok
 if($response->isOk()) {
-    print 'Great, my message has been sent !';
+    print 'Great, the message has been sent !';
 } else {
     print 'Oups, the sent failed :-('; 
     print 'Status code : ' . $response->getStatusCode();

@@ -25,37 +25,28 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-namespace Gomoob\FacebookMessenger\Model\Message;
+namespace Gomoob\FacebookMessenger\Client;
 
 
-
-use Gomoob\FacebookMessenger\Model\AudioAttachmentMessageInterface;
+use PHPUnit\Framework\TestCase;
+use Gomoob\FacebookMessenger\Client\Client;
+use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 
 /**
- * Class which represents a a Facebook Messenger audio attachment message.
+ * Test case used to test the `ClientTest` class.
  *
- * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
- * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference/audio-attachment
+ * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
+ * @group ClientTest
  */
-class AudioAttachmentMessage implements AudioAttachmentMessageInterface
+class ClientTest extends TestCase
 {
-    public function jsonSerialize()
+	/**
+     * Test method for the `getPageAccessToken()` and `setPageAccessToken($pageAccessToken)` functions.
+     */
+    public function testGetSetPageAccessToken()
     {
+    	$client = Client::create();
+    	$client->setPageAccessToken('1702809689738727|5v1Lg1Ysbln9hrYESZgS_GEWToA');
+    	$this->assertSame('1702809689738727|5v1Lg1Ysbln9hrYESZgS_GEWToA', $client->getPageAccessToken());
     }
-	/**
-	 * {@inheritDoc}
-	 */
-	public function getAttachment() {
-		// TODO: Auto-generated method stub
-
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function setAttachment($attachment) {
-		// TODO: Auto-generated method stub
-
-	}
-
 }

@@ -29,7 +29,6 @@ namespace Gomoob\FacebookMessenger\Client;
 
 use Gomoob\FacebookMessenger\ClientInterface;
 use Gomoob\FacebookMessenger\Model\Request\TextMessageRequest;
-use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 
 /**
  * Class which defines a Facebook Messenger client.
@@ -63,7 +62,6 @@ class Client implements ClientInterface
                 'timeout' => 2.0
             ]
         );
-        $this->pageAccessToken = '1702809689738727|5v1Lg1Ysbln9hrYESZgS_GEWToA';
     }
     
     /**
@@ -92,7 +90,7 @@ class Client implements ClientInterface
     /**
      * {@inheritDoc}
      */
-	public function setPageAccessToken(/*string*/ $pageAccessToken) {
+	public function setPageAccessToken($pageAccessToken) {
 		$this->pageAccessToken = $pageAccessToken;
 		return $this;
 	}
