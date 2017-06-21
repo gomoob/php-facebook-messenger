@@ -27,90 +27,52 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Response;
 
-use Gomoob\FacebookMessenger\Model\ResponseInterface;
+use PHPUnit\Framework\TestCase;
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 
 /**
- * Class which represents a Facebook Messenger response.
+ * Test case used to test the `Response` class.
  *
- * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
- * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference#response
+ * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
+ * @group ResponseTest
  */
-class Response implements ResponseInterface
+class ResponseTest extends TestCase
 {
-    private $attachmentId;
-
-    private $messageId;
-
-    private $recipientId;
-
     /**
-     * {@inheritDoc}
+     * Test method for the `getRecipientId()` and `setRecipientId($recipientId)` functions.
      */
-    public function getAttachmentId()
+    public function testGetSetRecipientIdAndMessageId()
     {
-        return $this->attachmentId;
+        $response = new Response();
+        
+        $this->assertNull($response->getRecipientId());
+        
+        $this->assertSame($response, $response->setRecipientId('1008372609250235'));
+        $this->assertSame('1008372609250235', $response->getRecipientId());
     }
 
     /**
-     * {@inheritDoc}
+     * Test method for the `jsonSerialize()` function.
      */
-    public function getMessageId()
+    public function testJsonSerialize()
     {
-        return $this->messageId;
-    }
+    	$response = new Response();
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getRecipientId()
-    {
-        return $this->recipientId;
-    }
+        // Test without the 'recipientId' and 'messageId' properties
+        try {
+        	$response->jsonSerialize();
+            $this->fail('Must have thrown a FacebookMessengerException !');
+        } catch (FacebookMessengerException $fmex) {
+            $this->assertSame('The \'recipientId\' or \'messageId\' property is not set !', $fmex->getMessage());
+        }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function jsonSerialize()
-    {
-    	if(!isset($this->recipientId) || !isset($this->messageId))
-    	{
-    		throw new FacebookMessengerException('The \'recipientId\' or \'messageId\' property is not set !');
-    	}
-    	
-    	return [
-    		'recipient_id' => $this->recipientId,
-    		'message_id' => $this->messageId
-    	];
-    }
+        // Test with valid settings
+        $response->setRecipientId('1008372609250235');
+        $response->setMessageId('mid.1456970487936:c34767dfe57ee6e339');
 
-    /**
-     * {@inheritDoc}
-     */
-    public function setAttachmentId(/*string*/ $attachmentId)
-    {
-        $this->attachmentId = $attachmentId;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setMessageId(/*string*/ $messageId)
-    {
-        $this->messageId = $messageId;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setRecipientId(/*string*/ $recipientId)
-    {
-        $this->recipientId = $recipientId;
-
-        return $this;
+        $json = $response->jsonSerialize();
+        $this->assertCount(2, $json);
+        $this->assertSame('1008372609250235', $json['recipient_id']);
+        $this->assertSame('mid.1456970487936:c34767dfe57ee6e339', $json['message_id']);
     }
 }

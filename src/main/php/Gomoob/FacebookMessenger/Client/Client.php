@@ -28,11 +28,7 @@
 namespace Gomoob\FacebookMessenger\Model\Client;
 
 use Gomoob\FacebookMessenger\ClientInterface;
-use Gomoob\FacebookMessenger\Model\MessageInterface;
-use Gomoob\FacebookMessenger\Model\Recipient\Request;
 use Gomoob\FacebookMessenger\Model\Request\TextMessageRequest;
-use Gomoob\FacebookMessenger\Model\Message\TextMessage;
-use Gomoob\FacebookMessenger\Model\Recipient\Recipient;
 
 /**
  * Class which defines a Facebook Messenger client.
@@ -48,12 +44,18 @@ class Client implements ClientInterface
      * @var \GuzzleHttp\Client
      */
     private $guzzleClient;
+    
+    /**
+     * The page access token used to send a request.
+     *
+     * @var string
+     */
+    private $pageAccessToken;
 
     /**
      * Creates a new instance of the Facebook Messenger client.
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->guzzleClient = new \GuzzleHttp\Client(
             [
                 'base_uri' => 'https://graph.facebook.com/v2.6/me/messages',
@@ -67,33 +69,30 @@ class Client implements ClientInterface
      *
      * @return \Gomoob\FacebookMessenger\Model\Request\TextMessageRequest the new created instance.
      */
-    public static function createTextMessageRequest()
-    {
-    	return new TextMessageRequest();
+    public static function create() {
+    	return new Client();
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+	public function getPageAccessToken() {
+		return $this->pageAccessToken;
+	}
 
     /**
      * {@inheritDoc}
      */
-    public function sendMessage(/*MessageInterface $message*/)
-    {
-    	// Create a message to send.
-    	$message = TextMessage::create()->setText("Hello World");
+    public function sendMessage(/*MessageInterface*/ $message) {
     	
-    	$recipient = new Recipient();
-    	$recipient->setName('Toto');
-    	$recipient->setPhoneNumber('0700112233');
-    	
-    	// Create a Facebook Messenger client
-    	// $client = Client::createTextMessageRequest()->setPageAccessToken('XXXX-XXX');
-    	$client = Client::createTextMessageRequest()->setMessage($message);
-    	
-    	// Create a request to send a simple Text Message
-    	$textMessagerequest = TextMessageRequest::create();
-    	$textMessagerequest->setMessage($message);
-    	$textMessagerequest->setRecipient($recipient);
-    	
-    	// Call the REST Web Service
-    	$response = $client->sendMessage($textMessagerequest);
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+	public function setPageAccessToken($pageAccessToken) {
+		$this->pageAccessToken = $pageAccessToken;
+		return $this;
+	}
+	
 }

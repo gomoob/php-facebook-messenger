@@ -9,7 +9,7 @@
 [![Code Climate](https://img.shields.io/codeclimate/github/gomoob/php-facebook-messenger.svg?style=flat)](https://codeclimate.com/github/gomoob/php-facebook-messenger)
 [![License](https://img.shields.io/packagist/l/gomoob/php-facebook-messenger.svg?style=flat)](https://packagist.org/packages/gomoob/php-facebook-messenger)
 
-## First sample, creating a Pushwoosh message
+## First sample, creating a Facebook Messenger message
 
 ```php
 // Create a Facebook Messenger client
