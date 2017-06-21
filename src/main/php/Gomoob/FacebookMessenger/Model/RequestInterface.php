@@ -41,7 +41,7 @@ interface RequestInterface extends \JsonSerializable
      * @return \Gomoob\FacebookMessenger\Model\MessageInterface
      *
      */
-    public function getMessage(): MessageInterface;
+    public function getMessage()/*: MessageInterface*/;
 
     /**
      * Gets the notification type of the request
@@ -71,7 +71,7 @@ interface RequestInterface extends \JsonSerializable
      *
      * @param \Gomoob\FacebookMessenger\Model\MessageInterface $message the message link to the request
      */
-    public function setMessage(MessageInterface $message);
+    public function setMessage(/*MessageInterface*/ $message);
 
     /**
      * Set the notification type of the request

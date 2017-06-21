@@ -25,14 +25,14 @@
 * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-namespace Gomoob\FacebookMessenger\Model\Recipient;
+namespace Gomoob\FacebookMessenger\Model\Request;
 
 use Gomoob\FacebookMessenger\Model\RequestInterface;
 use Gomoob\FacebookMessenger\Model\RecipientInterface;
 use Gomoob\FacebookMessenger\Model\MessageInterface;
 
 /**
- * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
+ * @author Arnaud Lavallï¿½e (arnaud.lavallee@gomoob.com)
  *
  */
 abstract class AbstractRequest implements RequestInterface {

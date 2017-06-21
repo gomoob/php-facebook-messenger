@@ -27,39 +27,50 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Message;
 
-use Gomoob\FacebookMessenger\Model\MessageInterface;
+use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
+use Gomoob\FacebookMessenger\Model\Message\TextMessage;
+
+use PHPUnit\Framework\TestCase;
 
 /**
- * Abstract class common to all Facebook Messenger messages.
+ * Test case used to test the `TextMessage` class.
  *
- * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
+ * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
+ * @group TextMessageTest
  */
-abstract class AbstractAttachmentMessage implements MessageInterface {
-	
-	/**
-	 * The attachement of the message to send.
-	 * 
-	 * @var \Gomoob\FacebookMessenger\Model\AttachmentInterface
-	 */
-	private $attachment;
-	
-	/**
-	 * 
-	 * @return \Gomoob\FacebookMessenger\Model\AttachmentInterface
-	 */
-	public function getAttachment() {
-		return $this->attachment;
-	}
-	
-	/**
-	 * 
-	 * @param unknown $attachment
-	 * @return \Gomoob\FacebookMessenger\Model\AttachmentInterface
-	 */
-	public function setAttachment($attachment) {
-		$this->attachment = $attachment;
-		return $this;
-	}
-	
-	
+class TextMessageTest extends TestCase
+{
+    /**
+     * Test method for the `getText()` and `setText($text)` functions.
+     */
+    public function testGetSetText()
+    {
+        $textMessage = new TextMessage();
+        $this->assertNull($textMessage->getText());
+        $this->assertSame($textMessage, $textMessage->setText('TEXT'));
+        $this->assertSame('TEXT', $textMessage->getText());
+    }
+
+    /**
+     * Test method for the `jsonSerialize()` function.
+     */
+    public function testJsonSerialize()
+    {
+        $textMessage = new TextMessage();
+
+        // Test without the 'text' property
+        try {
+            $textMessage->jsonSerialize();
+            $this->fail('Must have thrown a FacebookMessengerException !');
+        } catch (FacebookMessengerException $fmex) {
+            $this->assertSame('The \'text\' property is not set !', $fmex->getMessage());
+        }
+
+        // Test with valid settings
+        $textMessage->setText('TEXT');
+
+        $json = $textMessage->jsonSerialize();
+        $this->assertCount(1, $json);
+        $this->assertSame('TEXT', $json['text']);
+    }
 }

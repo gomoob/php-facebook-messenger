@@ -27,7 +27,9 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Request;
 
-use Gomoob\FacebookMessenger\Model\Recipient\AbstractRequest;
+use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
+use Gomoob\FacebookMessenger\Model\Request\AbstractRequest;
+use Gomoob\FacebookMessenger\Model\RecipientInterface;
 
 /**
  * Class which represents a Facebook Messenger request.
@@ -45,6 +47,13 @@ class TextMessageRequest extends AbstractRequest {
 	private $message;
 	
 	/**
+	 * The access token where to send the message to.
+	 * 
+	 * @var String the access token where to send the message to
+	 */
+	private $pageAccessToken;
+	
+	/**
 	 * Get the message to send.
 	 * 
 	 * @return \Gomoob\FacebookMessenger\Model\TextMessageInterface
@@ -52,6 +61,52 @@ class TextMessageRequest extends AbstractRequest {
 	public function getMessage() {
 		return $this->message;
 	}
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getNotificationType(): string
+    {
+        return $this->notificationType;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getRecipient(): RecipientInterface
+    {
+        return $this->recipient;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getSenderAction(): string
+    {
+        return $this->senderAction;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function jsonSerialize()
+    {
+        // The 'text' property must have been defined
+        if(!isset($this->message)) {
+            throw new FacebookMessengerException('The \'message\' property is not set !');
+        }
+        
+        if(!isset($this->recipient)) {
+        	throw new FacebookMessengerException('The \'recipient\' property is not set !');
+        }
+
+        return [
+        	'message' => $this->message,
+    		'notificationType' => $this->notificationType,
+    		'recipient' => $this->recipient,
+    		'senderAction' => $this->senderAction
+        ];
+    }
 	
 	/**
 	 * Set the message to send.
@@ -63,5 +118,35 @@ class TextMessageRequest extends AbstractRequest {
 		$this->message= $message;
 		return $this;
 	}
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setNotificationType(string $notificationType)
+    {
+        $this->notificationType = $notificationType;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setRecipient(RecipientInterface $recipient)
+    {
+        $this->recipient = $recipient;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setSenderAction(string $senderAction)
+    {
+        $this->senderAction = $senderAction;
+
+        return $this;
+    }
 	
 }

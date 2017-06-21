@@ -34,5 +34,34 @@ namespace Gomoob\FacebookMessenger\Model;
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference
  */
 interface MessageInterface extends \JsonSerializable {
+
+	/**
+	 * Get the message text.
+	 * 
+	 * @return string
+	 */
+	public function getText();
 	
+	/**
+	 * Set the message text.
+	 *
+	 * @param string $text the message text.
+	 * @return string the message text.
+	 */
+	public function setText($text);
+	
+	/**
+	 * Get the message attachement.
+	 * 
+	 * @return \Gomoob\FacebookMessenger\Model\AttachmentInterface
+	 */
+	public function getAttachment();
+	
+	/**
+	 * Set the message attachement.
+	 * 
+	 * @param AtatchementInterface $attachment
+	 * @return \Gomoob\FacebookMessenger\Model\AttachmentInterface
+	 */
+	public function setAttachment($attachment);
 }

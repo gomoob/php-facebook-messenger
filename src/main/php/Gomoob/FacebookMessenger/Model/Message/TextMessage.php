@@ -36,7 +36,7 @@ use Gomoob\FacebookMessenger\Model\TextMessageInterface;
  * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference/text-message
  */
-class TextMessage extends AbstractMessage implements TextMessageInterface
+class TextMessage implements TextMessageInterface
 {
     /**
      * The message text.
@@ -44,7 +44,7 @@ class TextMessage extends AbstractMessage implements TextMessageInterface
      * @var string
      */
     private $text;
-
+    
     /**
      * Utility function used to create a new instance of the <tt>TextMessage</tt> class.
      *

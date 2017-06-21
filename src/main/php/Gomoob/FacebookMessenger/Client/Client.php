@@ -78,8 +78,7 @@ class Client implements ClientInterface
     public function sendMessage(/*MessageInterface $message*/)
     {
     	// Create a message to send.
-    	$message = new TextMessage();
-    	$message->setText("Hello World");
+    	$message = TextMessage::create()->setText("Hello World");
     	
     	$recipient = new Recipient();
     	$recipient->setName('Toto');
@@ -91,7 +90,7 @@ class Client implements ClientInterface
     	
     	// Create a request to send a simple Text Message
     	$textMessagerequest = TextMessageRequest::create();
-    	$textMessagerequest->setText('Hello John !');
+    	$textMessagerequest->setMessage($message);
     	$textMessagerequest->setRecipient($recipient);
     	
     	// Call the REST Web Service

@@ -25,30 +25,34 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-namespace Gomoob\Pushwoosh\Model\Condition;
+namespace Gomoob\FacebookMessenger\Model\Request;
 
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 use Gomoob\FacebookMessenger\Model\Message\TextMessage;
 
 use PHPUnit\Framework\TestCase;
+use Gomoob\FacebookMessenger\Model\Recipient\Recipient;
+use Gomoob\FacebookMessenger\Model\Recipient\Name;
 
 /**
- * Test case used to test the `TextMessage` class.
+ * Test case used to test the `TextMessageRequest` class.
  *
- * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
- * @group TextMessageTest
+ * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
+ * @group TextMessageRequestTest
  */
-class TextMessageTest extends TestCase
+class TextMessageRequestTest extends TestCase
 {
     /**
-     * Test method for the `getText()` and `setText($text)` functions.
+     * Test method for the `getMessage()` and `setMessage($text)` functions.
      */
-    public function testGetSetText()
+    public function testGetSetMessage()
     {
+        $textMessageRequest = new TextMessageRequest();
         $textMessage = new TextMessage();
-        $this->assertNull($textMessage->getText());
-        $this->assertSame($textMessage, $textMessage->setText('TEXT'));
-        $this->assertSame('TEXT', $textMessage->getText());
+        $this->assertNull($textMessageRequest->getMessage());
+        $textMessage->setText('TEXT');
+        $textMessageRequest->setMessage($textMessage);
+        $this->assertSame($textMessage, $textMessageRequest->getMessage());
     }
 
     /**
@@ -56,21 +60,31 @@ class TextMessageTest extends TestCase
      */
     public function testJsonSerialize()
     {
-        $textMessage = new TextMessage();
+        $textMessageRequest = new TextMessageRequest();
 
-        // Test without the 'text' property
+        // Test without the 'message' property
         try {
-            $textMessage->jsonSerialize();
+        	$textMessageRequest->jsonSerialize();
             $this->fail('Must have thrown a FacebookMessengerException !');
         } catch (FacebookMessengerException $fmex) {
-            $this->assertSame('The \'text\' property is not set !', $fmex->getMessage());
+            $this->assertSame('The \'message\' property is not set !', $fmex->getMessage());
         }
 
         // Test with valid settings
+        $textMessage = new TextMessage();
         $textMessage->setText('TEXT');
+        
+        $recipient = new Recipient();
+        $recipient->setPhoneNumber(0102030405);
+        
+        $textMessageRequest->setMessage($textMessage);
+        $textMessageRequest->setRecipient($recipient);
+        $textMessageRequest->setSenderAction("mark_seen");
+        $textMessageRequest->setNotificationType('REGULAR');
 
-        $json = $textMessage->jsonSerialize();
-        $this->assertCount(1, $json);
-        $this->assertSame('TEXT', $json['text']);
+        $json = $textMessageRequest->jsonSerialize();
+//         $this->assertCount(1, $json);
+//         $this->assertSame('TEXT', $json['text']);
+        var_dump($json);
     }
 }
