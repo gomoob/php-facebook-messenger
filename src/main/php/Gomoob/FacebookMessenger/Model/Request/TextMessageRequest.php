@@ -65,7 +65,7 @@ class TextMessageRequest extends AbstractRequest {
     /**
      * {@inheritDoc}
      */
-    public function getNotificationType(): string
+    public function getNotificationType()
     {
         return $this->notificationType;
     }
@@ -81,7 +81,7 @@ class TextMessageRequest extends AbstractRequest {
     /**
      * {@inheritDoc}
      */
-    public function getSenderAction(): string
+    public function getSenderAction()
     {
         return $this->senderAction;
     }
@@ -115,7 +115,7 @@ class TextMessageRequest extends AbstractRequest {
 	 * @return \Gomoob\FacebookMessenger\Model\TextMessageInterface
 	 */
 	public function setMessage($message) {
-		$this->message= $message;
+		$this->message = $message;
 		return $this;
 	}
 

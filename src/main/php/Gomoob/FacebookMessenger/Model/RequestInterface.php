@@ -78,7 +78,7 @@ interface RequestInterface extends \JsonSerializable
      *
      * @param string $notificationType the notification type of the request
      */
-    public function setNotificationType(string $notificationType);
+    public function setNotificationType(/* string */ $notificationType);
 
     /**
      * Set the recipient of the message link to the request

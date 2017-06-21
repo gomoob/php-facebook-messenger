@@ -27,9 +27,8 @@
 */
 namespace Gomoob\FacebookMessenger\Model\Request;
 
-use Gomoob\FacebookMessenger\Model\RequestInterface;
 use Gomoob\FacebookMessenger\Model\RecipientInterface;
-use Gomoob\FacebookMessenger\Model\MessageInterface;
+use Gomoob\FacebookMessenger\Model\RequestInterface;
 
 /**
  * @author Arnaud Lavall�e (arnaud.lavallee@gomoob.com)
