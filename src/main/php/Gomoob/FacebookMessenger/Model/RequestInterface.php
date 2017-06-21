@@ -49,14 +49,14 @@ interface RequestInterface extends \JsonSerializable
      * @return String the notificationType of the request 
      *
      */
-    public function getNotificationType(): string;
+    public function getNotificationType()/*: string*/;
 
     /**
      * Gets the recipient of the message link to the request
      *
      * @return \Gomoob\FacebookMessenger\Model\RecipientInterface
      */
-    public function getRecipient(): RecipientInterface;
+    public function getRecipient()/*: RecipientInterface*/;
 
     /**
      * Gets the sender action of the request
@@ -64,14 +64,14 @@ interface RequestInterface extends \JsonSerializable
      * @return String the sender action of the request 
      *
      */
-    public function getSenderAction(): string;
+    public function getSenderAction()/*: string*/;
 
     /**
      * Set the message link to the request
      *
      * @param \Gomoob\FacebookMessenger\Model\MessageInterface $message the message link to the request
      */
-    public function setMessage(/*MessageInterface*/ $message);
+    public function setMessage(/* MessageInterface */ $message);
 
     /**
      * Set the notification type of the request
@@ -86,12 +86,12 @@ interface RequestInterface extends \JsonSerializable
      * @param \Gomoob\FacebookMessenger\Model\RecipientInterface $recipient the recipient of the message link to 
      * the request
      */
-    public function setRecipient(RecipientInterface $recipient);
+    public function setRecipient(/* RecipientInterface */ $recipient);
 
     /**
      * Set the sender action of the request
      *
      * @param string $senderAction the sender action of the request
      */
-    public function setSenderAction(string $senderAction);
+    public function setSenderAction(/* string */ $senderAction);
 }
