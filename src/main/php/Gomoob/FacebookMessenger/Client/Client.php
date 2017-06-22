@@ -48,7 +48,7 @@ class Client implements ClientInterface
      * @var \GuzzleHttp\Client
      */
     private $guzzleClient;
-    
+
     /**
      * The page access token used to send a request.
      *
@@ -74,7 +74,7 @@ class Client implements ClientInterface
             ]
         );
     }
-    
+
     /**
      * Utility function used to create a new instance of the <tt>TextMessageRequest</tt>.
      *
@@ -84,7 +84,7 @@ class Client implements ClientInterface
     {
         return new Client();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -98,21 +98,21 @@ class Client implements ClientInterface
      */
     public function sendMessage(/* RequestInterface */ $request)/* : Response */
     {
-        
-        
+
+
         $guzzleResponse = $this->guzzleClient->post(null, ['json' => $request->jsonSerialize()]);
         $stringBody = (string)$guzzleResponse->getBody();
-        
+
         $jsonBody = json_decode($stringBody, true);
 
         $response = new Response();
         $response->setMessageId($jsonBody['message_id']);
         $response->setRecipientId($jsonBody['recipient_id']);
         // var_dump(json_decode($guzzleResponse));
-        
+
         return $response /*Response::create($jsonBody)*/;
     }
-    
+
     /**
      * {@inheritDoc}
      */

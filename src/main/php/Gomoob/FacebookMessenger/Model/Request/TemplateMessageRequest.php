@@ -27,8 +27,6 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Request;
 
-use Gomoob\FacebookMessenger\Model\Recipient\AbstractRequest;
-
 /**
  * Class which represents a Facebook Messenger request.
  *
@@ -36,5 +34,11 @@ use Gomoob\FacebookMessenger\Model\Recipient\AbstractRequest;
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference#request
  */
 class TemplateMessageRequest extends AbstractRequest {
-    
+    public function getMessage()
+    {
+    }
+
+    public function setMessage($message)
+    {
+    }
 }

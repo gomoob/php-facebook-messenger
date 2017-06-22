@@ -36,5 +36,11 @@ use Gomoob\FacebookMessenger\Model\Request\AbstractRequest;
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference#request
  */
 class FileMessageRequest extends AbstractRequest {
-    
+    public function getMessage()
+    {
+    }
+
+    public function setMessage($message)
+    {
+    }
 }

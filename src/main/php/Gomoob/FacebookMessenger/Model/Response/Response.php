@@ -43,7 +43,7 @@ class Response implements ResponseInterface
     private $messageId;
 
     private $recipientId;
-    
+
     /**
      * Utility function used to create a new instance of the <tt>Response</tt> class.
      *
@@ -88,7 +88,7 @@ class Response implements ResponseInterface
         if (!isset($this->recipientId) || !isset($this->messageId)) {
             throw new FacebookMessengerException('The \'recipientId\' or \'messageId\' property is not set !');
         }
-        
+
         return [
             'recipient_id' => $this->recipientId,
             'message_id' => $this->messageId

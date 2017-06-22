@@ -35,26 +35,26 @@ use Gomoob\FacebookMessenger\Model\MessageInterface;
  * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
  */
 abstract class AbstractMessage implements MessageInterface {
-	
-	/**
-	 * The message text.
-	 * @var String
-	 */
-	private $text;
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public function getText() {
-		return $this->text;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public function setText(/*string*/ $text) {
-		$this->text = $text;
-		return $this;
-	}
-	
+
+    /**
+     * The message text.
+     *
+     * @var string
+     */
+    private $text;
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getText() {
+        return $this->text;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setText(/*string*/ $text) {
+        $this->text = $text;
+        return $this;
+    }
 }

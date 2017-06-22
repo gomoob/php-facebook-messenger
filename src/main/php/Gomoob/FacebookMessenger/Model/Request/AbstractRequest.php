@@ -21,7 +21,7 @@
 * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
 * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
 * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-		* SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+        * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
 * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
@@ -31,26 +31,30 @@ use Gomoob\FacebookMessenger\Model\RecipientInterface;
 use Gomoob\FacebookMessenger\Model\RequestInterface;
 
 /**
- * @author Arnaud Lavall�e (arnaud.lavallee@gomoob.com)
+ * TODO: Documentation manquante.
  *
+ * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
  */
 abstract class AbstractRequest implements RequestInterface {
 
-	/**
-	 * The notification type of the request.
-	 * @var String
-	 */
+    /**
+     * The notification type of the request.
+     *
+     * @var string
+     */
     private $notificationType;
 
     /**
      * The recipient of the message link to the request.
-     * @var RecipientInterface
+     *
+     * @var RecipientInterface // TODO Mettre le chemin complet
      */
     private $recipient;
 
     /**
      * The sender action of the request.
-     * @var String
+     *
+     * @var string
      */
     private $senderAction;
 
@@ -83,14 +87,14 @@ abstract class AbstractRequest implements RequestInterface {
      */
     public function jsonSerialize()
     {
-    	$json = [
-    		'message' => $this->message,
-    		'notificationType' => $this->notificationType,
-    		'recipient' => $this->recipient,
-    		'senderAction' => $this->senderAction
-    	];
-    	
-    	return $json;
+        $json = [
+            'message' => $this->message,
+            'notificationType' => $this->notificationType,
+            'recipient' => $this->recipient,
+            'senderAction' => $this->senderAction
+        ];
+
+        return $json;
     }
 
     /**

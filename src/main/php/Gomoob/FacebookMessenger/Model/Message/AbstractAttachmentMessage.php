@@ -35,31 +35,26 @@ use Gomoob\FacebookMessenger\Model\MessageInterface;
  * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
  */
 abstract class AbstractAttachmentMessage implements MessageInterface {
-	
-	/**
-	 * The attachement of the message to send.
-	 * 
-	 * @var \Gomoob\FacebookMessenger\Model\AttachmentInterface
-	 */
-	private $attachment;
-	
-	/**
-	 * 
-	 * @return \Gomoob\FacebookMessenger\Model\AttachmentInterface
-	 */
-	public function getAttachment() {
-		return $this->attachment;
-	}
-	
-	/**
-	 * 
-	 * @param unknown $attachment
-	 * @return \Gomoob\FacebookMessenger\Model\AttachmentInterface
-	 */
-	public function setAttachment($attachment) {
-		$this->attachment = $attachment;
-		return $this;
-	}
-	
-	
+
+    /**
+     * The attachement of the message to send.
+     *
+     * @var \Gomoob\FacebookMessenger\Model\AttachmentInterface
+     */
+    private $attachment;
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getAttachment() {
+        return $this->attachment;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setAttachment($attachment) {
+        $this->attachment = $attachment;
+        return $this;
+    }
 }

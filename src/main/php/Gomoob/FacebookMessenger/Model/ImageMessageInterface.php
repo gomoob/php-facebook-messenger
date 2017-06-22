@@ -30,17 +30,17 @@ namespace Gomoob\FacebookMessenger\Model;
 /**
  * Interface which represents a Facebook Messenger image message.
  *
- * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
+ * @author Arnaud LavallÃ©e (arnaud.lavallee@gomoob.com)
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference
  */
 interface ImageMessageInterface extends \JsonSerializable {
-	
+
 	/**
 	 * Get the image message attachment.
 	 * @return \Gomoob\FacebookMessenger\Model\AttachmentInterface the image message attachment.
 	 */
 	public function getAttachment();
-	
+
 	/**
      * Set the image message attachment.
      *

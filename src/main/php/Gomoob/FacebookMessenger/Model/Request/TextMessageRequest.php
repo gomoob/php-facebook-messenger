@@ -28,7 +28,6 @@
 namespace Gomoob\FacebookMessenger\Model\Request;
 
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
-use Gomoob\FacebookMessenger\Model\Request\AbstractRequest;
 
 /**
  * Class which represents a Facebook Messenger request.
@@ -38,21 +37,20 @@ use Gomoob\FacebookMessenger\Model\Request\AbstractRequest;
  */
 class TextMessageRequest extends AbstractRequest
 {
-    
     /**
      * The message to send.
      *
      * @var \Gomoob\FacebookMessenger\Model\TextMessageInterface
      */
     private $message;
-    
+
     /**
      * The access token where to send the message to.
      *
      * @var String the access token where to send the message to
      */
     private $pageAccessToken;
-    
+
     /**
      * Utility function used to create a new instance of the <tt>TextMessageRequest</tt>.
      *
@@ -62,7 +60,7 @@ class TextMessageRequest extends AbstractRequest
     {
         return new TextMessageRequest();
     }
-    
+
     /**
      * Get the message to send.
      *
@@ -106,7 +104,7 @@ class TextMessageRequest extends AbstractRequest
         if (!isset($this->message)) {
             throw new FacebookMessengerException('The \'message\' property is not set !');
         }
-        
+
         if (!isset($this->recipient)) {
             throw new FacebookMessengerException('The \'recipient\' property is not set !');
         }
@@ -118,7 +116,7 @@ class TextMessageRequest extends AbstractRequest
             //'senderAction' => $this->senderAction
         ];
     }
-    
+
     /**
      * Set the message to send.
      *

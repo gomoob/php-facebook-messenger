@@ -44,7 +44,7 @@ class TextMessage implements TextMessageInterface
      * @var string
      */
     private $text;
-    
+
     /**
      * Utility function used to create a new instance of the <tt>TextMessage</tt> class.
      *

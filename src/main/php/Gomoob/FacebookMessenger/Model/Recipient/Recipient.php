@@ -59,7 +59,7 @@ class Recipient implements RecipientInterface
      * @var string
      */
     private $phoneNumber;
-    
+
     /**
      * Utility function used to create a new instance of the <tt>Recipient</tt>.
      *

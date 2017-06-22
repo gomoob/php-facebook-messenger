@@ -30,7 +30,7 @@ namespace Gomoob\FacebookMessenger\Model;
 /**
  * Interface which represents a Facebook Messenger file message.
  *
- * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
+ * @author Arnaud LavallÃ©e (arnaud.lavallee@gomoob.com)
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference
  */
 interface FileMessageInterface extends \JsonSerializable {

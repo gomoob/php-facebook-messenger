@@ -21,14 +21,13 @@
 * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
 * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
 * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-		* SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+        * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
 * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 namespace Gomoob\FacebookMessenger\Model\Message;
 
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
-use Gomoob\FacebookMessenger\Model\AttachmentInterface;
 use Gomoob\FacebookMessenger\Model\ImageMessageInterface;
 
 /**
@@ -39,51 +38,50 @@ use Gomoob\FacebookMessenger\Model\ImageMessageInterface;
  */
 class ImageMessage extends AbstractMessage implements ImageMessageInterface
 {
+    /**
+     * The attachment of the image message.
+     *
+     * @var \Gomoob\FacebookMessenger\Model\AttachmentInterface
+     */
+    private $attachment;
 
-	/**
-	 * The attachment of the image message.
-	 * @var MessageInterface
-	 */
-	private $attachment;
-	
-	/**
-	 * Utility function used to create a new instance of the <tt>ImageMessage</tt> class.
-	 *
-	 * @return \Gomoob\FacebookMessenger\Model\Message\ImageMessage the new created instance.
-	 */
-	public static function create()
-	{
-		return new ImageMessage();
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public function getAttachment() {
-		return $this->attachment;
-	}
+    /**
+     * Utility function used to create a new instance of the <tt>ImageMessage</tt> class.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\Message\ImageMessage the new created instance.
+     */
+    public static function create()
+    {
+        return new ImageMessage();
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public function jsonSerialize()
-	{
-		// The 'attachment' property must have been defined
-		if(!isset($this->attachment)) {
-			throw new FacebookMessengerException('The \'attachment\' property is not set !');
-		}
+    /**
+     * {@inheritDoc}
+     */
+    public function getAttachment() {
+        return $this->attachment;
+    }
 
-		return [
-		    'attachment' => $this->attachment
-		];
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public function setAttachment(/*AttachmentInterface*/ $attachment) {
-		$this->attachment = $attachment;
-		return $this;
-	}
-	
+    /**
+     * {@inheritDoc}
+     */
+    public function jsonSerialize()
+    {
+        // The 'attachment' property must have been defined
+        if(!isset($this->attachment)) {
+            throw new FacebookMessengerException('The \'attachment\' property is not set !');
+        }
+
+        return [
+            'attachment' => $this->attachment
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setAttachment(/*AttachmentInterface*/ $attachment) {
+        $this->attachment = $attachment;
+        return $this;
+    }
 }

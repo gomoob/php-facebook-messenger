@@ -37,11 +37,11 @@ interface MessageInterface extends \JsonSerializable {
 
 	/**
 	 * Get the message text.
-	 * 
+	 *
 	 * @return string
 	 */
 	public function getText();
-	
+
 	/**
 	 * Set the message text.
 	 *
@@ -49,17 +49,17 @@ interface MessageInterface extends \JsonSerializable {
 	 * @return string the message text.
 	 */
 	public function setText($text);
-	
+
 	/**
 	 * Get the message attachement.
-	 * 
+	 *
 	 * @return \Gomoob\FacebookMessenger\Model\AttachmentInterface
 	 */
 	public function getAttachment();
-	
+
 	/**
 	 * Set the message attachement.
-	 * 
+	 *
 	 * @param AtatchementInterface $attachment
 	 * @return \Gomoob\FacebookMessenger\Model\AttachmentInterface
 	 */

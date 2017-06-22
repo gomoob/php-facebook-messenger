@@ -30,10 +30,10 @@ namespace Gomoob\FacebookMessenger\Model;
 /**
  * Interface which represents a Facebook Messenger payload.
  *
- * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
+ * @author Arnaud Lavallï¿½e (arnaud.lavallee@gomoob.com)
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference
  */
-interface PayloadInterface extends \JsonSerializable 
+interface PayloadInterface extends \JsonSerializable
 {
-	
+
 }

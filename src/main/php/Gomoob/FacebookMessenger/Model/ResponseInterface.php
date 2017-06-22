@@ -35,11 +35,21 @@ namespace Gomoob\FacebookMessenger\Model;
  */
 interface ResponseInterface extends \JsonSerializable
 {
+    // TODO Documentation manquante.
     public function getAttachmentId()/*: string*/;
+
+    // TODO Documentation manquante.
     public function getMessageId()/*: string*/;
+
+    //TODO Documentation manquante.
     public function getRecipientId()/*: string*/;
 
+    // TODO Documentation manquante.
     public function setAttachmentId(/*string*/ $attachmentId);
+
+    // TODO Documentation manquante.
     public function setMessageId(/*string*/ $messageId);
+
+    // TODO Documentation manquante.
     public function setRecipientId(/*string*/ $recipientId);
 }

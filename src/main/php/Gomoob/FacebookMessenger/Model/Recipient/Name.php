@@ -38,63 +38,62 @@ use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
  */
 class Name implements NameInterface
 {
-	/**
-	 * The first name of the recipient
-	 * @var string
-	 */
-	private $firstName;
-	
-	/**
-	 * The last name of the recipient
-	 * @var string
-	 */
-	private $lastName;
-	
+    /**
+     * The first name of the recipient
+     * @var string
+     */
+    private $firstName;
+
+    /**
+     * The last name of the recipient
+     * @var string
+     */
+    private $lastName;
+
     /**
      * {@inheritDoc}
      */
     public function jsonSerialize()
     {
-    	// One of the 'firstName' or 'lastName' property must have been defined.
+        // One of the 'firstName' or 'lastName' property must have been defined.
         if(!isset($this->firstName) && !isset($this->lastName))
         {
             throw new FacebookMessengerException('None of the \'firstName\' and \'lastName\' properties are set !');
         }
-        
+
         return [
-        	'first_name' => $this->firstName,
-        	'last_name' => $this->lastName
+            'first_name' => $this->firstName,
+            'last_name' => $this->lastName
         ];
     }
-    
+
     /**
      * {@inheritDoc}
      */
-	public function getFirstName() {
-		return $this->firstName;
-	}
-    
+    public function getFirstName() {
+        return $this->firstName;
+    }
+
     /**
      * {@inheritDoc}
      */
-	public function getLastName() {
-		return $this->lastName;
-	}
-    
+    public function getLastName() {
+        return $this->lastName;
+    }
+
     /**
      * {@inheritDoc}
      */
-	public function setFirstName($firstName) {
-		$this->firstName = $firstName;
-		return $this;
-	}
-    
+    public function setFirstName($firstName) {
+        $this->firstName = $firstName;
+        return $this;
+    }
+
     /**
      * {@inheritDoc}
      */
-	public function setLastName($lastName) {
-		$this->lastName = $lastName;
-		return $this;
-	}
-	
+    public function setLastName($lastName) {
+        $this->lastName = $lastName;
+        return $this;
+    }
 }

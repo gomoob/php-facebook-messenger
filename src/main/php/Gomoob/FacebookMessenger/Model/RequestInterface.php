@@ -36,62 +36,59 @@ namespace Gomoob\FacebookMessenger\Model;
 interface RequestInterface extends \JsonSerializable
 {
     /**
-     * Gets the message link to the request
+     * Gets the message link to the request.
      *
-     * @return \Gomoob\FacebookMessenger\Model\MessageInterface
-     *
+     * @return \Gomoob\FacebookMessenger\Model\MessageInterface TODO Documentation manquante.
      */
     public function getMessage()/*: MessageInterface*/;
 
     /**
      * Gets the notification type of the request
      *
-     * @return String the notificationType of the request 
-     *
+     * @return string the notification type of the request.
      */
     public function getNotificationType()/*: string*/;
 
     /**
-     * Gets the recipient of the message link to the request
+     * Gets the recipient of the message link to the request.
      *
-     * @return \Gomoob\FacebookMessenger\Model\RecipientInterface
+     * @return \Gomoob\FacebookMessenger\Model\RecipientInterface TODO Documentation manquante.
      */
     public function getRecipient()/*: RecipientInterface*/;
 
     /**
-     * Gets the sender action of the request
+     * Gets the sender action of the request.
      *
-     * @return String the sender action of the request 
-     *
+     * @return string the sender action of the request.
      */
     public function getSenderAction()/*: string*/;
 
     /**
-     * Set the message link to the request
+     * Set the message link to the request.
      *
-     * @param \Gomoob\FacebookMessenger\Model\MessageInterface $message the message link to the request
+     * @param \Gomoob\FacebookMessenger\Model\MessageInterface $message the message link to the request.
      */
     public function setMessage(/* MessageInterface */ $message);
 
     /**
-     * Set the notification type of the request
+     * Set the notification type of the request.
      *
-     * @param string $notificationType the notification type of the request
+     * @param string $notificationType the notification type of the request.
      */
     public function setNotificationType(/* string */ $notificationType);
 
     /**
      * Set the recipient of the message link to the request
      *
-     * @param \Gomoob\FacebookMessenger\Model\RecipientInterface $recipient the recipient of the message link to 
-     * the request
+     * @param \Gomoob\FacebookMessenger\Model\RecipientInterface $recipient the recipient of the message link to
+     *        the request.
      */
     public function setRecipient(/* RecipientInterface */ $recipient);
 
     /**
-     * Set the sender action of the request
+     * Set the sender action of the request.
      *
-     * @param string $senderAction the sender action of the request
+     * @param string $senderAction the sender action of the request.
      */
     public function setSenderAction(/* string */ $senderAction);
 }

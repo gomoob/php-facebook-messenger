@@ -27,8 +27,6 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Message;
 
-
-
 use Gomoob\FacebookMessenger\Model\AudioAttachmentMessageInterface;
 
 /**
@@ -42,20 +40,20 @@ class AudioAttachmentMessage implements AudioAttachmentMessageInterface
     public function jsonSerialize()
     {
     }
-	/**
-	 * {@inheritDoc}
-	 */
-	public function getAttachment() {
-		// TODO: Auto-generated method stub
 
-	}
+    /**
+     * {@inheritDoc}
+     */
+    public function getAttachment() {
+        // TODO: Auto-generated method stub
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public function setAttachment($attachment) {
-		// TODO: Auto-generated method stub
+    }
 
-	}
+    /**
+     * {@inheritDoc}
+     */
+    public function setAttachment($attachment) {
+        // TODO: Auto-generated method stub
 
+    }
 }

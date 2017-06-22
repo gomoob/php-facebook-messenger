@@ -38,5 +38,15 @@ use Gomoob\FacebookMessenger\Model\Request\TextMessageRequest;
  */
 class ClientMock implements ClientInterface
 {
-    
+    public function setPageAccessToken($pageAccessToken)
+    {
+    }
+
+    public function sendMessage($request)
+    {
+    }
+
+    public function getPageAccessToken()
+    {
+    }
 }
