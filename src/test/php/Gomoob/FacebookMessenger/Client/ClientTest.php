@@ -27,10 +27,12 @@
  */
 namespace Gomoob\FacebookMessenger\Client;
 
-
 use PHPUnit\Framework\TestCase;
 use Gomoob\FacebookMessenger\Client\Client;
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
+use Gomoob\FacebookMessenger\Model\Message\TextMessage;
+use Gomoob\FacebookMessenger\Model\Request\TextMessageRequest;
+use Gomoob\FacebookMessenger\Model\Recipient\Recipient;
 
 /**
  * Test case used to test the `ClientTest` class.
@@ -40,13 +42,49 @@ use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
  */
 class ClientTest extends TestCase
 {
-	/**
+    /**
      * Test method for the `getPageAccessToken()` and `setPageAccessToken($pageAccessToken)` functions.
      */
     public function testGetSetPageAccessToken()
     {
-    	$client = Client::create();
-    	$client->setPageAccessToken('1702809689738727|5v1Lg1Ysbln9hrYESZgS_GEWToA');
-    	$this->assertSame('1702809689738727|5v1Lg1Ysbln9hrYESZgS_GEWToA', $client->getPageAccessToken());
+        $client = Client::create();
+        $client->setPageAccessToken('1702809689738727|5v1Lg1Ysbln9hrYESZgS_GEWToA');
+        $this->assertSame('1702809689738727|5v1Lg1Ysbln9hrYESZgS_GEWToA', $client->getPageAccessToken());
+    }
+    
+    /**
+     * Test method for the `sendMessage()` function.
+     *
+     * @group ClientTest.testSendMessage
+     */
+    public function testSendMessage()
+    {
+        
+        // Create a Facebook Messenger client
+        $client = Client::create()->setPageAccessToken(
+            'EAAZAZA7jhHbesBACsWYzdxcZAHJxArPoZBgMZCBFgsQo9Y0Om35KY5KZBA1Q1S47ZC5N4KYMUuzjluDdm2dTNN8vlbwFap70FcWJgHA' .
+            'uujyQtIdWy0ZCRiODMZA8BLj4OiKsL5y2pPfuYTgZBrixRXT0SINWZAEZBbqEVd5lRLTaD6yfZAQZDZD'
+        );
+        
+        // Create a request to send a simple Text Message
+        $request = TextMessageRequest::create()
+            ->setRecipient(Recipient::create()->setPhoneNumber('+33760647186'))
+            ->setMessage(TextMessage::create()->setText('Hello World !'));
+
+        // Call the REST Web Service
+        $response = $client->sendMessage($request);
+
+        //var_dump($response);
+        
+        // Check if its ok
+        /*
+    	if($response->isOk()) {
+    		print 'Great, my message has been sent !';
+    	} else {
+    		print 'Oups, the sent failed :-(';
+    		print 'Status code : ' . $response->getStatusCode();
+    		print 'Status message : ' . $response->getStatusMessage();
+    	}
+    	*/
     }
 }

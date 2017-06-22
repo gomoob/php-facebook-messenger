@@ -20,6 +20,8 @@ script:
   - grunt
 
 after_script:
+  - cat build/logs/clover.xml
+  - cat build/logs/coveralls-upload.json
   - php vendor/bin/coveralls -v
   - chmod +x code-climate-test-reporter
   - CODECLIMATE_REPO_TOKEN=b32f5a91ed4993aa1f2e6bbc5a42f239af807125f5cfab14ce7b074e63786f8f ./code-climate-test-reporter

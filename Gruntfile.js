@@ -37,23 +37,6 @@ module.exports = function(grunt) {
             }, /* Copy task */
 
             /**
-             * PHPUnit Task.
-             */
-            phpunit : {
-
-                classes: {
-                    dir: 'src/test/php'
-                },
-
-                options: {
-                    bin : 'vendor/bin/phpunit',
-                    configuration : 'phpunit.xml.dist',
-                    //group : 'CURLClientTest'
-                }
-
-            }, /* PHPUnit Task */
-
-            /**
              * Shell Task
              */
             shell : {
@@ -152,6 +135,29 @@ module.exports = function(grunt) {
                             grunt.file.write('build/reports/phpmd/phpmd.html', stdout);
                             cb();
 
+                        }
+                    }
+                },
+                
+                phpunit : {
+                    command: (function() {
+
+                        var commandLine = 'php vendor/phpunit/phpunit/phpunit ';
+                        commandLine += '--configuration phpunit.xml.dist ';
+                        commandLine += '--colors=auto ';
+                        commandLine += '--verbose ';
+
+                        if(typeof grunt.option('group') !== 'undefined') {
+                            commandLine += '--group=' + grunt.option('group') + ' ';
+                        }
+
+                        commandLine += 'src/test/php/ ';
+
+                        return commandLine;
+                    }),
+                    options : {
+                        execOptions : {
+                            maxBuffer : 1000 * 1000 * 64 // 64 MB
                         }
                     }
                 }
@@ -254,7 +260,7 @@ module.exports = function(grunt) {
     /**
      * Task used to execute the project tests.
      */
-    grunt.registerTask('test', ['copy:test-resources', 'phpunit']);
+    grunt.registerTask('test', ['copy:test-resources', 'shell:phpunit']);
 
     /**
      * Default task, this task executes the following actions :

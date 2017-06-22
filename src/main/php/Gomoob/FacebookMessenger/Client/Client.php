@@ -30,6 +30,9 @@ namespace Gomoob\FacebookMessenger\Client;
 use Gomoob\FacebookMessenger\ClientInterface;
 use Gomoob\FacebookMessenger\Model\Request\TextMessageRequest;
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
+use Gomoob\FacebookMessenger\Model\Recipient\Recipient;
+use Gomoob\FacebookMessenger\Model\Response\Response;
+use Gomoob\FacebookMessenger\Model\RequestInterface;
 
 /**
  * Class which defines a Facebook Messenger client.
@@ -56,14 +59,20 @@ class Client implements ClientInterface
     /**
      * Creates a new instance of the Facebook Messenger client.
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->guzzleClient = new \GuzzleHttp\Client(
             [
                 'base_uri' => 'https://graph.facebook.com/v2.6/me/messages',
-                'timeout' => 2.0
+                'timeout' => 2.0,
+                'verify' => __DIR__ . '/../../../../resources/cacert.pem',
+                'query'   => [
+                    'access_token' => 'EAAZAZA7jhHbesBACsWYzdxcZAHJxArPoZBgMZCBFgsQo9Y0Om35KY5KZBA1Q1S47ZC5N4KYMUuzjl' .
+                                      'uDdm2dTNN8vlbwFap70FcWJgHAuujyQtIdWy0ZCRiODMZA8BLj4OiKsL5y2pPfuYTgZBrixRXT0SIN' .
+                                      'WZAEZBbqEVd5lRLTaD6yfZAQZDZD'
+                    ]
             ]
         );
-        $this->pageAccessToken = '1702809689738727|5v1Lg1Ysbln9hrYESZgS_GEWToA';
     }
     
     /**
@@ -71,30 +80,45 @@ class Client implements ClientInterface
      *
      * @return \Gomoob\FacebookMessenger\Model\Request\TextMessageRequest the new created instance.
      */
-    public static function create() {
-    	return new Client();
+    public static function create()
+    {
+        return new Client();
     }
     
     /**
      * {@inheritDoc}
      */
-	public function getPageAccessToken() {
-		return $this->pageAccessToken;
-	}
+    public function getPageAccessToken()
+    {
+        return $this->pageAccessToken;
+    }
 
     /**
      * {@inheritDoc}
      */
-    public function sendMessage(/*MessageInterface*/ $message) {
-    	
+    public function sendMessage(/* RequestInterface */ $request)/* : Response */
+    {
+        
+        
+        $guzzleResponse = $this->guzzleClient->post(null, ['json' => $request->jsonSerialize()]);
+        $stringBody = (string)$guzzleResponse->getBody();
+        
+        $jsonBody = json_decode($stringBody, true);
+
+        $response = new Response();
+        $response->setMessageId($jsonBody['message_id']);
+        $response->setRecipientId($jsonBody['recipient_id']);
+        // var_dump(json_decode($guzzleResponse));
+        
+        return $response /*Response::create($jsonBody)*/;
     }
     
     /**
      * {@inheritDoc}
      */
-	public function setPageAccessToken(/*string*/ $pageAccessToken) {
-		$this->pageAccessToken = $pageAccessToken;
-		return $this;
-	}
-	
+    public function setPageAccessToken(/*string*/ $pageAccessToken)
+    {
+        $this->pageAccessToken = $pageAccessToken;
+        return $this;
+    }
 }

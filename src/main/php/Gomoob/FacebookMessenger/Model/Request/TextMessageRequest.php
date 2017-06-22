@@ -29,7 +29,6 @@ namespace Gomoob\FacebookMessenger\Model\Request;
 
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 use Gomoob\FacebookMessenger\Model\Request\AbstractRequest;
-use Gomoob\FacebookMessenger\Model\RecipientInterface;
 
 /**
  * Class which represents a Facebook Messenger request.
@@ -37,30 +36,42 @@ use Gomoob\FacebookMessenger\Model\RecipientInterface;
  * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference#request
  */
-class TextMessageRequest extends AbstractRequest {
-	
-	/**
-	 * The message to send.
-	 *
-	 * @var \Gomoob\FacebookMessenger\Model\TextMessageInterface
-	 */
-	private $message;
-	
-	/**
-	 * The access token where to send the message to.
-	 * 
-	 * @var String the access token where to send the message to
-	 */
-	private $pageAccessToken;
-	
-	/**
-	 * Get the message to send.
-	 * 
-	 * @return \Gomoob\FacebookMessenger\Model\TextMessageInterface
-	 */
-	public function getMessage() {
-		return $this->message;
-	}
+class TextMessageRequest extends AbstractRequest
+{
+    
+    /**
+     * The message to send.
+     *
+     * @var \Gomoob\FacebookMessenger\Model\TextMessageInterface
+     */
+    private $message;
+    
+    /**
+     * The access token where to send the message to.
+     *
+     * @var String the access token where to send the message to
+     */
+    private $pageAccessToken;
+    
+    /**
+     * Utility function used to create a new instance of the <tt>TextMessageRequest</tt>.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\Request\CreateMessageRequest the new created instance.
+     */
+    public static function create()
+    {
+        return new TextMessageRequest();
+    }
+    
+    /**
+     * Get the message to send.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\TextMessageInterface
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
 
     /**
      * {@inheritDoc}
@@ -92,32 +103,33 @@ class TextMessageRequest extends AbstractRequest {
     public function jsonSerialize()
     {
         // The 'text' property must have been defined
-        if(!isset($this->message)) {
+        if (!isset($this->message)) {
             throw new FacebookMessengerException('The \'message\' property is not set !');
         }
         
-        if(!isset($this->recipient)) {
-        	throw new FacebookMessengerException('The \'recipient\' property is not set !');
+        if (!isset($this->recipient)) {
+            throw new FacebookMessengerException('The \'recipient\' property is not set !');
         }
 
         return [
-        	'message' => $this->message,
-    		'notificationType' => $this->notificationType,
-    		'recipient' => $this->recipient,
-    		'senderAction' => $this->senderAction
+            'message' => $this->message,
+            //'notificationType' => $this->notificationType,
+            'recipient' => $this->recipient,
+            //'senderAction' => $this->senderAction
         ];
     }
-	
-	/**
-	 * Set the message to send.
-	 * 
-	 * @param TextMessageInterface $message
-	 * @return \Gomoob\FacebookMessenger\Model\TextMessageInterface
-	 */
-	public function setMessage($message) {
-		$this->message = $message;
-		return $this;
-	}
+    
+    /**
+     * Set the message to send.
+     *
+     * @param TextMessageInterface $message
+     * @return \Gomoob\FacebookMessenger\Model\TextMessageInterface
+     */
+    public function setMessage($message)
+    {
+        $this->message = $message;
+        return $this;
+    }
 
     /**
      * {@inheritDoc}
@@ -148,5 +160,4 @@ class TextMessageRequest extends AbstractRequest {
 
         return $this;
     }
-	
 }

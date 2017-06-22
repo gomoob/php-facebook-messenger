@@ -31,68 +31,12 @@ use Gomoob\FacebookMessenger\ClientInterface;
 use Gomoob\FacebookMessenger\Model\Request\TextMessageRequest;
 
 /**
- * Class which defines a Facebook Messenger client.
+ * Class which defines a Facebook Messenger client mock.
  *
- * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
+ * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference/text-message
  */
-class Client implements ClientInterface
+class ClientMock implements ClientInterface
 {
-    /**
-     * The Guzzle client used to request the Facebook Graph Web Services.
-     *
-     * @var \GuzzleHttp\Client
-     */
-    private $guzzleClient;
     
-    /**
-     * The page access token used to send a request.
-     *
-     * @var string
-     */
-    private $pageAccessToken;
-
-    /**
-     * Creates a new instance of the Facebook Messenger client.
-     */
-    public function __construct() {
-        $this->guzzleClient = new \GuzzleHttp\Client(
-            [
-                'base_uri' => 'https://graph.facebook.com/v2.6/me/messages',
-                'timeout' => 2.0
-            ]
-        );
-    }
-    
-    /**
-     * Utility function used to create a new instance of the <tt>TextMessageRequest</tt>.
-     *
-     * @return \Gomoob\FacebookMessenger\Model\Request\TextMessageRequest the new created instance.
-     */
-    public static function create() {
-    	return new Client();
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-	public function getPageAccessToken() {
-		return $this->pageAccessToken;
-	}
-
-    /**
-     * {@inheritDoc}
-     */
-    public function sendMessage(/*MessageInterface*/ $message) {
-    	
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-	public function setPageAccessToken($pageAccessToken) {
-		$this->pageAccessToken = $pageAccessToken;
-		return $this;
-	}
-	
 }

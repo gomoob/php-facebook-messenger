@@ -59,6 +59,16 @@ class Recipient implements RecipientInterface
      * @var string
      */
     private $phoneNumber;
+    
+    /**
+     * Utility function used to create a new instance of the <tt>Recipient</tt>.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\Recipient\Recipient the new created instance.
+     */
+    public static function create()
+    {
+        return new Recipient();
+    }
 
     /**
      * {@inheritDoc}
@@ -92,31 +102,21 @@ class Recipient implements RecipientInterface
         $json = [];
 
         // One of the 'id' or 'phoneNumber' property must have been defined.
-        if(!isset($this->id) && !isset($this->phoneNumber))
-        {
+        if (!isset($this->id) && !isset($this->phoneNumber)) {
             throw new FacebookMessengerException('None of the \'id\' or \'phoneNumber\' properties are set !');
-        }
-
-        // If the 'id' or 'phoneNumber' parameters are both set this is an error
-        elseif(isset($this->id) && isset($this->phoneNumber))
-        {
+        } // If the 'id' or 'phoneNumber' parameters are both set this is an error
+        elseif (isset($this->id) && isset($this->phoneNumber)) {
             throw new FacebookMessengerException('Both \'id\' and \'phoneNumber\' properties are set !');
-        }
-
-        // The 'id' property is set
-        elseif(isset($this->id))
-        {
+        } // The 'id' property is set
+        elseif (isset($this->id)) {
             $json['id'] = $this->id;
-        }
-
-        // The 'phoneNumber' property is set
+        } // The 'phoneNumber' property is set
         else {
-            $json['phoneNumber'] = $this->phoneNumber;
+            $json['phone_number'] = $this->phoneNumber;
         }
 
         // The 'name' property is set
-        if(isset($this->name))
-        {
+        if (isset($this->name)) {
             $json['name'] = $this->name;
         }
 

@@ -43,6 +43,18 @@ class Response implements ResponseInterface
     private $messageId;
 
     private $recipientId;
+    
+    /**
+     * Utility function used to create a new instance of the <tt>Response</tt> class.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\Response\Response the new created instance.
+     */
+    public static function create(/* ResponseInterface */ $response)
+    {
+        if ($response->hasHeader('Content-Length')) {
+            print "It exists";
+        }
+    }
 
     /**
      * {@inheritDoc}
@@ -73,15 +85,14 @@ class Response implements ResponseInterface
      */
     public function jsonSerialize()
     {
-    	if(!isset($this->recipientId) || !isset($this->messageId))
-    	{
-    		throw new FacebookMessengerException('The \'recipientId\' or \'messageId\' property is not set !');
-    	}
-    	
-    	return [
-    		'recipient_id' => $this->recipientId,
-    		'message_id' => $this->messageId
-    	];
+        if (!isset($this->recipientId) || !isset($this->messageId)) {
+            throw new FacebookMessengerException('The \'recipientId\' or \'messageId\' property is not set !');
+        }
+        
+        return [
+            'recipient_id' => $this->recipientId,
+            'message_id' => $this->messageId
+        ];
     }
 
     /**
