@@ -28,11 +28,7 @@
 namespace Gomoob\FacebookMessenger\Client;
 
 use Gomoob\FacebookMessenger\ClientInterface;
-use Gomoob\FacebookMessenger\Model\Request\TextMessageRequest;
-use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
-use Gomoob\FacebookMessenger\Model\Recipient\Recipient;
 use Gomoob\FacebookMessenger\Model\Response\Response;
-use Gomoob\FacebookMessenger\Model\RequestInterface;
 
 /**
  * Class which defines a Facebook Messenger client.
