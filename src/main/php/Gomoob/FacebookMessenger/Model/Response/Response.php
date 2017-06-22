@@ -43,17 +43,49 @@ class Response implements ResponseInterface
     private $messageId;
 
     private $recipientId;
+
+    /**
+     * The Facebook Messenger status code, the Pushwoosh API can return the following create message status codes :
+     *  - 200    : (HTTP Status Code = 200) Message succesfully created.
+     *  - 210    : (HTTP Status Code = 200) Argument error. See statusMessage for more info.
+     *  - 400    : (HTTP Status Code = N/A) Malformed request string.
+     *  - 500    : (HTTP Status Code = 500) Internal error.
+     *
+     * @var int
+     */
+    protected $statusCode;
+    
+    /**
+     * The Facebook Messenger status message.
+     *
+     * @var string
+     */
+    protected $statusMessage;
     
     /**
      * Utility function used to create a new instance of the <tt>Response</tt> class.
      *
      * @return \Gomoob\FacebookMessenger\Model\Response\Response the new created instance.
      */
-    public static function create(/* ResponseInterface */ $response)
+    public static function create()
     {
-        if ($response->hasHeader('Content-Length')) {
-            print "It exists";
-        }
+        return new Response();
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public function getStatusCode()
+    {
+    	return $this->statusCode;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public function getStatusMessage()
+    {
+    	return $this->statusMessage;
     }
 
     /**
@@ -78,6 +110,14 @@ class Response implements ResponseInterface
     public function getRecipientId()
     {
         return $this->recipientId;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isOk()
+    {
+        return $this->statusCode === 200;
     }
 
     /**
@@ -123,5 +163,21 @@ class Response implements ResponseInterface
         $this->recipientId = $recipientId;
 
         return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setStatusCode($statusCode)
+    {
+        $this->statusCode = $statusCode;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setStatusMessage($statusMessage)
+    {
+        $this->statusMessage = $statusMessage;
     }
 }

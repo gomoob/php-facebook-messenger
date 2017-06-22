@@ -70,14 +70,12 @@ class ClientTest extends TestCase
         $request = TextMessageRequest::create()
             ->setRecipient(Recipient::create()->setPhoneNumber('+33760647186'))
             ->setMessage(TextMessage::create()->setText('Hello World !'));
-
         // Call the REST Web Service
         $response = $client->sendMessage($request);
 
-        //var_dump($response);
+        $this->assertSame(200, $response->getStatusCode());
         
         // Check if its ok
-        /*
     	if($response->isOk()) {
     		print 'Great, my message has been sent !';
     	} else {
@@ -85,6 +83,5 @@ class ClientTest extends TestCase
     		print 'Status code : ' . $response->getStatusCode();
     		print 'Status message : ' . $response->getStatusMessage();
     	}
-    	*/
     }
 }
