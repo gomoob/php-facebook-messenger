@@ -54,14 +54,14 @@ class Response implements ResponseInterface
      * @var int
      */
     protected $statusCode;
-    
+
     /**
      * The Facebook Messenger status message.
      *
      * @var string
      */
     protected $statusMessage;
-    
+
     /**
      * Utility function used to create a new instance of the <tt>Response</tt> class.
      *
@@ -71,15 +71,15 @@ class Response implements ResponseInterface
     {
         return new Response();
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public function getStatusCode()
     {
-    	return $this->statusCode;
-        }
-    
+        return $this->statusCode;
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -110,6 +110,14 @@ class Response implements ResponseInterface
     public function getRecipientId()
     {
         return $this->recipientId;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isOk()
+    {
+        return $this->statusCode === 200;
     }
 
     /**
@@ -155,5 +163,21 @@ class Response implements ResponseInterface
         $this->recipientId = $recipientId;
 
         return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setStatusCode($statusCode)
+    {
+        $this->statusCode = $statusCode;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setStatusMessage($statusMessage)
+    {
+        $this->statusMessage = $statusMessage;
     }
 }

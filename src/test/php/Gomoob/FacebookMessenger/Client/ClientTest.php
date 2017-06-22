@@ -70,7 +70,6 @@ class ClientTest extends TestCase
         $request = TextMessageRequest::create()
             ->setRecipient(Recipient::create()->setPhoneNumber('+33760647186'))
             ->setMessage(TextMessage::create()->setText('Hello World !'));
-
         // Call the REST Web Service
         $response = $client->sendMessage($request);
 

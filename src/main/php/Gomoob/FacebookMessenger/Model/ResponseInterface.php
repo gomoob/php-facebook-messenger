@@ -38,7 +38,7 @@ interface ResponseInterface extends \JsonSerializable
     public function getAttachmentId()/*: string*/;
     public function getMessageId()/*: string*/;
     public function getRecipientId()/*: string*/;
-    
+
     /**
      * Gets the Facebook messenger status code, , the Facebook messenger API can return the following create message status codes :
      *  - 200    : (HTTP Status Code = 200) Message succesfully created.
@@ -49,25 +49,25 @@ interface ResponseInterface extends \JsonSerializable
      * @return int the Facebook messenger status code.
      */
     public function getStatusCode();
-    
+
     /**
      * Gets the Facebook messenger status message.
      *
      * @return string the Facebook messenger status message.
      */
     public function getStatusMessage();
-    
+
     /**
      * Function used to indicate if the response represents a success.
      *
      * @return boolean true if the response represents a success, false otherwise.
      */
     public function isOk();
-    
+
     public function setAttachmentId(/*string*/ $attachmentId);
     public function setMessageId(/*string*/ $messageId);
     public function setRecipientId(/*string*/ $recipientId);
-    
+
     /**
      * Sets the Facebook messenger status code, the Facebook messenger API can return the following create message status codes :
      *  - 200    : (HTTP Status Code = 200) Message succesfully created.
@@ -78,7 +78,7 @@ interface ResponseInterface extends \JsonSerializable
      * @param int $statusCode the Facebook messenger status code.
      */
     public function setStatusCode($statusCode);
-    
+
     /**
      * Sets the Facebook messenger status message.
      *

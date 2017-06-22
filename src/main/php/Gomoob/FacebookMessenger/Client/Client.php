@@ -98,14 +98,11 @@ class Client implements ClientInterface
      */
     public function sendMessage(/* RequestInterface */ $request)/* : Response */
     {
-
-
         $guzzleResponse = $this->guzzleClient->post(null, ['json' => $request->jsonSerialize()]);
         $stringBody = (string)$guzzleResponse->getBody();
         $statusCode = $guzzleResponse->getStatusCode();
 
         $jsonBody = json_decode($stringBody, true);
-
         $response = new Response();
         $response->setMessageId($jsonBody['message_id']);
         $response->setRecipientId($jsonBody['recipient_id']);
