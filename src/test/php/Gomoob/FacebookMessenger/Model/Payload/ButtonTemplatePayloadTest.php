@@ -25,36 +25,46 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-namespace Gomoob\FacebookMessenger\Model\Message;
+namespace Gomoob\FacebookMessenger\Model\Payload;
 
-use Gomoob\FacebookMessenger\Model\MessageInterface;
+use PHPUnit\Framework\TestCase;
+use Gomoob\FacebookMessenger\Model\Payload\ButtonTemplatePayload;
+use Gomoob\FacebookMessenger\Model\Button\WebUrlButton;
 
 /**
- * Abstract class common to all Facebook Messenger messages.
+ * Test case used to test the `ButtonTemplatePayload` class.
  *
  * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
+ * @group ButtonTemplatePayloadTest
  */
-abstract class AbstractMessage implements MessageInterface {
-
+class ButtonTemplatePayloadTest extends TestCase
+{
     /**
-     * The message text.
-     *
-     * @var string
+     * Test method for the `getTemplateType()` and `setTemplateType($templateType)` functions.
      */
-    protected $text;
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getText() {
-        return $this->text;
+    public function testGetSetTemplateType()
+    {
+        $buttonTemplatePayload = new ButtonTemplatePayload();
+        $button = new WebUrlButton();
+        $button->setTitle("Voir le Moment");
+        $button->setUrl("www.google.com");
+        $button->setType("web_url");
+        
+        $buttonTemplatePayload->setTemplateType("button");
+        $buttonTemplatePayload->setText('Template message button test.');
+        $buttonTemplatePayload->setSharable(false);
+        $buttonTemplatePayload->setButtons($button);
+        
+        $this->assertSame("button", $buttonTemplatePayload->getTemplateType());
+        $this->assertSame("Template message button test.", $buttonTemplatePayload->getText());
+        $this->assertSame(false, $buttonTemplatePayload->isSharable());
     }
 
     /**
-     * {@inheritDoc}
+     * Test method for the `jsonSerialize()` function.
      */
-    public function setText(/*string*/ $text) {
-        $this->text = $text;
-        return $this;
+    public function testJsonSerialize()
+    {
+        
     }
 }

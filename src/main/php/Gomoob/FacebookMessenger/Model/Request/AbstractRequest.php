@@ -31,7 +31,7 @@ use Gomoob\FacebookMessenger\Model\RecipientInterface;
 use Gomoob\FacebookMessenger\Model\RequestInterface;
 
 /**
- * TODO: Documentation manquante.
+ * Abstract class common to all Facebook Messenger request.
  *
  * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
  */
@@ -42,21 +42,21 @@ abstract class AbstractRequest implements RequestInterface {
      *
      * @var string
      */
-    private $notificationType;
+    protected $notificationType;
 
     /**
      * The recipient of the message link to the request.
      *
-     * @var RecipientInterface // TODO Mettre le chemin complet
+     * @var \Gomoob\FacebookMessenger\Model\RecipientInterface
      */
-    private $recipient;
+    protected $recipient;
 
     /**
      * The sender action of the request.
      *
      * @var string
      */
-    private $senderAction;
+    protected $senderAction;
 
     /**
      * {@inheritDoc}

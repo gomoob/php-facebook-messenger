@@ -25,36 +25,27 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-namespace Gomoob\FacebookMessenger\Model\Message;
-
-use Gomoob\FacebookMessenger\Model\MessageInterface;
+namespace Gomoob\FacebookMessenger\Model;
 
 /**
- * Abstract class common to all Facebook Messenger messages.
+ * Interface which represents a Facebook Messenger button to be display into a Facebook Messenger message.
  *
  * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
+ * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference
  */
-abstract class AbstractMessage implements MessageInterface {
-
-    /**
-     * The message text.
-     *
-     * @var string
-     */
-    protected $text;
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getText() {
-        return $this->text;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setText(/*string*/ $text) {
-        $this->text = $text;
-        return $this;
-    }
+interface ButtonInterface extends \JsonSerializable {
+	
+	/**
+	 * Gets the type of the button.
+	 *
+	 * @return string The type of the button.
+	 */
+	public function getType();
+	
+	/**
+	 * Set the type of the button.
+	 *
+	 * @param string $type The type of the button.
+	 */
+	public function setType($type);
 }

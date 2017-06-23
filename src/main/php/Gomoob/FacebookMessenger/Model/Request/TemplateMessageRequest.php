@@ -27,6 +27,8 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Request;
 
+use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
+
 /**
  * Class which represents a Facebook Messenger request.
  *
@@ -34,11 +36,117 @@ namespace Gomoob\FacebookMessenger\Model\Request;
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference#request
  */
 class TemplateMessageRequest extends AbstractRequest {
+	
+	/**
+	 * The message to be attached to the template message request.
+	 * @var \Gomoob\FacebookMessenger\Model\TemplateMessageInterface The message to be attached to the template message 
+	 * request.
+	 */
+	private $message;
+
+    /**
+     * Utility function used to create a new instance of the <tt>TextMessageRequest</tt>.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\Request\CreateMessageRequest the new created instance.
+     */
+    public static function create()
+    {
+        return new TemplateMessageRequest();
+    }
+	
+	/**
+	 * {@inheritDoc}
+	 * @see \Gomoob\FacebookMessenger\Model\RequestInterface::getMessage()
+	 */
     public function getMessage()
     {
+    	return $this->message;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getNotificationType()
+    {
+        return $this->notificationType;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getRecipient()
+    {
+        return $this->recipient;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getSenderAction()
+    {
+        return $this->senderAction;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function jsonSerialize()
+    {
+    	if (!isset($this->message)) {
+            throw new FacebookMessengerException('The \'message\' property is not set !');
+        }
+        
+    	if (!isset($this->recipient)) {
+            throw new FacebookMessengerException('The \'recipient\' property is not set !');
+        }
+        $json = [
+            'message' => $this->message,
+//             'notificationType' => $this->notificationType,
+            'recipient' => $this->recipient,
+//             'senderAction' => $this->senderAction
+        ];
+
+        return $json;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see \Gomoob\FacebookMessenger\Model\RequestInterface::setMessage()
+     */
     public function setMessage($message)
     {
+    	$this->message = $message;
+    	
+    	return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setNotificationType(/* string */ $notificationType)
+    {
+        $this->notificationType = $notificationType;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setSenderAction(/* string */ $senderAction)
+    {
+        $this->senderAction = $senderAction;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setRecipient(/* RecipientInterface */ $recipient)
+    {
+        $this->recipient = $recipient;
+
+        return $this;
     }
 }

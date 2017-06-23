@@ -27,34 +27,62 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Message;
 
-use Gomoob\FacebookMessenger\Model\MessageInterface;
+use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
+use Gomoob\FacebookMessenger\Model\TemplateMessageInterface;
 
 /**
- * Abstract class common to all Facebook Messenger messages.
+ * Class which represents a a Facebook Messenger template message.
  *
  * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
+ * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference/text-message
  */
-abstract class AbstractMessage implements MessageInterface {
-
+class TemplateMessage implements TemplateMessageInterface
+{
     /**
-     * The message text.
+     * The attachment to be attached to the template message.
      *
-     * @var string
+     * @var \Gomoob\FacebookMessenger\Model\AttachmentInterface
      */
-    protected $text;
+    private $attachment;
+
+    /**
+     * Utility function used to create a new instance of the <tt>TemplateMessage</tt> class.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\Message\TemplateMessage the new created instance.
+     */
+    public static function create()
+    {
+        return new TemplateMessage();
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+	public function getAttachment() {
+		return $this->attachment;
+	}
 
     /**
      * {@inheritDoc}
      */
-    public function getText() {
-        return $this->text;
-    }
+    public function jsonSerialize()
+    {
+        // The 'attachment' property must have been defined
+        if(!isset($this->attachment)) {
+            throw new FacebookMessengerException('The \'attachment\' property is not set !');
+        }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function setText(/*string*/ $text) {
-        $this->text = $text;
-        return $this;
+        return [
+            'attachment' => $this->attachment
+        ];
     }
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public function setAttachment($attachment) {
+		$this->attachment = $attachment;
+		return $this;
+	}
+	
 }

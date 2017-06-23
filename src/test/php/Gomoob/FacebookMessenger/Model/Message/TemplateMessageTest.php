@@ -27,34 +27,49 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Message;
 
-use Gomoob\FacebookMessenger\Model\MessageInterface;
+use Gomoob\FacebookMessenger\Model\Attachment\Attachment;
+use Gomoob\FacebookMessenger\Model\Button\WebUrlButton;
+use Gomoob\FacebookMessenger\Model\Payload\ButtonTemplatePayload;
+use PHPUnit\Framework\TestCase;
 
 /**
- * Abstract class common to all Facebook Messenger messages.
+ * Test case used to test the `TemplateMessage` class.
  *
  * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
+ * @group TemplateMessageTest
  */
-abstract class AbstractMessage implements MessageInterface {
-
+class TemplateMessageTest extends TestCase
+{
     /**
-     * The message text.
-     *
-     * @var string
+     * Test method for the `getAttachment()` and `setAttachment($attachment)` functions.
      */
-    protected $text;
+    public function testGetSetAttachment()
+    {
+        $button = new WebUrlButton();
+        $button->setTitle("Voir le moment");
+        $button->setType('web_url');
+        $button->setUrl("www.google.com");
+        
+        $payload = new ButtonTemplatePayload();
+        $payload->setTemplateType('button');
+        $payload->setText('Test');
+        $payload->setButtons($button);
+        
+        $attachment = new Attachment();
+        $attachment->setPayload($payload);
+        $attachment->setType('template');
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getText() {
-        return $this->text;
+        $templateMessage = new TemplateMessage();
+        $this->assertNull($templateMessage->getAttachment());
+        $templateMessage->setAttachment($attachment);
+        $this->assertSame($attachment, $templateMessage->getAttachment());
     }
 
     /**
-     * {@inheritDoc}
+     * Test method for the `jsonSerialize()` function.
      */
-    public function setText(/*string*/ $text) {
-        $this->text = $text;
-        return $this;
+    public function testJsonSerialize()
+    {
+        
     }
 }

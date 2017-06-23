@@ -25,62 +25,61 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-namespace Gomoob\FacebookMessenger\Client;
+namespace Gomoob\FacebookMessenger\Model\Request;
 
-use PHPUnit\Framework\TestCase;
-use Gomoob\FacebookMessenger\Client\Client;
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 use Gomoob\FacebookMessenger\Model\Message\TextMessage;
-use Gomoob\FacebookMessenger\Model\Request\TextMessageRequest;
+
+use PHPUnit\Framework\TestCase;
 use Gomoob\FacebookMessenger\Model\Recipient\Recipient;
+use Gomoob\FacebookMessenger\Model\Recipient\Name;
+use Gomoob\FacebookMessenger\Model\Message\TemplateMessage;
+use Gomoob\FacebookMessenger\Model\Attachment\Attachment;
+use Gomoob\FacebookMessenger\Model\Payload\ButtonTemplatePayload;
+use Gomoob\FacebookMessenger\Model\Button\WebUrlButton;
 
 /**
- * Test case used to test the `ClientMock` class.
+ * Test case used to test the `TextMessageRequest` class.
  *
  * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
- * @group ClientMockTest
+ * @group TemplateMessageRequestTest
  */
-class ClientMockTest extends TestCase
+class TemplateMessageRequestTest extends TestCase
 {
     /**
-     * Test method for the `getPageAccessToken()` and `setPageAccessToken($pageAccessToken)` functions.
+     * Test method for the `getMessage()` and `setMessage($text)` functions.
      */
-    public function testGetSetPageAccessToken()
+    public function testGetSetMessage()
     {
-        $client = Client::create();
-        $client->setPageAccessToken('1702809689738727|5v1Lg1Ysbln9hrYESZgS_GEWToA');
-        $this->assertSame('1702809689738727|5v1Lg1Ysbln9hrYESZgS_GEWToA', $client->getPageAccessToken());
+        $templateMessageRequest = new TemplateMessageRequest();
+        $templateMessage = new TemplateMessage();
+        
+        $button = new WebUrlButton();
+        $button->setTitle("Voir le Moment");
+        $button->setUrl("www.google.com");
+        $button->setType("web_url");
+        
+        $buttonTemplatePayload = new ButtonTemplatePayload();
+        $buttonTemplatePayload->setTemplateType("button");
+        $buttonTemplatePayload->setText('ButtonTemplate payload test.');
+        $buttonTemplatePayload->setButtons($button);
+        
+        $attachment = new Attachment();
+        $attachment->setType('template');
+        $attachment->setPayload($buttonTemplatePayload);
+
+        $templateMessage->setAttachment($attachment);
+        $this->assertNull($templateMessageRequest->getMessage());
+        $templateMessageRequest->setMessage($templateMessage);
+        var_dump($templateMessageRequest);
+        $this->assertSame($templateMessage, $templateMessageRequest->getMessage());
     }
+
     
     /**
-     * Test method for the `sendMessage()` function.
-     *
-     * @group ClientMockTest.testSendMessage
+     * Test method for the `jsonSerialize()` function.
      */
-    public function testSendMessage()
+    public function testJsonSerialize()
     {
-    	$clientMock = new ClientMock();
-    	$this->assertCount(0, $clientMock->getFacebookMessengerRequests());
-        
-        // Create a request to simulate a send of a simple Text Message
-        $request = TextMessageRequest::create()
-            ->setRecipient(Recipient::create()->setPhoneNumber('+33760647186'))
-            ->setMessage(TextMessage::create()->setText('Hello World !'));
-
-        // Call the REST Web Service
-        $response = $clientMock->sendMessage($request);
-        $this->assertNotNull($response);
-        $this->assertTrue($response->isOk());
-        $this->assertSame(200, $response->getStatusCode());
-        
-        // Check if its ok
-    	if($response->isOk()) {
-    		print 'Great, my text message mock has been sent !';
-    	} else {
-    		print 'Oups, the sent failed :-(';
-    		print 'Status code : ' . $response->getStatusCode();
-    	}
-
-    	$this->assertCount(1, $clientMock->getFacebookMessengerRequests());
     }
 }

@@ -25,36 +25,37 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-namespace Gomoob\FacebookMessenger\Model\Message;
+namespace Gomoob\FacebookMessenger\Model\Button;
 
-use Gomoob\FacebookMessenger\Model\MessageInterface;
+use Gomoob\FacebookMessenger\Model\ButtonInterface;
 
 /**
- * Abstract class common to all Facebook Messenger messages.
+ * Abstract class common to all Facebook Messenger buttons.
  *
  * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
  */
-abstract class AbstractMessage implements MessageInterface {
+abstract class AbstractButton implements ButtonInterface {
 
     /**
-     * The message text.
+     * The type of the button.
      *
-     * @var string
+     * @var string The type of the button.
      */
-    protected $text;
-
+    protected $type;
+    
     /**
      * {@inheritDoc}
      */
-    public function getText() {
-        return $this->text;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setText(/*string*/ $text) {
-        $this->text = $text;
-        return $this;
-    }
+	public function getType() {
+		return $this->type;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public function setType($type) {
+		$this->type = $type;
+		return $this;
+	}
+    
 }

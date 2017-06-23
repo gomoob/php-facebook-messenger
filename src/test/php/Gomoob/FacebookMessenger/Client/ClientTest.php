@@ -33,6 +33,11 @@ use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 use Gomoob\FacebookMessenger\Model\Message\TextMessage;
 use Gomoob\FacebookMessenger\Model\Request\TextMessageRequest;
 use Gomoob\FacebookMessenger\Model\Recipient\Recipient;
+use Gomoob\FacebookMessenger\Model\Request\TemplateMessageRequest;
+use Gomoob\FacebookMessenger\Model\Message\TemplateMessage;
+use Gomoob\FacebookMessenger\Model\Button\WebUrlButton;
+use Gomoob\FacebookMessenger\Model\Payload\ButtonTemplatePayload;
+use Gomoob\FacebookMessenger\Model\Attachment\Attachment;
 
 /**
  * Test case used to test the `ClientTest` class.
@@ -59,32 +64,66 @@ class ClientTest extends TestCase
      */
     public function testSendMessage()
     {
-        
-        // Create a Facebook Messenger client
+    	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    	// Create a Facebook Messenger client                                                                        //
+    	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         $client = Client::create()->setPageAccessToken(
             'EAAZAZA7jhHbesBACsWYzdxcZAHJxArPoZBgMZCBFgsQo9Y0Om35KY5KZBA1Q1S47ZC5N4KYMUuzjluDdm2dTNN8vlbwFap70FcWJgHA' .
             'uujyQtIdWy0ZCRiODMZA8BLj4OiKsL5y2pPfuYTgZBrixRXT0SINWZAEZBbqEVd5lRLTaD6yfZAQZDZD'
         );
         
-        // Create a request to send a simple Text Message
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Create a request to send a simple Text Message                                                            //
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         $request = TextMessageRequest::create()
             ->setRecipient(Recipient::create()->setPhoneNumber('+33760647186'))
             ->setMessage(TextMessage::create()->setText('Hello World !'));
+
+        // Call the REST Web Service
+        $responseTextMessage = $client->sendMessage($request);
+            
+        $this->assertSame(200, $responseTextMessage->getStatusCode());
+
+        // Check if text message response is ok
+        if($responseTextMessage->isOk()) {
+        	print 'Great, my text message has been sent !';
+        } else {
+        	print 'Oups, the text message sent failed :-(';
+        	print 'Status code : ' . $responseTextMessage->getStatusCode();
+        	print 'Status message : ' . $responseTextMessage->getStatusMessage();
+        }
+        
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Create a request to send a Template Message                                                               //
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        $button = new WebUrlButton();
+        $button->setTitle("Voir le Moment");
+        $button->setUrl("www.google.com");
+        $button->setType("web_url");
+            
+        $buttonTemplatePayload = new ButtonTemplatePayload();
+        $buttonTemplatePayload->setTemplateType("button");
+        $buttonTemplatePayload->setText('ButtonTemplate payload test.');
+        $buttonTemplatePayload->setButtons($button);
+            
+        $attachment = new Attachment();
+        $attachment->setType('template');
+        $attachment->setPayload($buttonTemplatePayload);
+        
+        $templateMessageRequest = TemplateMessageRequest::create()
+            ->setRecipient(Recipient::create()->setPhoneNumber('+33760647186'))
+            ->setMessage(TemplateMessage::create()->setAttachment($attachment));
         
         // Call the REST Web Service
-        $response = $client->sendMessage($request);
+//         $responseTemplateMessage = $client->sendMessage($templateMessageRequest);
 
-        var_dump($response);
-        
-        $this->assertSame(200, $response->getStatusCode());
-        
-        // Check if its ok
-    	if($response->isOk()) {
-    		print 'Great, my message has been sent !';
-    	} else {
-    		print 'Oups, the sent failed :-(';
-    		print 'Status code : ' . $response->getStatusCode();
-    		print 'Status message : ' . $response->getStatusMessage();
-    	}
+//     	// Check if template message response is ok
+//     	if($responseTemplateMessage->isOk()) {
+//     		print 'Great, my template message has been sent !';
+//     	} else {
+//     		print 'Oups, the template message sent failed :-(';
+//     		print 'Status code : ' . $responseTemplateMessage->getStatusCode();
+//     		print 'Status message : ' . $responseTemplateMessage->getStatusMessage();
+//     	}
     }
 }

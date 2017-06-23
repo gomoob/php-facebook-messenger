@@ -27,34 +27,52 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Message;
 
-use Gomoob\FacebookMessenger\Model\MessageInterface;
+use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
+use Gomoob\FacebookMessenger\Model\Message\TextMessage;
+
+use PHPUnit\Framework\TestCase;
+use Gomoob\FacebookMessenger\Model\Button\WebUrlButton;
 
 /**
- * Abstract class common to all Facebook Messenger messages.
+ * Test case used to test the `WebUrlButton` class.
  *
  * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
+ * @group WebUrlButtonTest
  */
-abstract class AbstractMessage implements MessageInterface {
-
+class WebUrlButtonTest extends TestCase
+{
     /**
-     * The message text.
-     *
-     * @var string
+     * Test method for the `getType()` and `setType($type)` functions.
      */
-    protected $text;
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getText() {
-        return $this->text;
+    public function testGetSetType()
+    {
+        $webUrlButton = new WebUrlButton();
+        $webUrlButton->setType("web_url");
+        $this->assertSame("web_url", $webUrlButton->getType());
     }
 
     /**
-     * {@inheritDoc}
+     * Test method for the `jsonSerialize()` function.
      */
-    public function setText(/*string*/ $text) {
-        $this->text = $text;
-        return $this;
+    public function testJsonSerialize()
+    {
+    	$webUrlButton = new WebUrlButton();
+    	
+    	// Test without the 'type' and 'title' property
+    	try {
+    		$webUrlButton->jsonSerialize();
+    		$this->fail('Must have thrown a FacebookMessengerException !');
+    	} catch (FacebookMessengerException $fmex) {
+    		$this->assertSame('None of the \'type\', \'title\' or \'url\' properties are set !', $fmex->getMessage());
+    	}
+    	
+    	// Test with valid settings
+    	$webUrlButton->setType('web_url');
+    	$webUrlButton->setTitle("Vor le moment");
+    	$webUrlButton->setUrl("www.google.com");
+    	
+    	$json = $webUrlButton->jsonSerialize();
+    	$this->assertCount(3, $json);
+    	$this->assertSame('web_url', $json['type']);
     }
 }

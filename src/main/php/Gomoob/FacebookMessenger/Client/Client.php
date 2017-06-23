@@ -103,7 +103,7 @@ class Client implements ClientInterface
         $response->setMessageId($jsonBody['message_id']);
         $response->setRecipientId($jsonBody['recipient_id']);
         $response->setStatusCode($statusCode);
-
+        
         return Response::create($jsonBody);
     }
 

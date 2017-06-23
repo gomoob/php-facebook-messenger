@@ -37,11 +37,11 @@ use Gomoob\FacebookMessenger\Model\MessageInterface;
 abstract class AbstractAttachmentMessage implements MessageInterface {
 
     /**
-     * The attachement of the message to send.
+     * The attachment of the message to send.
      *
      * @var \Gomoob\FacebookMessenger\Model\AttachmentInterface
      */
-    private $attachment;
+    protected $attachment;
 
     /**
      * {@inheritDoc}
