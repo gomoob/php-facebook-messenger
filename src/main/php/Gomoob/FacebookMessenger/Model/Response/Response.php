@@ -38,10 +38,16 @@ use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
  */
 class Response implements ResponseInterface
 {
-    private $attachmentId;
+    /**
+     * Technical identifier of message sent.
+     * @var string The technical identifier of message sent.
+     */
+	private $messageId;
 
-    private $messageId;
-
+	/**
+	 * Technical identifier of the user.
+	 * @var string The technical identifier of the user.
+	 */
     private $recipientId;
 
     /**
@@ -56,20 +62,18 @@ class Response implements ResponseInterface
     protected $statusCode;
 
     /**
-     * The Facebook Messenger status message.
-     *
-     * @var string
-     */
-    protected $statusMessage;
-
-    /**
      * Utility function used to create a new instance of the <tt>Response</tt> class.
      *
      * @return \Gomoob\FacebookMessenger\Model\Response\Response the new created instance.
      */
-    public static function create()
+    public static function create($jsonBody)
     {
-        return new Response();
+        $createResponse = new Response();
+        $createResponse->setMessageId($jsonBody['message_id']);
+        $createResponse->setRecipientId($jsonBody['recipient_id']);
+        $createResponse->setStatusCode(200);
+            
+    	return $createResponse;
     }
 
     /**
@@ -78,22 +82,6 @@ class Response implements ResponseInterface
     public function getStatusCode()
     {
         return $this->statusCode;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getStatusMessage()
-    {
-    	return $this->statusMessage;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getAttachmentId()
-    {
-        return $this->attachmentId;
     }
 
     /**
@@ -138,16 +126,6 @@ class Response implements ResponseInterface
     /**
      * {@inheritDoc}
      */
-    public function setAttachmentId(/*string*/ $attachmentId)
-    {
-        $this->attachmentId = $attachmentId;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function setMessageId(/*string*/ $messageId)
     {
         $this->messageId = $messageId;
@@ -171,13 +149,5 @@ class Response implements ResponseInterface
     public function setStatusCode($statusCode)
     {
         $this->statusCode = $statusCode;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setStatusMessage($statusMessage)
-    {
-        $this->statusMessage = $statusMessage;
     }
 }

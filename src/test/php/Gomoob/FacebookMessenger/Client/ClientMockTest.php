@@ -35,12 +35,12 @@ use Gomoob\FacebookMessenger\Model\Request\TextMessageRequest;
 use Gomoob\FacebookMessenger\Model\Recipient\Recipient;
 
 /**
- * Test case used to test the `ClientTest` class.
+ * Test case used to test the `ClientMock` class.
  *
  * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
- * @group ClientTest
+ * @group ClientMockTest
  */
-class ClientTest extends TestCase
+class ClientMockTest extends TestCase
 {
     /**
      * Test method for the `getPageAccessToken()` and `setPageAccessToken($pageAccessToken)` functions.
@@ -55,27 +55,22 @@ class ClientTest extends TestCase
     /**
      * Test method for the `sendMessage()` function.
      *
-     * @group ClientTest.testSendMessage
+     * @group ClientMockTest.testSendMessage
      */
     public function testSendMessage()
     {
+    	$clientMock = new ClientMock();
+    	$this->assertCount(0, $clientMock->getFacebookMessengerRequests());
         
-        // Create a Facebook Messenger client
-        $client = Client::create()->setPageAccessToken(
-            'EAAZAZA7jhHbesBACsWYzdxcZAHJxArPoZBgMZCBFgsQo9Y0Om35KY5KZBA1Q1S47ZC5N4KYMUuzjluDdm2dTNN8vlbwFap70FcWJgHA' .
-            'uujyQtIdWy0ZCRiODMZA8BLj4OiKsL5y2pPfuYTgZBrixRXT0SINWZAEZBbqEVd5lRLTaD6yfZAQZDZD'
-        );
-        
-        // Create a request to send a simple Text Message
+        // Create a request to simulate a send of a simple Text Message
         $request = TextMessageRequest::create()
             ->setRecipient(Recipient::create()->setPhoneNumber('+33760647186'))
             ->setMessage(TextMessage::create()->setText('Hello World !'));
-        
-        // Call the REST Web Service
-        $response = $client->sendMessage($request);
 
-        var_dump($response);
-        
+        // Call the REST Web Service
+        $response = $clientMock->sendMessage($request);
+        $this->assertNotNull($response);
+        $this->assertTrue($response->isOk());
         $this->assertSame(200, $response->getStatusCode());
         
         // Check if its ok
@@ -84,7 +79,8 @@ class ClientTest extends TestCase
     	} else {
     		print 'Oups, the sent failed :-(';
     		print 'Status code : ' . $response->getStatusCode();
-    		print 'Status message : ' . $response->getStatusMessage();
     	}
+
+    	$this->assertCount(1, $clientMock->getFacebookMessengerRequests());
     }
 }

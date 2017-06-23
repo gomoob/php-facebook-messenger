@@ -35,7 +35,7 @@ namespace Gomoob\FacebookMessenger\Model;
  */
 interface ResponseInterface extends \JsonSerializable
 {
-    public function getAttachmentId()/*: string*/;
+    //public function getAttachmentId()/*: string*/;
     public function getMessageId()/*: string*/;
     public function getRecipientId()/*: string*/;
 
@@ -51,20 +51,13 @@ interface ResponseInterface extends \JsonSerializable
     public function getStatusCode();
 
     /**
-     * Gets the Facebook messenger status message.
-     *
-     * @return string the Facebook messenger status message.
-     */
-    public function getStatusMessage();
-
-    /**
      * Function used to indicate if the response represents a success.
      *
      * @return boolean true if the response represents a success, false otherwise.
      */
     public function isOk();
 
-    public function setAttachmentId(/*string*/ $attachmentId);
+    //public function setAttachmentId(/*string*/ $attachmentId);
     public function setMessageId(/*string*/ $messageId);
     public function setRecipientId(/*string*/ $recipientId);
 
@@ -78,11 +71,4 @@ interface ResponseInterface extends \JsonSerializable
      * @param int $statusCode the Facebook messenger status code.
      */
     public function setStatusCode($statusCode);
-
-    /**
-     * Sets the Facebook messenger status message.
-     *
-     * @param string $statusMessage the Facebook messenger status message.
-     */
-    public function setStatusMessage($statusMessage);
 }

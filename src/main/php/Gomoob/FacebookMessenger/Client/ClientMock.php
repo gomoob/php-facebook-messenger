@@ -28,7 +28,8 @@
 namespace Gomoob\FacebookMessenger\Client;
 
 use Gomoob\FacebookMessenger\ClientInterface;
-use Gomoob\FacebookMessenger\Model\Request\TextMessageRequest;
+use Gomoob\FacebookMessenger\Model\Response\Response;
+use Gomoob\FacebookMessenger\ClientMockInterface;
 
 /**
  * Class which defines a Facebook Messenger client mock.
@@ -36,17 +37,69 @@ use Gomoob\FacebookMessenger\Model\Request\TextMessageRequest;
  * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference/text-message
  */
-class ClientMock implements ClientInterface
+class ClientMock implements ClientMockInterface
 {
-    public function setPageAccessToken($pageAccessToken)
-    {
-    }
+	/**
+	 * The page access token to be used by default by all the requests performed by the Facebook Messenger client.
+	 * This identifier can be overwritten by request if needed.
+	 *
+	 * @var string
+	 */
+	private $pageAccessToken;
+	
+	/**
+	 * An array which contains all Facebook Messenger requests sent by this client.
+	 *
+	 * @var array
+	 */
+	private $FacebookMessengerRequests = [];
 
-    public function sendMessage($request)
-    {
-    }
-
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \Gomoob\FacebookMessenger\ClientInterface::getPageAccessToken()
+	 */
     public function getPageAccessToken()
     {
+    	return $this->pageAccessToken;
     }
+
+    /**
+     * 
+     * {@inheritDoc}
+     * @see \Gomoob\FacebookMessenger\ClientInterface::sendMessage()
+     */
+    public function sendMessage($request)
+    {
+    	$this->FacebookMessengerRequests[] = $request;
+    	return Response::create(
+    		json_decode('{
+    			"recipient_id":"1506900809384015",
+    			"message_id":"mid.$cAACzfxmNj4VjBRUYrFc08_P1M_Za",
+                "status_code":200,
+                "status_message":"OK"
+            }', true)
+    	);
+    }
+	
+    /**
+     * 
+     * {@inheritDoc}
+     * @see \Gomoob\FacebookMessenger\ClientInterface::setPageAccessToken()
+     */
+    public function setPageAccessToken($pageAccessToken)
+    {
+    	$this->pageAccessToken = $pageAccessToken;
+    	return $this;
+    }
+    
+    /**
+     * Gets the list of Facebook Messenger requests which have been sent with this Facebook Messenger client.
+     *
+     * @return array An array of Facebook Messenger requests which have been sent with this Facebook Messenger client.
+     */
+	public function getFacebookMessengerRequests() {
+		return $this->FacebookMessengerRequests;
+	}
+	
 }

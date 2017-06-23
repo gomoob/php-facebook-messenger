@@ -104,7 +104,7 @@ class Client implements ClientInterface
         $response->setRecipientId($jsonBody['recipient_id']);
         $response->setStatusCode($statusCode);
 
-        return $response /*return Response::create($jsonBody)*/;
+        return Response::create($jsonBody);
     }
 
     /**
