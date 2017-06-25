@@ -46,9 +46,9 @@ class ButtonTemplatePayload extends AbstractTemplatePayload {
 	/**
 	 * Set of 1 to 3 buttons that appear as calls to action.
 	 *
-	 * @var \Gomoob\FacebookMessenger\Model\ButtonInterface[]
+	 * @var \Gomoob\FacebookMessenger\Model\ButtonInterface
 	 */
-	private $buttons;
+	private $buttons = [];
 	
 	/**
 	 * Set to false to disable the native sharing button in Messenger for the message template..
@@ -56,6 +56,16 @@ class ButtonTemplatePayload extends AbstractTemplatePayload {
 	 * @var boolean
 	 */
 	private $sharable;
+	
+	/**
+	 * Utility function used to create a new instance of the <tt>ButtonTemplatePayload</tt> class.
+	 *
+	 * @return \Gomoob\FacebookMessenger\Model\Message\ButtonTemplatePayload the new created instance.
+	 */
+	public static function create()
+	{
+		return new ButtonTemplatePayload();
+	}
 
 	/**
 	 * Gets the buttons to display.

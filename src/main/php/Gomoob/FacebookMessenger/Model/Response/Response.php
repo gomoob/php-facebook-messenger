@@ -60,20 +60,47 @@ class Response implements ResponseInterface
      * @var int
      */
     protected $statusCode;
+    
+    /**
+     * The Facebook Messenger status message.
+     *
+     * @var string
+     */
+    protected $statusMessage;
 
     /**
      * Utility function used to create a new instance of the <tt>Response</tt> class.
      *
+     * @param $jsonBody the body of the guzzle response
+     * @param $statusCode the Facebook Messenger status code.
+     * @param $statusMessage the Facebook Messenger status message.
      * @return \Gomoob\FacebookMessenger\Model\Response\Response the new created instance.
      */
-    public static function create($jsonBody)
+    public static function create($jsonBody, $statusCode, $statusMessage)
     {
         $createResponse = new Response();
         $createResponse->setMessageId($jsonBody['message_id']);
         $createResponse->setRecipientId($jsonBody['recipient_id']);
         $createResponse->setStatusCode(200);
+        $createResponse->setStatusMessage($statusMessage);
             
     	return $createResponse;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public function getMessageId()
+    {
+    	return $this->messageId;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public function getRecipientId()
+    {
+    	return $this->recipientId;
     }
 
     /**
@@ -83,21 +110,13 @@ class Response implements ResponseInterface
     {
         return $this->statusCode;
     }
-
+    
     /**
      * {@inheritDoc}
      */
-    public function getMessageId()
+    public function getStatusMessage()
     {
-        return $this->messageId;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getRecipientId()
-    {
-        return $this->recipientId;
+    	return $this->statusMessage;
     }
 
     /**
@@ -149,5 +168,13 @@ class Response implements ResponseInterface
     public function setStatusCode($statusCode)
     {
         $this->statusCode = $statusCode;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public function setStatusMessage($statusMessage)
+    {
+    	$this->statusMessage= $statusMessage;
     }
 }

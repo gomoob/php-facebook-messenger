@@ -45,9 +45,9 @@ class TemplateMessageRequest extends AbstractRequest {
 	private $message;
 
     /**
-     * Utility function used to create a new instance of the <tt>TextMessageRequest</tt>.
+     * Utility function used to create a new instance of the <tt>TemplateMessageRequest</tt>.
      *
-     * @return \Gomoob\FacebookMessenger\Model\Request\CreateMessageRequest the new created instance.
+     * @return \Gomoob\FacebookMessenger\Model\Request\TemplateMessageRequest the new created instance.
      */
     public static function create()
     {
@@ -92,10 +92,12 @@ class TemplateMessageRequest extends AbstractRequest {
      */
     public function jsonSerialize()
     {
+    	// Message property must been define.
     	if (!isset($this->message)) {
             throw new FacebookMessengerException('The \'message\' property is not set !');
         }
         
+        // Recipient property must been define.
     	if (!isset($this->recipient)) {
             throw new FacebookMessengerException('The \'recipient\' property is not set !');
         }

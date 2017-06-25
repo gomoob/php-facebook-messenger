@@ -39,16 +39,26 @@ use Gomoob\FacebookMessenger\Model\AttachmentInterface;
 class Attachment implements AttachmentInterface
 {
     /**
-     * The payload of the attachment.
+     * The payload of the button model.
      * @var \Gomoob\FacebookMessenger\Model\PayloadInterface The payload of the attachment.
      */
 	private $payload;
 
 	/**
-	 * The type of the attachment.
+	 * The type of the attachment must be `template`.
 	 * @var string The type of the attachment.
 	 */
-    private $type;
+	private $type;
+	
+	/**
+	 * Utility function used to create a new instance of the <tt>Attachment</tt> class.
+	 *
+	 * @return \Gomoob\FacebookMessenger\Model\Message\Attachment the new created instance.
+	 */
+	public static function create()
+	{
+		return new Attachment();
+	}
     
     /**
      * {@inheritDoc}

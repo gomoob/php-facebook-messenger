@@ -97,14 +97,11 @@ class Client implements ClientInterface
         $guzzleResponse = $this->guzzleClient->post(null, ['json' => $request->jsonSerialize()]);
         $stringBody = (string)$guzzleResponse->getBody();
         $statusCode = $guzzleResponse->getStatusCode();
+        $statusMessage = $guzzleResponse->getReasonPhrase();
 
         $jsonBody = json_decode($stringBody, true);
-        $response = new Response();
-        $response->setMessageId($jsonBody['message_id']);
-        $response->setRecipientId($jsonBody['recipient_id']);
-        $response->setStatusCode($statusCode);
         
-        return Response::create($jsonBody);
+        return Response::create($jsonBody, $statusCode, $statusMessage);
     }
 
     /**

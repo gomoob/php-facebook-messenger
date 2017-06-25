@@ -48,6 +48,7 @@ class TemplateMessageRequestTest extends TestCase
 {
     /**
      * Test method for the `getMessage()` and `setMessage($text)` functions.
+     * @group TemplateMessageRequestTest.testGetSetMessage
      */
     public function testGetSetMessage()
     {
@@ -71,15 +72,52 @@ class TemplateMessageRequestTest extends TestCase
         $templateMessage->setAttachment($attachment);
         $this->assertNull($templateMessageRequest->getMessage());
         $templateMessageRequest->setMessage($templateMessage);
-        var_dump($templateMessageRequest);
         $this->assertSame($templateMessage, $templateMessageRequest->getMessage());
     }
 
     
     /**
      * Test method for the `jsonSerialize()` function.
+     * @group TemplateMessageRequestTest.testJsonSerialize
      */
-    public function testJsonSerialize()
-    {
+    public function testJsonSerialize() {
+    	$templateMessageRequest = new TemplateMessageRequest();
+    	
+    	// Test without the 'message' property
+    	try {
+    		$templateMessageRequest->jsonSerialize();
+    		$this->fail('Must have thrown a FacebookMessengerException !');
+    	} catch (FacebookMessengerException $fmex) {
+    		$this->assertSame('The \'message\' property is not set !', $fmex->getMessage());
+    	}
+    	
+    	// Test with valid settings
+    	$button = new WebUrlButton();
+    	$button->setTitle('Voir le moment');
+    	$button->setType('web_url');
+    	$button->setUrl("www.google.com");
+    	
+    	$payload = new ButtonTemplatePayload();
+    	$payload->setTemplateType('button');
+    	$payload->setText("Payload de test");
+    	$payload->setButtons($button);
+    	
+    	$buttonTemplatePayload = new ButtonTemplatePayload();
+    	$buttonTemplatePayload->setTemplateType("button");
+    	$buttonTemplatePayload->setText('ButtonTemplate payload test.');
+    	$buttonTemplatePayload->setButtons($button);
+    	
+    	$attachment = new Attachment();
+    	$attachment->setPayload($payload);
+    	$attachment->setType('template');
+    	$attachment->setPayload($buttonTemplatePayload);
+    	
+    	$templateMessageRequest->setRecipient(Recipient::create()->setPhoneNumber('+33760647186'));
+    	$templateMessageRequest->setMessage(TemplateMessage::create()->setAttachment($attachment));
+    	
+    	$json = $templateMessageRequest->jsonSerialize();
+    	$this->assertCount(2, $json);
+    	$this->assertSame($attachment, $json['message']->getAttachment());
+    	$this->assertSame('+33760647186', $json['recipient']->getPhoneNumber());
     }
 }

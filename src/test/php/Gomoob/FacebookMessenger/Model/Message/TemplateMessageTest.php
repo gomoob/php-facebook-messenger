@@ -31,6 +31,7 @@ use Gomoob\FacebookMessenger\Model\Attachment\Attachment;
 use Gomoob\FacebookMessenger\Model\Button\WebUrlButton;
 use Gomoob\FacebookMessenger\Model\Payload\ButtonTemplatePayload;
 use PHPUnit\Framework\TestCase;
+use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 
 /**
  * Test case used to test the `TemplateMessage` class.
@@ -42,9 +43,9 @@ class TemplateMessageTest extends TestCase
 {
     /**
      * Test method for the `getAttachment()` and `setAttachment($attachment)` functions.
+     * @group TemplateMessageTest.testGetSetAttachment
      */
-    public function testGetSetAttachment()
-    {
+    public function testGetSetAttachment() {
         $button = new WebUrlButton();
         $button->setTitle("Voir le moment");
         $button->setType('web_url');
@@ -67,9 +68,46 @@ class TemplateMessageTest extends TestCase
 
     /**
      * Test method for the `jsonSerialize()` function.
+     * @group TemplateMessageTest.testJsonSerialize
      */
-    public function testJsonSerialize()
-    {
-        
+    public function testJsonSerialize() {
+    	$templateMessage = new TemplateMessage();
+    	
+    	// Test without the 'attachment' property
+    	try {
+    		$templateMessage->jsonSerialize();
+    		$this->fail('Must have thrown a FacebookMessengerException !');
+    	} catch (FacebookMessengerException $fmex) {
+    		$this->assertSame('The \'attachment\' property is not set !', $fmex->getMessage());
+    	}
+    	$button = new WebUrlButton();
+    	$button->setTitle('Voir le moment');
+    	$button->setType('web_url');
+    	$button->setUrl("www.google.com");
+    	
+    	$payload = new ButtonTemplatePayload();
+    	$payload->setTemplateType('button');
+    	$payload->setText("Payload de test");
+    	$payload->setButtons($button);
+    	
+    	$buttonTemplatePayload = new ButtonTemplatePayload();
+    	$buttonTemplatePayload->setTemplateType("button");
+    	$buttonTemplatePayload->setText('ButtonTemplate payload test.');
+    	$buttonTemplatePayload->setButtons($button);
+    	
+    	$attachment = new Attachment();
+    	$attachment->setPayload($payload);
+    	$attachment->setType('template');
+    	$attachment->setPayload($buttonTemplatePayload);
+    	
+    	// Test with valid settings
+    	$templateMessage->setAttachment($attachment);
+    	
+    	$json = $templateMessage->jsonSerialize();
+    	$this->assertCount(1, $json);
+    	$this->assertSame($attachment, $json['attachment']);
+    	$this->assertSame("template", $json['attachment']->getType());
+    	$this->assertSame("ButtonTemplate payload test.", $json['attachment']->getPayload()->getText());
+    	$this->assertSame("button", $json['attachment']->getPayload()->getTemplateType());
     }
 }

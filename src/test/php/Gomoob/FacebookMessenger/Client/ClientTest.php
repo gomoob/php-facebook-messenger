@@ -64,9 +64,7 @@ class ClientTest extends TestCase
      */
     public function testSendMessage()
     {
-    	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    	// Create a Facebook Messenger client                                                                        //
-    	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    	// Create a Facebook Messenger client
         $client = Client::create()->setPageAccessToken(
             'EAAZAZA7jhHbesBACsWYzdxcZAHJxArPoZBgMZCBFgsQo9Y0Om35KY5KZBA1Q1S47ZC5N4KYMUuzjluDdm2dTNN8vlbwFap70FcWJgHA' .
             'uujyQtIdWy0ZCRiODMZA8BLj4OiKsL5y2pPfuYTgZBrixRXT0SINWZAEZBbqEVd5lRLTaD6yfZAQZDZD'
@@ -96,34 +94,33 @@ class ClientTest extends TestCase
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Create a request to send a Template Message                                                               //
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        $button = new WebUrlButton();
-        $button->setTitle("Voir le Moment");
-        $button->setUrl("www.google.com");
-        $button->setType("web_url");
-            
-        $buttonTemplatePayload = new ButtonTemplatePayload();
-        $buttonTemplatePayload->setTemplateType("button");
-        $buttonTemplatePayload->setText('ButtonTemplate payload test.');
-        $buttonTemplatePayload->setButtons($button);
-            
-        $attachment = new Attachment();
-        $attachment->setType('template');
-        $attachment->setPayload($buttonTemplatePayload);
+        $button = WebUrlButton::create()->setTitle('Voir le moment')->setType('web_url')->setUrl("www.google.com");
+        $button2 = WebUrlButton::create()->setTitle('Mon compte')->setType('web_url')->setUrl("www.google.com");
+        
+        $buttons[] = $button;
+        $buttons[] = $button2;
+        
+        $buttonTemplatePayload = ButtonTemplatePayload::create()
+        ->setTemplateType("button")
+        ->setText('ButtonTemplate payload test.')
+        ->setButtons($buttons);
+        
+        $attachment = Attachment::create()->setType('template')->setPayload($buttonTemplatePayload);
         
         $templateMessageRequest = TemplateMessageRequest::create()
             ->setRecipient(Recipient::create()->setPhoneNumber('+33760647186'))
             ->setMessage(TemplateMessage::create()->setAttachment($attachment));
         
         // Call the REST Web Service
-//         $responseTemplateMessage = $client->sendMessage($templateMessageRequest);
+        $responseTemplateMessage = $client->sendMessage($templateMessageRequest);
 
-//     	// Check if template message response is ok
-//     	if($responseTemplateMessage->isOk()) {
-//     		print 'Great, my template message has been sent !';
-//     	} else {
-//     		print 'Oups, the template message sent failed :-(';
-//     		print 'Status code : ' . $responseTemplateMessage->getStatusCode();
-//     		print 'Status message : ' . $responseTemplateMessage->getStatusMessage();
-//     	}
+    	// Check if template message response is ok
+    	if($responseTemplateMessage->isOk()) {
+    		print 'Great, my template message has been sent !';
+    	} else {
+    		print 'Oups, the template message sent failed :-(';
+    		print 'Status code : ' . $responseTemplateMessage->getStatusCode();
+    		print 'Status message : ' . $responseTemplateMessage->getStatusMessage();
+    	}
     }
 }

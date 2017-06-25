@@ -54,7 +54,7 @@ class TextMessageRequest extends AbstractRequest
     /**
      * Utility function used to create a new instance of the <tt>TextMessageRequest</tt>.
      *
-     * @return \Gomoob\FacebookMessenger\Model\Request\CreateMessageRequest the new created instance.
+     * @return \Gomoob\FacebookMessenger\Model\Request\TextMessageRequest the new created instance.
      */
     public static function create()
     {

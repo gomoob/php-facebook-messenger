@@ -30,6 +30,7 @@ namespace Gomoob\FacebookMessenger\Model\Payload;
 use PHPUnit\Framework\TestCase;
 use Gomoob\FacebookMessenger\Model\Payload\ButtonTemplatePayload;
 use Gomoob\FacebookMessenger\Model\Button\WebUrlButton;
+use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 
 /**
  * Test case used to test the `ButtonTemplatePayload` class.
@@ -63,8 +64,31 @@ class ButtonTemplatePayloadTest extends TestCase
     /**
      * Test method for the `jsonSerialize()` function.
      */
-    public function testJsonSerialize()
-    {
-        
+    public function testJsonSerialize() {
+    	
+    	$buttonTemplatePayload = new ButtonTemplatePayload();
+    	
+    	// Test without the 'templateType' property.
+    	try {
+    		$buttonTemplatePayload->jsonSerialize();
+    		$this->fail('Must have thrown a FacebookMessengerException !');
+    	} catch (FacebookMessengerException $fmex) {
+    		$this->assertSame('The \'templateType\' property is not set !', $fmex->getMessage());
+    	}
+    	
+    	// Test with valid settings
+    	$button = new WebUrlButton();
+    	$button->setTitle('Voir le moment');
+    	$button->setType('web_url');
+    	$button->setUrl("www.google.com");
+    	
+    	$buttonTemplatePayload->setTemplateType("button");
+    	$buttonTemplatePayload->setText('ButtonTemplate payload test.');
+    	$buttonTemplatePayload->setButtons($button);
+    	
+    	
+    	$json = $buttonTemplatePayload->jsonSerialize();
+    	$this->assertCount(3, $json);
+    	$this->assertSame('Voir le moment', $json['buttons']->getTitle());
     }
 }

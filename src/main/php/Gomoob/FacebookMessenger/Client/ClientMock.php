@@ -78,7 +78,9 @@ class ClientMock implements ClientMockInterface
     			"message_id":"mid.$cAACzfxmNj4VjBRUYrFc08_P1M_Za",
                 "status_code":200,
                 "status_message":"OK"
-            }', true)
+            }', true),
+    		200,
+    		'OK'
     	);
     }
 	

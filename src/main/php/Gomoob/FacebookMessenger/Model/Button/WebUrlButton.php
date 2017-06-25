@@ -81,6 +81,16 @@ class WebUrlButton extends AbstractButton {
      * @var string
      */
     private $webViewShareButton;
+    
+    /**
+     * Utility function used to create a new instance of the <tt>WebUrlButton</tt> class.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\Message\WebUrlButton the new created instance.
+     */
+    public static function create()
+    {
+    	return new WebUrlButton();
+    }
 	
 	/**
 	 * Get the fallback url

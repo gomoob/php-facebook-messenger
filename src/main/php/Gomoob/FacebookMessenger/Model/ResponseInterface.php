@@ -35,8 +35,18 @@ namespace Gomoob\FacebookMessenger\Model;
  */
 interface ResponseInterface extends \JsonSerializable
 {
-    //public function getAttachmentId()/*: string*/;
-    public function getMessageId()/*: string*/;
+    /**
+     * Gets the technical identifier of the Facebook Messenger message.
+     *
+     * @return string the tecnical identifier of the Facebook Messenger message.
+     */
+	public function getMessageId()/*: string*/;
+	
+	/**
+     * Gets the technical identifier of the Facebook Messenger recipient.
+     *
+     * @return string the technical identifier of the Facebook Messenger recipient.
+	 */
     public function getRecipientId()/*: string*/;
 
     /**
@@ -49,6 +59,13 @@ interface ResponseInterface extends \JsonSerializable
      * @return int the Facebook messenger status code.
      */
     public function getStatusCode();
+    
+    /**
+     * Gets the Facebook Messenger status message.
+     *
+     * @return string the Facebook Messenger status message.
+     */
+    public function getStatusMessage();
 
     /**
      * Function used to indicate if the response represents a success.
@@ -57,8 +74,18 @@ interface ResponseInterface extends \JsonSerializable
      */
     public function isOk();
 
-    //public function setAttachmentId(/*string*/ $attachmentId);
+    /**
+     * Sets the technicak identifier of the Facebook messenger message.
+     *
+     * @param int $messageId the technicak identifier of the Facebook messenger message.
+     */
     public function setMessageId(/*string*/ $messageId);
+    
+    /**
+     * Sets the technicak identifier of the Facebook messenger recipient.
+     *
+     * @param int $recipientId the technicak identifier of the Facebook messenger recipient.
+     */
     public function setRecipientId(/*string*/ $recipientId);
 
     /**
@@ -71,4 +98,11 @@ interface ResponseInterface extends \JsonSerializable
      * @param int $statusCode the Facebook messenger status code.
      */
     public function setStatusCode($statusCode);
+    
+    /**
+     * Sets the Facebook messenger status message.
+     *
+     * @param int $statusMessage the Facebook messenger status message.
+     */
+    public function setStatusMessage($statusMessage);
 }

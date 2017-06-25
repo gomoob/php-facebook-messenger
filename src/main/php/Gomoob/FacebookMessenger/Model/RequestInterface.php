@@ -68,7 +68,7 @@ interface RequestInterface extends \JsonSerializable
      *
      * @param \Gomoob\FacebookMessenger\Model\MessageInterface $message the message link to the request.
      */
-    public function setMessage(/* MessageInterface */ $message);
+    public function setMessage(/* TemplateMessageInterface */ $message);
 
     /**
      * Set the notification type of the request.
