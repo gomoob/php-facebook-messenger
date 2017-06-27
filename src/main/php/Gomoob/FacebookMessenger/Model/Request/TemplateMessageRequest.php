@@ -35,14 +35,14 @@ use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
  * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference#request
  */
-class TemplateMessageRequest extends AbstractRequest {
-	
-	/**
-	 * The message to be attached to the template message request.
-	 * @var \Gomoob\FacebookMessenger\Model\TemplateMessageInterface The message to be attached to the template message 
-	 * request.
-	 */
-	private $message;
+class TemplateMessageRequest extends AbstractRequest
+{
+    /**
+     * The message to be attached to the template message request.
+     * @var \Gomoob\FacebookMessenger\Model\TemplateMessageInterface The message to be attached to the template message
+     * request.
+     */
+    private $message;
 
     /**
      * Utility function used to create a new instance of the <tt>TemplateMessageRequest</tt>.
@@ -53,14 +53,14 @@ class TemplateMessageRequest extends AbstractRequest {
     {
         return new TemplateMessageRequest();
     }
-	
-	/**
-	 * {@inheritDoc}
-	 * @see \Gomoob\FacebookMessenger\Model\RequestInterface::getMessage()
-	 */
+
+    /**
+     * {@inheritDoc}
+     * @see \Gomoob\FacebookMessenger\Model\RequestInterface::getMessage()
+     */
     public function getMessage()
     {
-    	return $this->message;
+        return $this->message;
     }
 
     /**
@@ -92,13 +92,13 @@ class TemplateMessageRequest extends AbstractRequest {
      */
     public function jsonSerialize()
     {
-    	// Message property must been define.
-    	if (!isset($this->message)) {
+        // Message property must been define.
+        if (!isset($this->message)) {
             throw new FacebookMessengerException('The \'message\' property is not set !');
         }
-        
+
         // Recipient property must been define.
-    	if (!isset($this->recipient)) {
+        if (!isset($this->recipient)) {
             throw new FacebookMessengerException('The \'recipient\' property is not set !');
         }
         $json = [
@@ -117,9 +117,9 @@ class TemplateMessageRequest extends AbstractRequest {
      */
     public function setMessage($message)
     {
-    	$this->message = $message;
-    	
-    	return $this;
+        $this->message = $message;
+
+        return $this;
     }
 
     /**

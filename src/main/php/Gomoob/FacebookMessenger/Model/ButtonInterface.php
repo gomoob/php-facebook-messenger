@@ -33,19 +33,21 @@ namespace Gomoob\FacebookMessenger\Model;
  * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference
  */
-interface ButtonInterface extends \JsonSerializable {
-	
-	/**
-	 * Gets the type of the button.
-	 *
-	 * @return string The type of the button.
-	 */
-	public function getType();
-	
-	/**
-	 * Set the type of the button.
-	 *
-	 * @param string $type The type of the button.
-	 */
-	public function setType($type);
+interface ButtonInterface extends \JsonSerializable
+{
+    /**
+     * Gets the type of the button.
+     *
+     * @return string The type of the button.
+     */
+    public function getType();
+
+    /**
+     * Set the type of the button.
+     *
+     * @param string $type The type of the button.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\ButtonInterface this instance.
+     */
+    public function setType($type);
 }

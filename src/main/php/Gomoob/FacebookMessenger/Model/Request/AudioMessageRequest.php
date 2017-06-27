@@ -27,15 +27,14 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Request;
 
-use Gomoob\FacebookMessenger\Model\Request\AbstractRequest;
-
 /**
  * Class which represents a Facebook Messenger request.
  *
  * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference#request
  */
-class AudioMessageRequest extends AbstractRequest {
+class AudioMessageRequest extends AbstractRequest
+{
     public function getMessage()
     {
     }

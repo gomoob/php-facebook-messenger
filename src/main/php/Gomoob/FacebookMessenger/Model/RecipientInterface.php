@@ -35,21 +35,67 @@ namespace Gomoob\FacebookMessenger\Model;
  */
 interface RecipientInterface extends \JsonSerializable
 {
-    // TODO: Documentation manquante
-    public function getId() /*: string*/;
+    /**
+     * Gets the page-scoped user ID of the recipent.
+     *
+     * This is the field most developers will commonly use to send messages.
+     *
+     * @return string the page-scoped user ID of the recipient.
+     */
+    public function getId() /* : string*/;
 
-    // TODO: Documentation manquante
-    public function getName() /*: NameInterface*/;
+    /**
+     * Gets the name of the recipient.
+     *
+     * If passing a phone number, also passing the user's name that you have on file will increase the odds of a
+     * successful match.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\NameInterface the name of the recipent.
+     */
+    public function getName() /* : NameInterface */;
 
-    // TODO: Documentation manquante
-    public function getPhoneNumber()/*: string*/;
+    /**
+     * Gets the phone number of the recipient.
+     *
+     * This is a phone number of the recipient with the format `+1(212)555-2368`. Your bot must be approved for Customer
+     * Matching to send messages this way.
+     *
+     * @return string the phone number of the recipient.
+     */
+    public function getPhoneNumber() /* : string */;
 
-    // TODO: Documentation manquante
-    public function setId(/*string*/ $id);
+    /**
+     * Sets the page-scoped user ID of the recipent.
+     *
+     * This is the field most developers will commonly use to send messages.
+     *
+     * @param string $id the page-scoped user ID of the recipent.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\RecipientInterface this instance.
+     */
+    public function setId(/* string */ $id);
 
-    // TODO: Documentation manquante
-    public function setName(/*NameInterface*/ $name);
+    /**
+     * Sets the name of the recipent.
+     *
+     * If passing a phone number, also passing the user's name that you have on file will increase the odds of a
+     * successful match.
+     *
+     * @param \Gomoob\FacebookMessenger\Model\NameInterface $name the name of the recipent.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\RecipientInterface this instance.
+     */
+    public function setName(/* NameInterface */ $name);
 
-    // TODO: Documentation manquante
+    /**
+     * Sets the phone number of the recipient.
+     *
+     * This is a phone number of the recipient with the format `+1(212)555-2368`. Your bot must be approved for Customer
+     * Matching to send messages this way.
+     *
+     * @param string $phoneNumber the phone number of the recipient.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\RecipientInterface this instance.
+     */
     public function setPhoneNumber(/*string*/ $phoneNumber);
 }

@@ -9,13 +9,13 @@
  * following conditions are met:
  *
  * * Redistributions of source code must retain the above copyright notice, this list of conditions and the following
- * disclaimer.
+ *   disclaimer.
  *
  * * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
- * disclaimer in the documentation and/or other materials provided with the distribution.
+ *   disclaimer in the documentation and/or other materials provided with the distribution.
  *
  * * Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote
- * products derived from this software without specific prior written permission.
+ *   products derived from this software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -54,13 +54,14 @@ class TemplateMessage implements TemplateMessageInterface
     {
         return new TemplateMessage();
     }
-    
+
     /**
      * {@inheritDoc}
      */
-	public function getAttachment() {
-		return $this->attachment;
-	}
+    public function getAttachment()
+    {
+        return $this->attachment;
+    }
 
     /**
      * {@inheritDoc}
@@ -68,7 +69,7 @@ class TemplateMessage implements TemplateMessageInterface
     public function jsonSerialize()
     {
         // The 'attachment' property must have been defined
-        if(!isset($this->attachment)) {
+        if (!isset($this->attachment)) {
             throw new FacebookMessengerException('The \'attachment\' property is not set !');
         }
 
@@ -76,13 +77,13 @@ class TemplateMessage implements TemplateMessageInterface
             'attachment' => $this->attachment
         ];
     }
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public function setAttachment($attachment) {
-		$this->attachment = $attachment;
-		return $this;
-	}
-	
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setAttachment($attachment)
+    {
+        $this->attachment = $attachment;
+        return $this;
+    }
 }

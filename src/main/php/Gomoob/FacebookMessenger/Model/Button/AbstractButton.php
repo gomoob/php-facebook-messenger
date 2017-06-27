@@ -9,13 +9,13 @@
  * following conditions are met:
  *
  * * Redistributions of source code must retain the above copyright notice, this list of conditions and the following
- * disclaimer.
+ *   disclaimer.
  *
  * * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
- * disclaimer in the documentation and/or other materials provided with the distribution.
+ *   disclaimer in the documentation and/or other materials provided with the distribution.
  *
  * * Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote
- * products derived from this software without specific prior written permission.
+ *   products derived from this software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -34,7 +34,8 @@ use Gomoob\FacebookMessenger\Model\ButtonInterface;
  *
  * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
  */
-abstract class AbstractButton implements ButtonInterface {
+abstract class AbstractButton implements ButtonInterface
+{
 
     /**
      * The type of the button.
@@ -42,20 +43,21 @@ abstract class AbstractButton implements ButtonInterface {
      * @var string The type of the button.
      */
     protected $type;
-    
+
     /**
      * {@inheritDoc}
      */
-	public function getType() {
-		return $this->type;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public function setType($type) {
-		$this->type = $type;
-		return $this;
-	}
-    
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+        return $this;
+    }
 }

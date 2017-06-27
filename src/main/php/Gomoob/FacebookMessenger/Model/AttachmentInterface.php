@@ -33,31 +33,37 @@ namespace Gomoob\FacebookMessenger\Model;
  * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference
  */
-interface AttachmentInterface extends \JsonSerializable {
-	
-	/**
-	 * Get the payload of the attachment.
-	 * @return \Gomoob\FacebookMessenger\Model\PayloadInterface
-	 */
-	public function getPayload();
-	
-	/**
+interface AttachmentInterface extends \JsonSerializable
+{
+    /**
+     * Get the payload of the attachment.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\PayloadInterface
+     */
+    public function getPayload();
+
+    /**
+     * Get the type of the attachment.
+     *
+     * @return string
+     */
+    public function getType();
+
+    /**
      * Set the payload of the attachment.
      *
      * @param string $payload the payload of the attachment.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\AttachmentInterface this instance.
      */
-	public function setPayload($payload);
-	
-	/**
-	 * Get the type of the attachment.
-	 * @return string
-	 */
-	public function getType();
-	
-	/**
+    public function setPayload($payload);
+
+    /**
      * Set the type of the attachment.
      *
      * @param string $type the type of the attachment.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\AttachmentInterface this instance.
      */
-	public function setType($type);
+    public function setType($type);
 }

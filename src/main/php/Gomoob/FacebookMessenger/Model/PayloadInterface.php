@@ -33,19 +33,19 @@ namespace Gomoob\FacebookMessenger\Model;
  * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference
  */
-interface PayloadInterface extends \JsonSerializable {
-	
-	/**
-	 * Gets the template type of the payload.
-	 *
-	 * @return \Gomoob\FacebookMessenger\Model\PayloadInterface The template type of the payload.
-	 */
-	public function getTemplateType();
-	
-	/**
-	 * Set the template type of the payload.
-	 *
-	 * @param string $notificationType the template type of the payload.
-	 */
-	public function setTemplateType($templateType);
+interface PayloadInterface extends \JsonSerializable
+{
+    /**
+     * Gets the template type of the payload.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\PayloadInterface The template type of the payload.
+     */
+    public function getTemplateType();
+
+    /**
+     * Set the template type of the payload.
+     *
+     * @param string $notificationType the template type of the payload.
+     */
+    public function setTemplateType($templateType);
 }

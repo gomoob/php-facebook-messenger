@@ -27,8 +27,6 @@
  */
 namespace Gomoob\FacebookMessenger;
 
-use Gomoob\FacebookMessenger\Model\RequestInterface;
-
 /**
  * Interface which defines a Facebook Messenger client.
  *
@@ -38,24 +36,25 @@ use Gomoob\FacebookMessenger\Model\RequestInterface;
 interface ClientInterface
 {
     /**
-     * Get the page access token.
-     * @return string The page access token used to send a request.
+     * Get the page access token used by the client.
+     *
+     * @return string the page access token used to send requests.
      */
-    public function getPageAccessToken();
+    public function getPageAccessToken() /* : string */;
 
     /**
      * Sends a Facebook Messenger message.
      *
-     * @param \Gomoob\FacebookMessenger\Model\RequestInterface $request the Facebook Messenger requet to send.
+     * @param \Gomoob\FacebookMessenger\Model\RequestInterface $request the Facebook Messenger request to send.
      *
      * @return \Gomoob\FacebookMessenger\Model\ResponseInterface the resulting Facebook Messenger response.
      */
     public function sendMessage(/* RequestInterface */ $request) /* : Response */;
-    
+
     /**
-     * Set the page access token.
+     * Set the page access token to use to send requests.
      *
-     * @param string $pageAccessToken The page access token used to send a request.
+     * @param string $pageAccessToken the page access token to use to send requests.
      */
-    public function setPageAccessToken(/*string*/ $pageAccessToken);
+    public function setPageAccessToken(/* string */ $pageAccessToken);
 }

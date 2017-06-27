@@ -9,13 +9,13 @@
  * following conditions are met:
  *
  * * Redistributions of source code must retain the above copyright notice, this list of conditions and the following
- * disclaimer.
+ *   disclaimer.
  *
  * * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
- * disclaimer in the documentation and/or other materials provided with the distribution.
+ *   disclaimer in the documentation and/or other materials provided with the distribution.
  *
  * * Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote
- * products derived from this software without specific prior written permission.
+ *   products derived from this software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -39,13 +39,15 @@ use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 class Name implements NameInterface
 {
     /**
-     * The first name of the recipient
+     * The first name of the recipient.
+     *
      * @var string
      */
     private $firstName;
 
     /**
-     * The last name of the recipient
+     * The last name of the recipient.
+     *
      * @var string
      */
     private $lastName;
@@ -56,8 +58,7 @@ class Name implements NameInterface
     public function jsonSerialize()
     {
         // One of the 'firstName' or 'lastName' property must have been defined.
-        if(!isset($this->firstName) && !isset($this->lastName))
-        {
+        if (!isset($this->firstName) && !isset($this->lastName)) {
             throw new FacebookMessengerException('None of the \'firstName\' and \'lastName\' properties are set !');
         }
 
@@ -70,30 +71,36 @@ class Name implements NameInterface
     /**
      * {@inheritDoc}
      */
-    public function getFirstName() {
+    public function getFirstName()
+    {
         return $this->firstName;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getLastName() {
+    public function getLastName()
+    {
         return $this->lastName;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setFirstName($firstName) {
+    public function setFirstName($firstName)
+    {
         $this->firstName = $firstName;
+
         return $this;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setLastName($lastName) {
+    public function setLastName($lastName)
+    {
         $this->lastName = $lastName;
+
         return $this;
     }
 }

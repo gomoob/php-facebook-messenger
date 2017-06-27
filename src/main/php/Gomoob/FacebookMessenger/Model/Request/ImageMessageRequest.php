@@ -33,7 +33,8 @@ namespace Gomoob\FacebookMessenger\Model\Request;
  * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference#request
  */
-class ImageMessageRequest extends AbstractRequest {
+class ImageMessageRequest extends AbstractRequest
+{
     public function getMessage()
     {
     }
@@ -41,6 +42,4 @@ class ImageMessageRequest extends AbstractRequest {
     public function setMessage($message)
     {
     }
-
-
 }

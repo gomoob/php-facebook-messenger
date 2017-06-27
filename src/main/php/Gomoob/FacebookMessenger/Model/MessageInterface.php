@@ -33,35 +33,37 @@ namespace Gomoob\FacebookMessenger\Model;
  * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference
  */
-interface MessageInterface extends \JsonSerializable {
+interface MessageInterface extends \JsonSerializable
+{
+    /**
+     * Get the message attachment.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\AttachmentInterface
+     */
+    public function getAttachment() /* : AttachmentInterface */;
 
-	/**
-	 * Get the message text.
-	 *
-	 * @return string
-	 */
-	public function getText();
+    /**
+     * Get the message text.
+     *
+     * @return string the message text.
+     */
+    public function getText() /* : string */;
 
-	/**
-	 * Set the message text.
-	 *
-	 * @param string $text the message text.
-	 * @return string the message text.
-	 */
-	public function setText($text);
+    /**
+     * Set the message attachment.
+     *
+     * @param \Gomoob\FacebookMessenger\Model\AttachmentInterface $attachment
+     *
+     * @return \Gomoob\FacebookMessenger\Model\AttachmentInterface this instance.
+     */
+    public function setAttachment(/* AttachmentInterface */ $attachment);
 
-	/**
-	 * Get the message attachment.
-	 *
-	 * @return \Gomoob\FacebookMessenger\Model\AttachmentInterface
-	 */
-	public function getAttachment();
-
-	/**
-	 * Set the message attachment.
-	 *
-	 * @param AtatchementInterface $attachment
-	 * @return \Gomoob\FacebookMessenger\Model\AttachmentInterface
-	 */
-	public function setAttachment($attachment);
+    /**
+     * Set the message text.
+     *
+     * @param string $text the message text.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\AttachmentInterface this instance.
+     */
+    public function setText(/* string */ $text);
 }
