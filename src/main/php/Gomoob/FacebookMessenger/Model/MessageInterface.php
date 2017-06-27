@@ -36,13 +36,6 @@ namespace Gomoob\FacebookMessenger\Model;
 interface MessageInterface extends \JsonSerializable
 {
     /**
-     * Get the message attachment.
-     *
-     * @return \Gomoob\FacebookMessenger\Model\AttachmentInterface
-     */
-    public function getAttachment() /* : AttachmentInterface */;
-
-    /**
      * Gets the custom string that is delivered as a message echo.
      *
      * @return string the custom string that is delivered as a message echo.
@@ -55,15 +48,6 @@ interface MessageInterface extends \JsonSerializable
      * @return \Gomoob\FacebookMessenger\Model\QuickReplyInterface[] the quick replies to be sent with messages.
      */
     public function getQuickReplies() /* : array */;
-
-    /**
-     * Set the message attachment.
-     *
-     * @param \Gomoob\FacebookMessenger\Model\AttachmentInterface $attachment
-     *
-     * @return \Gomoob\FacebookMessenger\Model\AttachmentInterface this instance.
-     */
-    public function setAttachment(/* AttachmentInterface */ $attachment) /* : MessageInterface */;
 
     /**
      * Sets the custom string that is delivered as a message echo.

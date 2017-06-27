@@ -9,13 +9,13 @@
  * following conditions are met:
  *
  * * Redistributions of source code must retain the above copyright notice, this list of conditions and the following
- *   disclaimer.
+ * disclaimer.
  *
  * * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
- *   disclaimer in the documentation and/or other materials provided with the distribution.
+ * disclaimer in the documentation and/or other materials provided with the distribution.
  *
  * * Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote
- *   products derived from this software without specific prior written permission.
+ * products derived from this software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -25,39 +25,29 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-namespace Gomoob\FacebookMessenger\Model\Message;
-
-use Gomoob\FacebookMessenger\Model\AttachmentMessageInterface;
+namespace Gomoob\FacebookMessenger\Model;
 
 /**
- * Abstract class common to all Facebook Messenger messages having an attachment.
+ * Interface which represents a Facebook Messenger message which associates an attachment.
  *
  * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
+ * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference/contenttypes
  */
-abstract class AbstractAttachmentMessage extends AbstractMessage implements AttachmentMessageInterface
+interface AttachmentMessageInterface extends MessageInterface
 {
     /**
-     * The attachment of the message to send.
+     * Get the message attachment.
      *
-     * @var \Gomoob\FacebookMessenger\Model\AttachmentInterface
+     * @return \Gomoob\FacebookMessenger\Model\AttachmentInterface
      */
-    protected $attachment;
+    public function getAttachment() /* : AttachmentInterface */;
 
     /**
-     * {@inheritDoc}
+     * Set the message attachment.
+     *
+     * @param \Gomoob\FacebookMessenger\Model\AttachmentInterface $attachment the message attachment.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\AttachmentInterface this instance.
      */
-    public function getAttachment() /* : AttachmentInterface */
-    {
-        return $this->attachment;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setAttachment($attachment) /* : AttachmentMessageInterface */
-    {
-        $this->attachment = $attachment;
-
-        return $this;
-    }
+    public function setAttachment(/* AttachmentInterface */ $attachment) /* : AttachmentMessageInterface */;
 }
