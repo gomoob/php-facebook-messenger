@@ -31,36 +31,19 @@ use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 use Gomoob\FacebookMessenger\Model\AttachmentInterface;
 
 /**
- * Class which represents a Facebook Messenger response.
+ * Abstract class common to all Facebook Messenger message attachments.
  *
  * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
- * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference#response
+ * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference
  */
-class Attachment implements AttachmentInterface
+abstract class AbstractAttachment implements AttachmentInterface
 {
     /**
      * The payload of the button model.
      *
      * @var \Gomoob\FacebookMessenger\Model\PayloadInterface
      */
-    private $payload;
-
-    /**
-     * The type of the attachment must be `template`.
-     *
-     * @var string
-     */
-    private $type;
-
-    /**
-     * Utility function used to create a new instance of the <tt>Attachment</tt> class.
-     *
-     * @return \Gomoob\FacebookMessenger\Model\Attachment\Attachment the new created instance.
-     */
-    public static function create()
-    {
-        return new Attachment();
-    }
+    protected $payload;
 
     /**
      * {@inheritDoc}
@@ -68,14 +51,6 @@ class Attachment implements AttachmentInterface
     public function getPayload()
     {
         return $this->payload;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getType()
-    {
-        return $this->type;
     }
 
     /**
@@ -97,20 +72,25 @@ class Attachment implements AttachmentInterface
     /**
      * {@inheritDoc}
      */
-    public function setPayload($payload)
+    public function setPayload(/* PayloadInterface */ $payload)
     {
+        // First checks the payload is of the right type
+        $this->doCheckPayloadType($payload);
+
+        // Sets the payload
         $this->payload = $payload;
 
+        // Returns this instance
         return $this;
     }
 
     /**
-     * {@inheritDoc}
+     * Checks that the payload tranmistted to the attachment is of the right type.
+     *
+     * @param \Gomoob\FacebookMessenger\Model\PayloadInterface $payload the payload to check.
+     *
+     * @throws \Gomoob\FacebookMessenger\Exception\FacebookMessengerException if the provided payload has not the right
+     *         type.
      */
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
+    abstract protected function doCheckPayloadType(/* PayloadInterface */ $payload);
 }

@@ -35,19 +35,4 @@ namespace Gomoob\FacebookMessenger\Model;
  */
 interface PayloadInterface extends \JsonSerializable
 {
-    /**
-     * Gets the template type of the payload.
-     *
-     * @return \Gomoob\FacebookMessenger\Model\PayloadInterface The template type of the payload.
-     */
-    public function getTemplateType() /* : string */;
-
-    /**
-     * Set the template type of the payload.
-     *
-     * @param string $templateType the template type of the payload.
-     *
-     * @return \Gomoob\FacebookMessenger\Model\PayloadInterface this instance.
-     */
-    public function setTemplateType(/* string */ $templateType);
 }

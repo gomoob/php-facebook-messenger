@@ -27,37 +27,11 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Payload;
 
-use Gomoob\FacebookMessenger\Model\PayloadInterface;
-
 /**
- * Abstract class common to all Facebook Messenger payload.
+ * Abstract class common to all Facebook Messenger template payloads.
  *
  * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
  */
-abstract class AbstractTemplatePayload implements PayloadInterface
+abstract class AbstractTemplatePayload extends AbstractPayload
 {
-    /**
-     * The type of the template to use.
-     *
-     * @var string The type of the template to use.
-     */
-    protected $templateType;
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getTemplateType()
-    {
-        return $this->templateType;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setTemplateType($templateType)
-    {
-        $this->templateType = $templateType;
-
-        return $this;
-    }
 }

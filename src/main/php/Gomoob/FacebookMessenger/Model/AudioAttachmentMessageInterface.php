@@ -30,7 +30,7 @@ namespace Gomoob\FacebookMessenger\Model;
 /**
  * Interface which represents a Facebook Messenger audio attachment message.
  *
- * @author Arnaud Lavall�e (arnaud.lavallee@gomoob.com)
+ * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference
  */
 interface AudioAttachmentMessageInterface extends \JsonSerializable
