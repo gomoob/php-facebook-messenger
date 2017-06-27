@@ -25,40 +25,25 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-namespace Gomoob\FacebookMessenger\Model\Recipient;
-
-use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
+namespace Gomoob\FacebookMessenger\Model\QuickReply;
 
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test case used to test the `Name` class.
+ * Test case used to test the `LocationQuickReply` class.
  *
- * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
- * @group NameTest
+ * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
+ * @group LocationQuickReplyTest
  */
-class NameTest extends TestCase
+class LocationQuickReplyTest extends TestCase
 {
     /**
-     * Test method for the `getFirstName()` and `setFirstName($firstName)` functions.
+     * Test method for the `create()` function.
      */
-    public function testGetSetFirstName()
+    public function testCreate()
     {
-        $name = new Name();
-        $this->assertNull($name->getFirstName());
-        $this->assertSame($name, $name->setFirstName('FIRST_NAME'));
-        $this->assertSame('FIRST_NAME', $name->getFirstName());
-    }
-
-    /**
-     * Test method for the `getLastName()` and `setLastName($lastName)` functions.
-     */
-    public function testGetLastName()
-    {
-        $name = new Name();
-        $this->assertNull($name->getLastName());
-        $this->assertSame($name, $name->setLastName('LAST_NAME'));
-        $this->assertSame('LAST_NAME', $name->getLastName());
+        $locationQuickReply = LocationQuickReply::create();
+        $this->assertNotNull($locationQuickReply);
     }
 
     /**
@@ -66,23 +51,7 @@ class NameTest extends TestCase
      */
     public function testJsonSerialize()
     {
-        $name = new Name();
-
-        // Test without the 'firstName' and 'lastName' property
-        try {
-            $name->jsonSerialize();
-            $this->fail('Must have thrown a FacebookMessengerException !');
-        } catch (FacebookMessengerException $fmex) {
-            $this->assertSame('None of the \'firstName\' and \'lastName\' properties are set !', $fmex->getMessage());
-        }
-
-        // Test with valid settings
-        $name->setFirstName('FIRST_NAME');
-        $name->setLastName('LAST_NAME');
-
-        $json = $name->jsonSerialize();
-        $this->assertCount(2, $json);
-        $this->assertSame('FIRST_NAME', $json['first_name']);
-        $this->assertSame('LAST_NAME', $json['last_name']);
+        $locationQuickReply = new LocationQuickReply();
+        $this->assertSame(['content_type' => 'location'], $locationQuickReply->jsonSerialize());
     }
 }

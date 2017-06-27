@@ -48,7 +48,7 @@ class Recipient implements RecipientInterface
     /**
      * The name of the recipient.
      *
-     * @var string
+     * @var \Gomoob\FacebookMessenger\Model\NameInterface
      */
     private $name;
 
@@ -104,20 +104,21 @@ class Recipient implements RecipientInterface
         // One of the 'id' or 'phoneNumber' property must have been defined.
         if (!isset($this->id) && !isset($this->phoneNumber)) {
             throw new FacebookMessengerException('None of the \'id\' or \'phoneNumber\' properties are set !');
-        } // If the 'id' or 'phoneNumber' parameters are both set this is an error
-        elseif (isset($this->id) && isset($this->phoneNumber)) {
-            throw new FacebookMessengerException('Both \'id\' and \'phoneNumber\' properties are set !');
-        } // The 'id' property is set
-        elseif (isset($this->id)) {
+        }
+
+        // The 'id' property is set
+        if (isset($this->id)) {
             $json['id'] = $this->id;
-        } // The 'phoneNumber' property is set
-        else {
+        }
+
+        // The 'phoneNumber' property is set
+        if (isset($this->phoneNumber)) {
             $json['phone_number'] = $this->phoneNumber;
         }
 
         // The 'name' property is set
         if (isset($this->name)) {
-            $json['name'] = $this->name;
+            $json['name'] = $this->name->jsonSerialize();
         }
 
         return $json;
