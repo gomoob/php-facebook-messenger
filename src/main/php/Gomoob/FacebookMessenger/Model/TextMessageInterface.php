@@ -49,5 +49,5 @@ interface TextMessageInterface extends \JsonSerializable
      *
      * @return \Gomoob\FacebookMessenger\Model\TextMessageInterface this instance.
      */
-    public function setText(/* string */ $text);
+    public function setText(/* string */ $text) /* : TextMessageInterface */;
 }

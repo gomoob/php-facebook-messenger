@@ -43,11 +43,18 @@ interface MessageInterface extends \JsonSerializable
     public function getAttachment() /* : AttachmentInterface */;
 
     /**
-     * Get the message text.
+     * Gets the custom string that is delivered as a message echo.
      *
-     * @return string the message text.
+     * @return string the custom string that is delivered as a message echo.
      */
-    public function getText() /* : string */;
+    public function getMetadata() /* : string */;
+
+    /**
+     * Gets the quick replies to be sent with messages.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\QuickReplyInterface[] the quick replies to be sent with messages.
+     */
+    public function getQuickReplies() /* : array */;
 
     /**
      * Set the message attachment.
@@ -56,14 +63,22 @@ interface MessageInterface extends \JsonSerializable
      *
      * @return \Gomoob\FacebookMessenger\Model\AttachmentInterface this instance.
      */
-    public function setAttachment(/* AttachmentInterface */ $attachment);
+    public function setAttachment(/* AttachmentInterface */ $attachment) /* : MessageInterface */;
 
     /**
-     * Set the message text.
+     * Sets the custom string that is delivered as a message echo.
      *
-     * @param string $text the message text.
+     * @param string $metadata the custom string that is delivered as a message echo.
      *
      * @return \Gomoob\FacebookMessenger\Model\AttachmentInterface this instance.
      */
-    public function setText(/* string */ $text);
+    public function setMetadata(/* string */ $metadata) /* : MessageInterface */;
+
+    /**
+     * Sets the quick replies to be sent with messages.
+     *
+     * @param \Gomoob\FacebookMessenger\Model\QuickReplyInterface[] $quickReplies the quick replies to be sent with
+     *        messages.
+     */
+    public function setQuickReplies(/* array */ $quickReplies) /* : MessageInterface */;
 }

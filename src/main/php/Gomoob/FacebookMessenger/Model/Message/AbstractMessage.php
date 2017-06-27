@@ -37,26 +37,51 @@ use Gomoob\FacebookMessenger\Model\MessageInterface;
 abstract class AbstractMessage implements MessageInterface
 {
     /**
-     * The message text.
+     * The custom string that is delivered as a message echo.
      *
      * @var string
      */
-    protected $text;
+    protected $metadata;
+
+    /**
+     * The quick replies to be sent with messages.
+     *
+     * @var \Gomoob\FacebookMessenger\Model\QuickReplyInterface[]
+     */
+    protected $quickReplies;
 
     /**
      * {@inheritDoc}
      */
-    public function getText() /* : string */
+    public function getMetadata() /* : string */
     {
-        return $this->text;
+        return $this->metadata;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setText(/* string */ $text)
+    public function getQuickReplies() /* : array */
     {
-        $this->text = $text;
+        return $this->quickReplies;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setMetadata(/* string */ $metadata) /* : MessageInterface */
+    {
+        $this->metadata = $metadata;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setQuickReplies(/* array */ $quickReplies) /* : MessageInterface */
+    {
+        $this->quickReplies = $quickReplies;
 
         return $this;
     }
