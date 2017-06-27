@@ -36,11 +36,10 @@ use Gomoob\FacebookMessenger\Model\ButtonInterface;
  */
 abstract class AbstractButton implements ButtonInterface
 {
-
     /**
      * The type of the button.
      *
-     * @var string The type of the button.
+     * @var string
      */
     protected $type;
 
@@ -58,6 +57,7 @@ abstract class AbstractButton implements ButtonInterface
     public function setType($type)
     {
         $this->type = $type;
+
         return $this;
     }
 }

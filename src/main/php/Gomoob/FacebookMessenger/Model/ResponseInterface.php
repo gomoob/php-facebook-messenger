@@ -79,6 +79,8 @@ interface ResponseInterface extends \JsonSerializable
      * Sets the technicak identifier of the Facebook messenger message.
      *
      * @param int $messageId the technicak identifier of the Facebook messenger message.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\ResponseInterface this instance.
      */
     public function setMessageId(/* string */ $messageId);
 
@@ -86,6 +88,8 @@ interface ResponseInterface extends \JsonSerializable
      * Sets the technicak identifier of the Facebook messenger recipient.
      *
      * @param int $recipientId the technicak identifier of the Facebook messenger recipient.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\ResponseInterface this instance.
      */
     public function setRecipientId(/* string */ $recipientId);
 
@@ -98,6 +102,8 @@ interface ResponseInterface extends \JsonSerializable
      *  - 500    : (HTTP Status Code = 500) Internal error.
      *
      * @param int $statusCode the Facebook messenger status code.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\ResponseInterface this instance.
      */
     public function setStatusCode(/* int */ $statusCode);
 
@@ -105,6 +111,8 @@ interface ResponseInterface extends \JsonSerializable
      * Sets the Facebook messenger status message.
      *
      * @param int $statusMessage the Facebook messenger status message.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\ResponseInterface this instance.
      */
     public function setStatusMessage(/* string */ $statusMessage);
 }

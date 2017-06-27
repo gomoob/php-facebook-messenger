@@ -40,12 +40,14 @@ interface TemplateMessageInterface extends \JsonSerializable
      *
      * @return \Gomoob\FacebookMessenger\Model\AttachmentInterface the template message attachment.
      */
-    public function getAttachment();
+    public function getAttachment() /* : AttachmentInterface */;
 
     /**
      * Set the template message attachment.
      *
      * @param \Gomoob\FacebookMessenger\Model\AttachmentInterface $attachment the template message attachment.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\AttachmentInterface this instance.
      */
-    public function setAttachment($attachment);
+    public function setAttachment(/* AttachmentInterface */ $attachment);
 }

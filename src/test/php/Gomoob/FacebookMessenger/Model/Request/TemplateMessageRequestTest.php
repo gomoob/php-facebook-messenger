@@ -28,15 +28,14 @@
 namespace Gomoob\FacebookMessenger\Model\Request;
 
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
-use Gomoob\FacebookMessenger\Model\Message\TextMessage;
 
-use PHPUnit\Framework\TestCase;
 use Gomoob\FacebookMessenger\Model\Recipient\Recipient;
-use Gomoob\FacebookMessenger\Model\Recipient\Name;
 use Gomoob\FacebookMessenger\Model\Message\TemplateMessage;
 use Gomoob\FacebookMessenger\Model\Attachment\Attachment;
 use Gomoob\FacebookMessenger\Model\Payload\ButtonTemplatePayload;
 use Gomoob\FacebookMessenger\Model\Button\WebUrlButton;
+
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test case used to test the `TextMessageRequest` class.
@@ -54,17 +53,17 @@ class TemplateMessageRequestTest extends TestCase
     {
         $templateMessageRequest = new TemplateMessageRequest();
         $templateMessage = new TemplateMessage();
-        
+
         $button = new WebUrlButton();
         $button->setTitle("Voir le Moment");
         $button->setUrl("www.google.com");
         $button->setType("web_url");
-        
+
         $buttonTemplatePayload = new ButtonTemplatePayload();
         $buttonTemplatePayload->setTemplateType("button");
         $buttonTemplatePayload->setText('ButtonTemplate payload test.');
         $buttonTemplatePayload->setButtons($button);
-        
+
         $attachment = new Attachment();
         $attachment->setType('template');
         $attachment->setPayload($buttonTemplatePayload);
@@ -75,49 +74,50 @@ class TemplateMessageRequestTest extends TestCase
         $this->assertSame($templateMessage, $templateMessageRequest->getMessage());
     }
 
-    
+
     /**
      * Test method for the `jsonSerialize()` function.
      * @group TemplateMessageRequestTest.testJsonSerialize
      */
-    public function testJsonSerialize() {
-    	$templateMessageRequest = new TemplateMessageRequest();
-    	
-    	// Test without the 'message' property
-    	try {
-    		$templateMessageRequest->jsonSerialize();
-    		$this->fail('Must have thrown a FacebookMessengerException !');
-    	} catch (FacebookMessengerException $fmex) {
-    		$this->assertSame('The \'message\' property is not set !', $fmex->getMessage());
-    	}
-    	
-    	// Test with valid settings
-    	$button = new WebUrlButton();
-    	$button->setTitle('Voir le moment');
-    	$button->setType('web_url');
-    	$button->setUrl("www.google.com");
-    	
-    	$payload = new ButtonTemplatePayload();
-    	$payload->setTemplateType('button');
-    	$payload->setText("Payload de test");
-    	$payload->setButtons($button);
-    	
-    	$buttonTemplatePayload = new ButtonTemplatePayload();
-    	$buttonTemplatePayload->setTemplateType("button");
-    	$buttonTemplatePayload->setText('ButtonTemplate payload test.');
-    	$buttonTemplatePayload->setButtons($button);
-    	
-    	$attachment = new Attachment();
-    	$attachment->setPayload($payload);
-    	$attachment->setType('template');
-    	$attachment->setPayload($buttonTemplatePayload);
-    	
-    	$templateMessageRequest->setRecipient(Recipient::create()->setPhoneNumber('+33760647186'));
-    	$templateMessageRequest->setMessage(TemplateMessage::create()->setAttachment($attachment));
-    	
-    	$json = $templateMessageRequest->jsonSerialize();
-    	$this->assertCount(2, $json);
-    	$this->assertSame($attachment, $json['message']->getAttachment());
-    	$this->assertSame('+33760647186', $json['recipient']->getPhoneNumber());
+    public function testJsonSerialize()
+    {
+        $templateMessageRequest = new TemplateMessageRequest();
+
+        // Test without the 'message' property
+        try {
+            $templateMessageRequest->jsonSerialize();
+            $this->fail('Must have thrown a FacebookMessengerException !');
+        } catch (FacebookMessengerException $fmex) {
+            $this->assertSame('The \'message\' property is not set !', $fmex->getMessage());
+        }
+
+        // Test with valid settings
+        $button = new WebUrlButton();
+        $button->setTitle('Voir le moment');
+        $button->setType('web_url');
+        $button->setUrl("www.google.com");
+
+        $payload = new ButtonTemplatePayload();
+        $payload->setTemplateType('button');
+        $payload->setText("Payload de test");
+        $payload->setButtons($button);
+
+        $buttonTemplatePayload = new ButtonTemplatePayload();
+        $buttonTemplatePayload->setTemplateType("button");
+        $buttonTemplatePayload->setText('ButtonTemplate payload test.');
+        $buttonTemplatePayload->setButtons($button);
+
+        $attachment = new Attachment();
+        $attachment->setPayload($payload);
+        $attachment->setType('template');
+        $attachment->setPayload($buttonTemplatePayload);
+
+        $templateMessageRequest->setRecipient(Recipient::create()->setPhoneNumber('+33760647186'));
+        $templateMessageRequest->setMessage(TemplateMessage::create()->setAttachment($attachment));
+
+        $json = $templateMessageRequest->jsonSerialize();
+        $this->assertCount(2, $json);
+        $this->assertSame($attachment, $json['message']->getAttachment());
+        $this->assertSame('+33760647186', $json['recipient']->getPhoneNumber());
     }
 }

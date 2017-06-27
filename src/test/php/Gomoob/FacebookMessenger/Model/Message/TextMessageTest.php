@@ -28,7 +28,6 @@
 namespace Gomoob\FacebookMessenger\Model\Message;
 
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
-use Gomoob\FacebookMessenger\Model\Message\TextMessage;
 
 use PHPUnit\Framework\TestCase;
 

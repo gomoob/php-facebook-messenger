@@ -42,12 +42,12 @@ class Response implements ResponseInterface
      * Technical identifier of message sent.
      * @var string The technical identifier of message sent.
      */
-	private $messageId;
+    private $messageId;
 
-	/**
-	 * Technical identifier of the user.
-	 * @var string The technical identifier of the user.
-	 */
+    /**
+     * Technical identifier of the user.
+     * @var string The technical identifier of the user.
+     */
     private $recipientId;
 
     /**
@@ -60,7 +60,7 @@ class Response implements ResponseInterface
      * @var int
      */
     protected $statusCode;
-    
+
     /**
      * The Facebook Messenger status message.
      *
@@ -74,6 +74,7 @@ class Response implements ResponseInterface
      * @param $jsonBody the body of the guzzle response
      * @param $statusCode the Facebook Messenger status code.
      * @param $statusMessage the Facebook Messenger status message.
+     *
      * @return \Gomoob\FacebookMessenger\Model\Response\Response the new created instance.
      */
     public static function create($jsonBody, $statusCode, $statusMessage)
@@ -83,24 +84,24 @@ class Response implements ResponseInterface
         $createResponse->setRecipientId($jsonBody['recipient_id']);
         $createResponse->setStatusCode(200);
         $createResponse->setStatusMessage($statusMessage);
-            
-    	return $createResponse;
+
+        return $createResponse;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public function getMessageId()
     {
-    	return $this->messageId;
+        return $this->messageId;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public function getRecipientId()
     {
-    	return $this->recipientId;
+        return $this->recipientId;
     }
 
     /**
@@ -110,13 +111,13 @@ class Response implements ResponseInterface
     {
         return $this->statusCode;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public function getStatusMessage()
     {
-    	return $this->statusMessage;
+        return $this->statusMessage;
     }
 
     /**
@@ -169,12 +170,12 @@ class Response implements ResponseInterface
     {
         $this->statusCode = $statusCode;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public function setStatusMessage($statusMessage)
     {
-    	$this->statusMessage= $statusMessage;
+        $this->statusMessage= $statusMessage;
     }
 }

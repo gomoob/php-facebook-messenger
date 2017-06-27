@@ -36,7 +36,6 @@ use Gomoob\FacebookMessenger\Model\MessageInterface;
  */
 abstract class AbstractMessage implements MessageInterface
 {
-
     /**
      * The message text.
      *

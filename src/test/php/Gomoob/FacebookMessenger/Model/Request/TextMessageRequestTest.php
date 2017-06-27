@@ -29,10 +29,9 @@ namespace Gomoob\FacebookMessenger\Model\Request;
 
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 use Gomoob\FacebookMessenger\Model\Message\TextMessage;
+use Gomoob\FacebookMessenger\Model\Recipient\Recipient;
 
 use PHPUnit\Framework\TestCase;
-use Gomoob\FacebookMessenger\Model\Recipient\Recipient;
-use Gomoob\FacebookMessenger\Model\Recipient\Name;
 
 /**
  * Test case used to test the `TextMessageRequest` class.
@@ -55,7 +54,7 @@ class TextMessageRequestTest extends TestCase
         $this->assertSame($textMessage, $textMessageRequest->getMessage());
     }
 
-    
+
     /**
      * Test method for the `jsonSerialize()` function.
      */
@@ -65,7 +64,7 @@ class TextMessageRequestTest extends TestCase
 
         // Test without the 'message' property
         try {
-        	$textMessageRequest->jsonSerialize();
+            $textMessageRequest->jsonSerialize();
             $this->fail('Must have thrown a FacebookMessengerException !');
         } catch (FacebookMessengerException $fmex) {
             $this->assertSame('The \'message\' property is not set !', $fmex->getMessage());
@@ -74,10 +73,10 @@ class TextMessageRequestTest extends TestCase
         // Test with valid settings
         $textMessage = new TextMessage();
         $textMessage->setText('TEXT');
-        
+
         $recipient = new Recipient();
         $recipient->setPhoneNumber(0102030405);
-        
+
         $textMessageRequest->setMessage($textMessage);
         $textMessageRequest->setRecipient($recipient);
         $textMessageRequest->setSenderAction("mark_seen");

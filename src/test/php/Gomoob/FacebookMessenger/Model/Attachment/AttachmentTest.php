@@ -28,11 +28,10 @@
 namespace Gomoob\FacebookMessenger\Model\Attachment;
 
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
-use Gomoob\FacebookMessenger\Model\Message\TextMessage;
-
-use PHPUnit\Framework\TestCase;
 use Gomoob\FacebookMessenger\Model\Button\WebUrlButton;
 use Gomoob\FacebookMessenger\Model\Payload\ButtonTemplatePayload;
+
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test case used to test the `Attachment` class.
@@ -51,20 +50,20 @@ class AttachmentTest extends TestCase
         $button->setTitle('Voir le moment');
         $button->setType('web_url');
         $button->setUrl("www.google.com");
-        
+
         $button2 = new WebUrlButton();
         $button2->setTitle('Mon compte');
         $button2->setType('web_url');
         $button2->setUrl("www.google.com");
-        
+
         $buttons[] = $button;
         $buttons[] = $button2;
-        
+
         $buttonTemplatePayload = new ButtonTemplatePayload();
         $buttonTemplatePayload->setTemplateType("button");
         $buttonTemplatePayload->setText('ButtonTemplate payload test.');
         $buttonTemplatePayload->setButtons($buttons);
-        
+
         $attachment = new Attachment();
         $attachment->setPayload($buttonTemplatePayload);
         $attachment->setType('template');
@@ -77,41 +76,41 @@ class AttachmentTest extends TestCase
      */
     public function testJsonSerialize()
     {
-    	$attachment = new Attachment();
-    	
-    	// Test without the 'payload' and 'type' property
-    	try {
-    		$attachment->jsonSerialize();
-    		$this->fail('Must have thrown a FacebookMessengerException !');
-    	} catch (FacebookMessengerException $fmex) {
-    		$this->assertSame('None of the \'type\' and \'payload\' properties are not set !', $fmex->getMessage());
-    	}
-    	
-    	// Test with valid settings
-    	$button = new WebUrlButton();
-    	$button->setTitle('Voir le moment');
-    	$button->setType('web_url');
-    	$button->setUrl("www.google.com");
-    	
-    	$button2 = new WebUrlButton();
-    	$button2->setTitle('Mon compte');
-    	$button2->setType('web_url');
-    	$button2->setUrl("www.google.com");
-    	
-    	$buttons[] = $button;
-    	$buttons[] = $button2;
-    	
-    	$buttonTemplatePayload = new ButtonTemplatePayload();
-    	$buttonTemplatePayload->setTemplateType("button");
-    	$buttonTemplatePayload->setText('ButtonTemplate payload test.');
-    	$buttonTemplatePayload->setButtons($buttons);
-    	
-    	$attachment->setPayload($buttonTemplatePayload);
-    	$attachment->setType('template');
-    	
-    	$json = $attachment->jsonSerialize();
-    	$this->assertCount(2, $json);
-    	$this->assertSame($buttonTemplatePayload, $json['payload']);
-    	$this->assertSame('template', $json['type']);
+        $attachment = new Attachment();
+
+        // Test without the 'payload' and 'type' property
+        try {
+            $attachment->jsonSerialize();
+            $this->fail('Must have thrown a FacebookMessengerException !');
+        } catch (FacebookMessengerException $fmex) {
+            $this->assertSame('None of the \'type\' and \'payload\' properties are not set !', $fmex->getMessage());
+        }
+
+        // Test with valid settings
+        $button = new WebUrlButton();
+        $button->setTitle('Voir le moment');
+        $button->setType('web_url');
+        $button->setUrl("www.google.com");
+
+        $button2 = new WebUrlButton();
+        $button2->setTitle('Mon compte');
+        $button2->setType('web_url');
+        $button2->setUrl("www.google.com");
+
+        $buttons[] = $button;
+        $buttons[] = $button2;
+
+        $buttonTemplatePayload = new ButtonTemplatePayload();
+        $buttonTemplatePayload->setTemplateType("button");
+        $buttonTemplatePayload->setText('ButtonTemplate payload test.');
+        $buttonTemplatePayload->setButtons($buttons);
+
+        $attachment->setPayload($buttonTemplatePayload);
+        $attachment->setType('template');
+
+        $json = $attachment->jsonSerialize();
+        $this->assertCount(2, $json);
+        $this->assertSame($buttonTemplatePayload, $json['payload']);
+        $this->assertSame('template', $json['type']);
     }
 }

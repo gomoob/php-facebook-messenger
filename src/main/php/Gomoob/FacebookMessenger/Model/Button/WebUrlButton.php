@@ -36,18 +36,17 @@ use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
  */
 class WebUrlButton extends AbstractButton
 {
-
     /**
      * The title of the button.
      *
-     * @var string The title of the button.
+     * @var string
      */
     private $title;
 
     /**
      * This URL opens in a mobile browser when someone presses the button. Must use an HTTPS protocol.
      *
-     * @var string The url of the button target.
+     * @var string
      */
     private $url;
 
@@ -85,7 +84,7 @@ class WebUrlButton extends AbstractButton
     /**
      * Utility function used to create a new instance of the <tt>WebUrlButton</tt> class.
      *
-     * @return \Gomoob\FacebookMessenger\Model\Message\WebUrlButton the new created instance.
+     * @return \Gomoob\FacebookMessenger\Model\Button\WebUrlButton the new created instance.
      */
     public static function create()
     {
@@ -170,6 +169,7 @@ class WebUrlButton extends AbstractButton
     public function setFallbackUrl($fallbackUrl)
     {
         $this->fallbackUrl = $fallbackUrl;
+
         return $this;
     }
 
@@ -182,6 +182,7 @@ class WebUrlButton extends AbstractButton
     public function setMessengerExtension($messengerExtension)
     {
         $this->messengerExtension = $messengerExtension;
+
         return $this;
     }
 
@@ -193,6 +194,7 @@ class WebUrlButton extends AbstractButton
     public function setTitle($title)
     {
         $this->title = $title;
+
         return $this;
     }
 
@@ -204,6 +206,7 @@ class WebUrlButton extends AbstractButton
     public function setUrl($url)
     {
         $this->url = $url;
+
         return $this;
     }
 
@@ -215,6 +218,7 @@ class WebUrlButton extends AbstractButton
     public function setWebViewHeightRatio($webViewHeightRatio)
     {
         $this->webViewHeightRatio = $webViewHeightRatio;
+
         return $this;
     }
 
@@ -226,6 +230,7 @@ class WebUrlButton extends AbstractButton
     public function setWebViewShareButton($webViewShareButton)
     {
         $this->webViewShareButton = $webViewShareButton;
+
         return $this;
     }
 }

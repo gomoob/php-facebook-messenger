@@ -28,7 +28,6 @@
 namespace Gomoob\FacebookMessenger\Model\Recipient;
 
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
-use Gomoob\FacebookMessenger\Model\Message\TextMessage;
 
 use PHPUnit\Framework\TestCase;
 
@@ -46,10 +45,10 @@ class NameTest extends TestCase
     public function testGetSetFirstNameandLastName()
     {
         $name = new Name();
-        
+
         $this->assertNull($name->getFirstName());
         $this->assertNull($name->getLastName());
-        
+
         $this->assertSame($name, $name->setFirstName('Toto'));
         $this->assertSame($name, $name->setLastName('Tata'));
         $this->assertSame('Toto', $name->getFirstName());
@@ -65,7 +64,7 @@ class NameTest extends TestCase
 
         // Test without the 'firstName' and 'lastName' property
         try {
-        	$name->jsonSerialize();
+            $name->jsonSerialize();
             $this->fail('Must have thrown a FacebookMessengerException !');
         } catch (FacebookMessengerException $fmex) {
             $this->assertSame('None of the \'firstName\' and \'lastName\' properties are set !', $fmex->getMessage());

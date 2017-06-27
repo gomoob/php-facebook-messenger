@@ -27,7 +27,6 @@
  */
 namespace Gomoob\FacebookMessenger\Client;
 
-use Gomoob\FacebookMessenger\Client\Client;
 use Gomoob\FacebookMessenger\Model\Attachment\Attachment;
 use Gomoob\FacebookMessenger\Model\Button\WebUrlButton;
 use Gomoob\FacebookMessenger\Model\Message\TemplateMessage;
@@ -36,6 +35,7 @@ use Gomoob\FacebookMessenger\Model\Payload\ButtonTemplatePayload;
 use Gomoob\FacebookMessenger\Model\Recipient\Recipient;
 use Gomoob\FacebookMessenger\Model\Request\TemplateMessageRequest;
 use Gomoob\FacebookMessenger\Model\Request\TextMessageRequest;
+
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -55,7 +55,7 @@ class ClientMockTest extends TestCase
         $client->setPageAccessToken('1702809689738727|5v1Lg1Ysbln9hrYESZgS_GEWToA');
         $this->assertSame('1702809689738727|5v1Lg1Ysbln9hrYESZgS_GEWToA', $client->getPageAccessToken());
     }
-    
+
     /**
      * Test method for the `sendMessage()` function.
      *
@@ -63,12 +63,12 @@ class ClientMockTest extends TestCase
      */
     public function testSendMessage()
     {
-    	$clientMock = new ClientMock();
-    	$this->assertCount(0, $clientMock->getFacebookMessengerRequests());
-        
+        $clientMock = new ClientMock();
+        $this->assertCount(0, $clientMock->getFacebookMessengerRequests());
+
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Create a request to simulate a send of a simple Text Message//
-    	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         $request = TextMessageRequest::create()
             ->setRecipient(Recipient::create()->setPhoneNumber('+33760647186'))
             ->setMessage(TextMessage::create()->setText('Hello World !'));
@@ -78,47 +78,47 @@ class ClientMockTest extends TestCase
         $this->assertNotNull($response);
         $this->assertTrue($response->isOk());
         $this->assertSame(200, $response->getStatusCode());
-        
+
         // Check if its ok
-    	if($response->isOk()) {
-    		print 'Great, my text message mock has been sent !';
-    	} else {
-    		print 'Oups, the sent failed :-(';
-    		print 'Status code : ' . $response->getStatusCode();
-    		print 'Status message : ' . $response->getStatusMessage();
-    	}
-    	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    	// Create a request to send a Template Message                                                               //
-    	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    	$button = WebUrlButton::create()->setTitle('Voir le moment')->setType('web_url')->setUrl("www.google.com");
-    	$button2 = WebUrlButton::create()->setTitle('Mon compte')->setType('web_url')->setUrl("www.google.com");
-    	
-    	$buttons[] = $button;
-    	$buttons[] = $button2;
-    	
-    	$buttonTemplatePayload = ButtonTemplatePayload::create()
-    	    ->setTemplateType("button")
-    	    ->setText('ButtonTemplate payload test.')
-    	    ->setButtons($buttons);
-    	
-    	$attachment = Attachment::create()->setType('template')->setPayload($buttonTemplatePayload);
-    	
-    	$templateMessageRequest = TemplateMessageRequest::create()
-    	    ->setRecipient(Recipient::create()->setPhoneNumber('+33760647186'))
-    	    ->setMessage(TemplateMessage::create()->setAttachment($attachment));
-    	
-    	// Call the REST Web Service
-    	$responseTemplateMessage = $clientMock->sendMessage($templateMessageRequest);
-    	
-    	// Check if template message response is ok
-    	if($responseTemplateMessage->isOk()) {
-    		print 'Great, my template message mock has been sent !';
-    	} else {
-    		print 'Oups, the template message sent failed :-(';
-    		print 'Status code : ' . $responseTemplateMessage->getStatusCode();
-    		print 'Status message : ' . $responseTemplateMessage->getStatusMessage();
-    	}
-    	
-    	$this->assertCount(2, $clientMock->getFacebookMessengerRequests());
+        if ($response->isOk()) {
+            print 'Great, my text message mock has been sent !';
+        } else {
+            print 'Oups, the sent failed :-(';
+            print 'Status code : ' . $response->getStatusCode();
+            print 'Status message : ' . $response->getStatusMessage();
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Create a request to send a Template Message                                                               //
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        $button = WebUrlButton::create()->setTitle('Voir le moment')->setType('web_url')->setUrl("www.google.com");
+        $button2 = WebUrlButton::create()->setTitle('Mon compte')->setType('web_url')->setUrl("www.google.com");
+
+        $buttons[] = $button;
+        $buttons[] = $button2;
+
+        $buttonTemplatePayload = ButtonTemplatePayload::create()
+            ->setTemplateType("button")
+            ->setText('ButtonTemplate payload test.')
+            ->setButtons($buttons);
+
+        $attachment = Attachment::create()->setType('template')->setPayload($buttonTemplatePayload);
+
+        $templateMessageRequest = TemplateMessageRequest::create()
+            ->setRecipient(Recipient::create()->setPhoneNumber('+33760647186'))
+            ->setMessage(TemplateMessage::create()->setAttachment($attachment));
+
+        // Call the REST Web Service
+        $responseTemplateMessage = $clientMock->sendMessage($templateMessageRequest);
+
+        // Check if template message response is ok
+        if ($responseTemplateMessage->isOk()) {
+            print 'Great, my template message mock has been sent !';
+        } else {
+            print 'Oups, the template message sent failed :-(';
+            print 'Status code : ' . $responseTemplateMessage->getStatusCode();
+            print 'Status message : ' . $responseTemplateMessage->getStatusMessage();
+        }
+
+        $this->assertCount(2, $clientMock->getFacebookMessengerRequests());
     }
 }

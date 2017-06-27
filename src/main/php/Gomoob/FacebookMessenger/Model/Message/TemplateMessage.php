@@ -84,6 +84,7 @@ class TemplateMessage implements TemplateMessageInterface
     public function setAttachment($attachment)
     {
         $this->attachment = $attachment;
+
         return $this;
     }
 }

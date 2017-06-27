@@ -40,20 +40,22 @@ class Attachment implements AttachmentInterface
 {
     /**
      * The payload of the button model.
-     * @var \Gomoob\FacebookMessenger\Model\PayloadInterface The payload of the attachment.
+     *
+     * @var \Gomoob\FacebookMessenger\Model\PayloadInterface
      */
     private $payload;
 
     /**
      * The type of the attachment must be `template`.
-     * @var string The type of the attachment.
+     *
+     * @var string
      */
     private $type;
 
     /**
      * Utility function used to create a new instance of the <tt>Attachment</tt> class.
      *
-     * @return \Gomoob\FacebookMessenger\Model\Message\Attachment the new created instance.
+     * @return \Gomoob\FacebookMessenger\Model\Attachment\Attachment the new created instance.
      */
     public static function create()
     {
@@ -62,7 +64,6 @@ class Attachment implements AttachmentInterface
 
     /**
      * {@inheritDoc}
-     * @see \Gomoob\FacebookMessenger\Model\AttachmentInterface::getPayload()
      */
     public function getPayload()
     {
@@ -71,7 +72,6 @@ class Attachment implements AttachmentInterface
 
     /**
      * {@inheritDoc}
-     * @see \Gomoob\FacebookMessenger\Model\AttachmentInterface::getType()
      */
     public function getType()
     {
@@ -96,21 +96,21 @@ class Attachment implements AttachmentInterface
 
     /**
      * {@inheritDoc}
-     * @see \Gomoob\FacebookMessenger\Model\AttachmentInterface::setPayload()
      */
     public function setPayload($payload)
     {
         $this->payload = $payload;
+
         return $this;
     }
 
     /**
      * {@inheritDoc}
-     * @see \Gomoob\FacebookMessenger\Model\AttachmentInterface::setType()
      */
     public function setType($type)
     {
         $this->type = $type;
+
         return $this;
     }
 }

@@ -46,6 +46,8 @@ interface VideoMessageInterface extends \JsonSerializable
      * Set the video message attachment.
      *
      * @param \Gomoob\FacebookMessenger\Model\AttachmentInterface $attachment the video message attachment.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\VideoMessageInterface this instance.
      */
     public function setAttachment($attachment);
 }

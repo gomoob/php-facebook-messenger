@@ -27,8 +27,9 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Response;
 
-use PHPUnit\Framework\TestCase;
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
+
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test case used to test the `Response` class.
@@ -44,9 +45,9 @@ class ResponseTest extends TestCase
     public function testGetSetRecipientIdAndMessageId()
     {
         $response = new Response();
-        
+
         $this->assertNull($response->getRecipientId());
-        
+
         $this->assertSame($response, $response->setRecipientId('1008372609250235'));
         $this->assertSame('1008372609250235', $response->getRecipientId());
     }
@@ -56,11 +57,11 @@ class ResponseTest extends TestCase
      */
     public function testJsonSerialize()
     {
-    	$response = new Response();
+        $response = new Response();
 
         // Test without the 'recipientId' and 'messageId' properties
         try {
-        	$response->jsonSerialize();
+            $response->jsonSerialize();
             $this->fail('Must have thrown a FacebookMessengerException !');
         } catch (FacebookMessengerException $fmex) {
             $this->assertSame('The \'recipientId\' or \'messageId\' property is not set !', $fmex->getMessage());

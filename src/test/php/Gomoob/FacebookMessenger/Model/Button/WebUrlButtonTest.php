@@ -28,10 +28,9 @@
 namespace Gomoob\FacebookMessenger\Model\Message;
 
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
-use Gomoob\FacebookMessenger\Model\Message\TextMessage;
+use Gomoob\FacebookMessenger\Model\Button\WebUrlButton;
 
 use PHPUnit\Framework\TestCase;
-use Gomoob\FacebookMessenger\Model\Button\WebUrlButton;
 
 /**
  * Test case used to test the `WebUrlButton` class.
@@ -56,23 +55,23 @@ class WebUrlButtonTest extends TestCase
      */
     public function testJsonSerialize()
     {
-    	$webUrlButton = new WebUrlButton();
-    	
-    	// Test without the 'type' and 'title' property
-    	try {
-    		$webUrlButton->jsonSerialize();
-    		$this->fail('Must have thrown a FacebookMessengerException !');
-    	} catch (FacebookMessengerException $fmex) {
-    		$this->assertSame('None of the \'type\', \'title\' or \'url\' properties are set !', $fmex->getMessage());
-    	}
-    	
-    	// Test with valid settings
-    	$webUrlButton->setType('web_url');
-    	$webUrlButton->setTitle("Vor le moment");
-    	$webUrlButton->setUrl("www.google.com");
-    	
-    	$json = $webUrlButton->jsonSerialize();
-    	$this->assertCount(3, $json);
-    	$this->assertSame('web_url', $json['type']);
+        $webUrlButton = new WebUrlButton();
+
+        // Test without the 'type' and 'title' property
+        try {
+            $webUrlButton->jsonSerialize();
+            $this->fail('Must have thrown a FacebookMessengerException !');
+        } catch (FacebookMessengerException $fmex) {
+            $this->assertSame('None of the \'type\', \'title\' or \'url\' properties are set !', $fmex->getMessage());
+        }
+
+        // Test with valid settings
+        $webUrlButton->setType('web_url');
+        $webUrlButton->setTitle("Vor le moment");
+        $webUrlButton->setUrl("www.google.com");
+
+        $json = $webUrlButton->jsonSerialize();
+        $this->assertCount(3, $json);
+        $this->assertSame('web_url', $json['type']);
     }
 }

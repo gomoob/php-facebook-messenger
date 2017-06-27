@@ -110,6 +110,7 @@ class Client implements ClientInterface
     public function setPageAccessToken(/*string*/ $pageAccessToken)
     {
         $this->pageAccessToken = $pageAccessToken;
+
         return $this;
     }
 }

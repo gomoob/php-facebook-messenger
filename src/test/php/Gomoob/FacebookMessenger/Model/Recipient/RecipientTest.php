@@ -27,10 +27,9 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Recipient;
 
-use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
-use Gomoob\FacebookMessenger\Model\Message\TextMessage;
-
 use PHPUnit\Framework\TestCase;
+
+use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 
 /**
  * Test case used to test the `Recipient` class.
@@ -47,24 +46,24 @@ class RecipientTest extends TestCase
     {
         $recipient = new Recipient();
         $name = new Name();
-        
+
         $this->assertNull($recipient->getName());
         $this->assertNull($name->getFirstName());
         $this->assertNull($name->getLastName());
-        
+
         $name->setFirstName('Toto')->setLastName('Tata');
         $recipient->setName($name);
-        
+
         $this->assertSame($recipient, $recipient->setName($name));
         $this->assertSame($name, $recipient->getName());
     }
-    
+
     /**
      * Test method for the `getPhoneNumber()` and `setPhoneNumber($phoneNumber)` functions.
      */
     public function testGetSetPhoneNumber()
     {
-    	$recipient = new Recipient();
+        $recipient = new Recipient();
         $this->assertNull($recipient->getPhoneNumber());
         $this->assertSame($recipient, $recipient->setPhoneNumber('0102030405'));
         $this->assertSame('0102030405', $recipient->getPhoneNumber());
@@ -79,7 +78,7 @@ class RecipientTest extends TestCase
 
         // Test without the 'id' and 'phoneNumber' property
         try {
-        	$recipient->jsonSerialize();
+            $recipient->jsonSerialize();
             $this->fail('Must have thrown a FacebookMessengerException !');
         } catch (FacebookMessengerException $fmex) {
             $this->assertSame('None of the \'id\' or \'phoneNumber\' properties are set !', $fmex->getMessage());

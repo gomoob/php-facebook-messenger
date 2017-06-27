@@ -36,7 +36,6 @@ use Gomoob\FacebookMessenger\Model\MessageInterface;
  */
 abstract class AbstractAttachmentMessage implements MessageInterface
 {
-
     /**
      * The attachment of the message to send.
      *

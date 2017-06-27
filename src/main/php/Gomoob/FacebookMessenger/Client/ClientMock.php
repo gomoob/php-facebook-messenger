@@ -27,7 +27,6 @@
  */
 namespace Gomoob\FacebookMessenger\Client;
 
-use Gomoob\FacebookMessenger\ClientInterface;
 use Gomoob\FacebookMessenger\Model\Response\Response;
 use Gomoob\FacebookMessenger\ClientMockInterface;
 
@@ -74,8 +73,8 @@ class ClientMock implements ClientMockInterface
         $this->FacebookMessengerRequests[] = $request;
         return Response::create(
             json_decode('{
-    			"recipient_id":"1506900809384015",
-    			"message_id":"mid.$cAACzfxmNj4VjBRUYrFc08_P1M_Za",
+                "recipient_id":"1506900809384015",
+                "message_id":"mid.$cAACzfxmNj4VjBRUYrFc08_P1M_Za",
                 "status_code":200,
                 "status_message":"OK"
             }', true),
@@ -85,13 +84,12 @@ class ClientMock implements ClientMockInterface
     }
 
     /**
-     *
      * {@inheritDoc}
-     * @see \Gomoob\FacebookMessenger\ClientInterface::setPageAccessToken()
      */
     public function setPageAccessToken($pageAccessToken)
     {
         $this->pageAccessToken = $pageAccessToken;
+
         return $this;
     }
 

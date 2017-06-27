@@ -86,14 +86,12 @@ abstract class AbstractRequest implements RequestInterface
      */
     public function jsonSerialize()
     {
-        $json = [
+        return [
             'message' => $this->message,
             'notificationType' => $this->notificationType,
             'recipient' => $this->recipient,
             'senderAction' => $this->senderAction
         ];
-
-        return $json;
     }
 
     /**

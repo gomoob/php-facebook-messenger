@@ -55,6 +55,8 @@ interface ClientInterface
      * Set the page access token to use to send requests.
      *
      * @param string $pageAccessToken the page access token to use to send requests.
+     *
+     * @return \Gomoob\FacebookMessenger\ClientInterface this instance.
      */
     public function setPageAccessToken(/* string */ $pageAccessToken);
 }
