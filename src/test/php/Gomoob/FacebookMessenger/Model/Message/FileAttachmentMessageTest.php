@@ -25,29 +25,17 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-namespace Gomoob\FacebookMessenger\Model;
+namespace Gomoob\FacebookMessenger\Model\Message;
+
+use PHPUnit\Framework\TestCase;
 
 /**
- * Interface which represents a Facebook Messenger file message.
+ * Test case used to test the `FileAttachmentMessage` class.
  *
- * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
- * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference
+ * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
+ * @group FileAttachmentMessageTest
  */
-interface FileMessageInterface extends \JsonSerializable
+class FileAttachmentMessageTest extends TestCase
 {
-    /**
-     * Get the file message attachment.
-     *
-     * @return \Gomoob\FacebookMessenger\Model\AttachmentInterface the file message attachment.
-     */
-    public function getAttachment();
 
-    /**
-     * Set the file message attachment.
-     *
-     * @param \Gomoob\FacebookMessenger\Model\AttachmentInterface $attachment the file message attachment.
-     *
-     * @return \Gomoob\FacebookMessenger\Model\FileMessageInterface this instance.
-     */
-    public function setAttachment($attachment);
 }

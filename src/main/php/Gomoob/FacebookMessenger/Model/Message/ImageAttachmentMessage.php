@@ -28,15 +28,16 @@
 namespace Gomoob\FacebookMessenger\Model\Message;
 
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
-use Gomoob\FacebookMessenger\Model\ImageMessageInterface;
+
+use Gomoob\FacebookMessenger\Model\ImageAttachmentMessageInterface;
 
 /**
- * Class which represents a a Facebook Messenger image message.
+ * Class which represents a a Facebook Messenger image attachment message.
  *
  * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference/image-attachment
  */
-class ImageMessage extends AbstractMessage implements ImageMessageInterface
+class ImageAttachmentMessage extends AbstractAttachmentMessage implements ImageAttachmentMessageInterface
 {
     /**
      * The attachment of the image message.
@@ -48,19 +49,11 @@ class ImageMessage extends AbstractMessage implements ImageMessageInterface
     /**
      * Utility function used to create a new instance of the <tt>ImageMessage</tt> class.
      *
-     * @return \Gomoob\FacebookMessenger\Model\Message\ImageMessage the new created instance.
+     * @return \Gomoob\FacebookMessenger\Model\Message\ImageAttachmentMessage the new created instance.
      */
     public static function create()
     {
-        return new ImageMessage();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getAttachment()
-    {
-        return $this->attachment;
+        return new ImageAttachmentMessage();
     }
 
     /**
@@ -76,14 +69,5 @@ class ImageMessage extends AbstractMessage implements ImageMessageInterface
         return [
             'attachment' => $this->attachment
         ];
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setAttachment(/*AttachmentInterface*/ $attachment)
-    {
-        $this->attachment = $attachment;
-        return $this;
     }
 }

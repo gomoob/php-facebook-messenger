@@ -27,15 +27,15 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Message;
 
-use Gomoob\FacebookMessenger\Model\AudioAttachmentMessageInterface;
+use Gomoob\FacebookMessenger\Model\VideoAttachmentMessageInterface;
 
 /**
- * Class which represents a a Facebook Messenger audio attachment message.
+ * Class which represents a a Facebook Messenger video attachment message.
  *
  * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
- * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference/audio-attachment
+ * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference/video-attachment
  */
-class AudioAttachmentMessage extends AbstractAttachmentMessage implements AudioAttachmentMessageInterface
+class VideoAttachmentMessage extends AbstractAttachmentMessage implements VideoAttachmentMessageInterface
 {
     /**
      * {@inheritDoc}

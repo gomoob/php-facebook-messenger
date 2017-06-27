@@ -27,15 +27,15 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Message;
 
-use Gomoob\FacebookMessenger\Model\AudioAttachmentMessageInterface;
+use Gomoob\FacebookMessenger\Model\FileAttachmentMessageInterface;
 
 /**
- * Class which represents a a Facebook Messenger audio attachment message.
+ * Class which represents a a Facebook Messenger file attachment message.
  *
  * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
- * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference/audio-attachment
+ * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference/file-attachment
  */
-class AudioAttachmentMessage extends AbstractAttachmentMessage implements AudioAttachmentMessageInterface
+class AudioAttachmentMessage extends AbstractAttachmentMessage implements FileAttachmentMessageInterface
 {
     /**
      * {@inheritDoc}

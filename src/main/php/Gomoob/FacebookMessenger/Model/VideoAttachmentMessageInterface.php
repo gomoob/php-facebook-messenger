@@ -28,26 +28,11 @@
 namespace Gomoob\FacebookMessenger\Model;
 
 /**
- * Interface which represents a Facebook Messenger image message.
+ * Interface which represents a Facebook Messenger video attachment message.
  *
  * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
- * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference
+ * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference/video-attachment
  */
-interface ImageMessageInterface extends \JsonSerializable
+interface VideoAttachmentMessageInterface extends AttachmentMessageInterface
 {
-    /**
-     * Get the image message attachment.
-     *
-     * @return \Gomoob\FacebookMessenger\Model\AttachmentInterface the image message attachment.
-     */
-    public function getAttachment();
-
-    /**
-     * Set the image message attachment.
-     *
-     * @param \Gomoob\FacebookMessenger\Model\AttachmentInterface $attachment the image message attachment.
-     *
-     * @return \Gomoob\FacebookMessenger\Model\ImageMessageInterface this instance.
-     */
-    public function setAttachment($attachment);
 }
