@@ -74,7 +74,7 @@ class TemplateMessage implements TemplateMessageInterface
         }
 
         return [
-            'attachment' => $this->attachment
+            'attachment' => $this->attachment->jsonSerialize()
         ];
     }
 

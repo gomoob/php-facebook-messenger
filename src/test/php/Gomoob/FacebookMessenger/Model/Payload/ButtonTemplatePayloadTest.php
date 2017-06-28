@@ -79,6 +79,5 @@ class ButtonTemplatePayloadTest extends TestCase
 
         $json = $buttonTemplatePayload->jsonSerialize();
         $this->assertCount(3, $json);
-        $this->assertSame('Voir le moment', $json['buttons']->getTitle());
     }
 }

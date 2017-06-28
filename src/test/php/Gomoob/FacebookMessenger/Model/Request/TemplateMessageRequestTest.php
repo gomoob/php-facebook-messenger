@@ -34,6 +34,8 @@ use Gomoob\FacebookMessenger\Model\Payload\ButtonTemplatePayload;
 use Gomoob\FacebookMessenger\Model\Button\WebUrlButton;
 
 use PHPUnit\Framework\TestCase;
+use Gomoob\FacebookMessenger\Model\Recipient\Recipient;
+use Gomoob\FacebookMessenger\Model\Attachment\TemplateAttachment;
 
 /**
  * Test case used to test the `TextMessageRequest` class.
@@ -44,79 +46,55 @@ use PHPUnit\Framework\TestCase;
 class TemplateMessageRequestTest extends TestCase
 {
     /**
-     * Test method for the `getMessage()` and `setMessage($text)` functions.
-     * @group TemplateMessageRequestTest.testGetSetMessage
-     */
-    public function testGetSetMessage()
-    {
-        $templateMessageRequest = new TemplateMessageRequest();
-        $templateMessage = new TemplateMessage();
-
-        $button = new WebUrlButton();
-        $button->setTitle("Voir le Moment");
-        $button->setUrl("www.google.com");
-        $button->setType("web_url");
-
-        $buttonTemplatePayload = new ButtonTemplatePayload();
-        $buttonTemplatePayload->setText('ButtonTemplate payload test.');
-        $buttonTemplatePayload->setButtons($button);
-
-        /*
-        $attachment = new Attachment();
-        $attachment->setType('template');
-        $attachment->setPayload($buttonTemplatePayload);
-
-        $templateMessage->setAttachment($attachment);
-        $this->assertNull($templateMessageRequest->getMessage());
-        $templateMessageRequest->setMessage($templateMessage);
-        $this->assertSame($templateMessage, $templateMessageRequest->getMessage());
-        */
-    }
-
-
-    /**
-     * Test method for the `jsonSerialize()` function.
+     * Test method for the `jsonSerialize()` function and a `button` template type.
+     *
      * @group TemplateMessageRequestTest.testJsonSerialize
      */
-    public function testJsonSerialize()
+    public function testJsonSerializeWithButtonTemplateType()
     {
-        $templateMessageRequest = new TemplateMessageRequest();
+        // Test with the sample on the Facebook Messenger documentation
+        $json = TemplateMessageRequest::create()
+            ->setRecipient(Recipient::create()->setId('USER_ID'))
+            ->setMessage(
+                TemplateMessage::create()->setAttachment(
+                    TemplateAttachment::create()->setPayload(
+                        ButtonTemplatePayload::create()
+                            ->setText('What do you want to do next?')
+                            ->setButtons(
+                                [
+                                    WebUrlButton::create()
+                                        ->setUrl('https://petersapparel.parseapp.com')
+                                        ->setTitle('Show Website'),
+                                    // TODO: Continuer avec le PostbackButton
+                                ]
+                            )
+                    )
+                )
+            )->jsonSerialize();
 
-        // Test without the 'message' property
-        try {
-            $templateMessageRequest->jsonSerialize();
-            $this->fail('Must have thrown a FacebookMessengerException !');
-        } catch (FacebookMessengerException $fmex) {
-            $this->assertSame('The \'message\' property is not set !', $fmex->getMessage());
-        }
-
-        // Test with valid settings
-        $button = new WebUrlButton();
-        $button->setTitle('Voir le moment');
-        $button->setType('web_url');
-        $button->setUrl("www.google.com");
-
-        $payload = new ButtonTemplatePayload();
-        $payload->setText("Payload de test");
-        $payload->setButtons($button);
-
-        $buttonTemplatePayload = new ButtonTemplatePayload();
-        $buttonTemplatePayload->setText('ButtonTemplate payload test.');
-        $buttonTemplatePayload->setButtons($button);
-
-        /*
-        $attachment = new Attachment();
-        $attachment->setPayload($payload);
-        $attachment->setType('template');
-        $attachment->setPayload($buttonTemplatePayload);
-
-        $templateMessageRequest->setRecipient(Recipient::create()->setPhoneNumber('+33760647186'));
-        $templateMessageRequest->setMessage(TemplateMessage::create()->setAttachment($attachment));
-
-        $json = $templateMessageRequest->jsonSerialize();
-        $this->assertCount(2, $json);
-        $this->assertSame($attachment, $json['message']->getAttachment());
-        $this->assertSame('+33760647186', $json['recipient']->getPhoneNumber());
-        */
+        $this->assertSame(
+            [
+                'recipient' => [
+                    'id' => 'USER_ID'
+                ],
+                'message' => [
+                    'attachment' => [
+                        'type' => 'template',
+                        'payload' => [
+                            'template_type' => 'button',
+                            'text' => 'What do you want to do next?',
+                            'buttons' => [
+                                [
+                                    'type' => 'web_url',
+                                    'url' => 'https://petersapparel.parseapp.com',
+                                    'title' => 'Show Website'
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ],
+            $json
+        );
     }
 }

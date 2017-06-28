@@ -27,7 +27,6 @@
  */
 namespace Gomoob\FacebookMessenger\Client;
 
-use Gomoob\FacebookMessenger\Model\Attachment\Attachment;
 use Gomoob\FacebookMessenger\Model\Button\WebUrlButton;
 use Gomoob\FacebookMessenger\Model\Message\TemplateMessage;
 use Gomoob\FacebookMessenger\Model\Message\TextMessage;
@@ -37,7 +36,7 @@ use Gomoob\FacebookMessenger\Model\Request\TemplateMessageRequest;
 use Gomoob\FacebookMessenger\Model\Request\TextMessageRequest;
 
 use PHPUnit\Framework\TestCase;
-use Gomoob\FacebookMessenger\Model\Attachment\ButtonTemplateAttachment;
+use Gomoob\FacebookMessenger\Model\Attachment\TemplateAttachment;
 
 /**
  * Test case used to test the `ClientMock` class.
@@ -101,7 +100,7 @@ class ClientMockTest extends TestCase
             ->setText('ButtonTemplate payload test.')
             ->setButtons($buttons);
 
-        $attachment = ButtonTemplateAttachment::create()->setPayload($buttonTemplatePayload);
+        $attachment = TemplateAttachment::create()->setPayload($buttonTemplatePayload);
 
         $templateMessageRequest = TemplateMessageRequest::create()
             ->setRecipient(Recipient::create()->setPhoneNumber('+33760647186'))

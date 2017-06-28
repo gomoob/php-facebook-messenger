@@ -107,10 +107,16 @@ class ButtonTemplatePayload extends AbstractTemplatePayload
             throw new FacebookMessengerException('None of the \'text\' and \'buttons\' properties are not set !');
         }
 
+        $jsonButtons = [];
+
+        foreach ($this->buttons as $button) {
+            $jsonButtons[] = $button->jsonSerialize();
+        }
+
         return [
-            'text' => $this->text,
             'template_type' => 'button',
-            'buttons' => $this->buttons
+            'text' => $this->text,
+            'buttons' => $jsonButtons
         ];
     }
 

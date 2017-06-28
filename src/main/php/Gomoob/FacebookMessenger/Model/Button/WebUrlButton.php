@@ -151,14 +151,14 @@ class WebUrlButton extends AbstractButton
     public function jsonSerialize()
     {
         // The 'type' property must have been defined
-        if (!isset($this->type) || !isset($this->title) || !isset($this->url)) {
+        if (!isset($this->title) || !isset($this->url)) {
             throw new FacebookMessengerException('None of the \'type\', \'title\' or \'url\' properties are set !');
         }
 
         return [
-            'type' => $this->type,
-            'title' => $this->title,
-            'url' => $this->url
+            'type' => 'web_url',
+            'url' => $this->url,
+            'title' => $this->title
         ];
     }
 

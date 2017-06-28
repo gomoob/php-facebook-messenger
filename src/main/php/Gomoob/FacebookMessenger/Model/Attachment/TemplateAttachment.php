@@ -27,22 +27,40 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Attachment;
 
+use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
+
 /**
- * Class which represents a Facebook Messenger Button template attachment.
+ * Class which represenst a Facebook Messenger template attachment.
  *
  * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
- * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference/button-template
+ * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference/templates
  */
-class ButtonTemplateAttachment extends AbstractTemplateAttachment
+class TemplateAttachment extends AbstractAttachment
 {
     /**
-     * Utility function used to create a new instance of the <tt>ButtonTemplateAttachment</tt> class.
+     * Utility function used to create a new instance of the <tt>TemplateAttachment</tt> class.
      *
-     * @return \Gomoob\FacebookMessenger\Model\Attachment\ButtonTemplateAttachment the new created instance.
+     * @return \Gomoob\FacebookMessenger\Model\Attachment\TemplateAttachment the new created instance.
      */
     public static function create()
     {
-        return new ButtonTemplateAttachment();
+        return new TemplateAttachment();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function jsonSerialize()
+    {
+        // The 'payload' property must have been defined
+        if (!isset($this->payload)) {
+            throw new FacebookMessengerException('The \'payload\' property is not set !');
+        }
+
+        return [
+            'type' => 'template',
+            'payload' => $this->payload->jsonSerialize()
+        ];
     }
 
     /**

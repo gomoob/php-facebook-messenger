@@ -27,10 +27,8 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Request;
 
-use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
-
 /**
- * Class which represents a Facebook Messenger request.
+ * Class which represents a Facebook Messenger template message request.
  *
  * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference#request
@@ -45,30 +43,6 @@ class TemplateMessageRequest extends AbstractRequest
     public static function create()
     {
         return new TemplateMessageRequest();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function jsonSerialize()
-    {
-        // Message property must been define.
-        if (!isset($this->message)) {
-            throw new FacebookMessengerException('The \'message\' property is not set !');
-        }
-
-        // Recipient property must been define.
-        if (!isset($this->recipient)) {
-            throw new FacebookMessengerException('The \'recipient\' property is not set !');
-        }
-        $json = [
-            'message' => $this->message,
-//             'notificationType' => $this->notificationType,
-            'recipient' => $this->recipient,
-//             'senderAction' => $this->senderAction
-        ];
-
-        return $json;
     }
 
     /**

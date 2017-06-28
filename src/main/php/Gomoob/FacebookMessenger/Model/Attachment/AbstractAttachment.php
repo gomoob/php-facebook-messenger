@@ -27,7 +27,6 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Attachment;
 
-use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 use Gomoob\FacebookMessenger\Model\AttachmentInterface;
 
 /**
@@ -51,22 +50,6 @@ abstract class AbstractAttachment implements AttachmentInterface
     public function getPayload()
     {
         return $this->payload;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function jsonSerialize()
-    {
-        // The 'type' and 'payload' properties must have been defined
-        if (!isset($this->type) && !isset($this->payload)) {
-            throw new FacebookMessengerException('None of the \'type\' and \'payload\' properties are not set !');
-        }
-
-        return [
-            'type' => $this->type,
-            'payload' => $this->payload->jsonSerialize()
-        ];
     }
 
     /**
