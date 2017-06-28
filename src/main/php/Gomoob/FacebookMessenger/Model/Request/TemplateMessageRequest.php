@@ -70,4 +70,12 @@ class TemplateMessageRequest extends AbstractRequest
 
         return $json;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function doCheckMessageType(/* MessageInterface */ $message)
+    {
+        // TODO
+    }
 }

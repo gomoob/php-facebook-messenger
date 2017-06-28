@@ -29,6 +29,7 @@ namespace Gomoob\FacebookMessenger\Model\Request;
 
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 use Gomoob\FacebookMessenger\Model\Message\TextMessage;
+use Gomoob\FacebookMessenger\Model\Message\VideoAttachmentMessage;
 use Gomoob\FacebookMessenger\Model\Recipient\Recipient;
 
 use PHPUnit\Framework\TestCase;
@@ -46,12 +47,17 @@ class TextMessageRequestTest extends TestCase
      */
     public function testGetSetMessage()
     {
-        $textMessageRequest = new TextMessageRequest();
-        $textMessage = new TextMessage();
-        $this->assertNull($textMessageRequest->getMessage());
-        $textMessage->setText('TEXT');
-        $textMessageRequest->setMessage($textMessage);
-        $this->assertSame($textMessage, $textMessageRequest->getMessage());
+        // Test with a message having a bad type
+        // Please note that other tests for `getMessage()` and `setMessage($text)` are written in `AbstractRequestTest`
+        try {
+             TextMessageRequest::create()->setMessage(VideoAttachmentMessage::create());
+             $this->fail('Must have thrown a FacebookMessengerException !');
+        } catch (FacebookMessengerException $fmex) {
+            $this->assertSame(
+                'The \'message\' attached to a text message request must be intance of class \'TextMessage\' !',
+                $fmex->getMessage()
+            );
+        }
     }
 
 
@@ -79,7 +85,6 @@ class TextMessageRequestTest extends TestCase
 
         $textMessageRequest->setMessage($textMessage);
         $textMessageRequest->setRecipient($recipient);
-        $textMessageRequest->setSenderAction("mark_seen");
         $textMessageRequest->setNotificationType('REGULAR');
 
         $json = $textMessageRequest->jsonSerialize();

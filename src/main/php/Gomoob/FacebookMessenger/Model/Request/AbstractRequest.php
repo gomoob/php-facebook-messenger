@@ -28,6 +28,7 @@
 namespace Gomoob\FacebookMessenger\Model\Request;
 
 use Gomoob\FacebookMessenger\Model\RequestInterface;
+use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 
 /**
  * Abstract class common to all Facebook Messenger request.
@@ -114,8 +115,23 @@ abstract class AbstractRequest implements RequestInterface
      */
     public function setMessage(/* MessageInterface */ $message) /* : RequestInterface */
     {
+        if ($message !== null) {
+            // First checks the message is of the right type
+            $this->doCheckMessageType($message);
+
+            // If the sender action is defined then the message cannot be defined
+            if (isset($this->senderAction)) {
+                throw new FacebookMessengerException(
+                    'The message cannot be defined because a sender action has been associated to this request ! If ' .
+                    'you want to set a message then you must first set the sender action to \'null\'.'
+                );
+            }
+        }
+
+        // Sets the message
         $this->message = $message;
 
+        // Returns this instance
         return $this;
     }
 
@@ -124,6 +140,21 @@ abstract class AbstractRequest implements RequestInterface
      */
     public function setNotificationType(/* string */ $notificationType) /* : RequestInterface */
     {
+        // Ensure the notification type has the right value
+        $allowedNotificationTypes = [
+            RequestInterface::NOTIFICATION_TYPE_NO_PUSH,
+            RequestInterface::NOTIFICATION_TYPE_REGULAR,
+            RequestInterface::NOTIFICATION_TYPE_SILENT_PUSH
+        ];
+        if ($notificationType !== null && !in_array($notificationType, $allowedNotificationTypes)) {
+            throw new FacebookMessengerException(
+                'Invalid notification type \'' . $notificationType . '\' ! The notification type can only be equal ' .
+                    'to \'' . RequestInterface::NOTIFICATION_TYPE_NO_PUSH . '\', \'' .
+                    RequestInterface::NOTIFICATION_TYPE_REGULAR . '\' or \'' .
+                    RequestInterface::NOTIFICATION_TYPE_SILENT_PUSH . '\'.'
+            );
+        }
+
         $this->notificationType = $notificationType;
 
         return $this;
@@ -144,8 +175,45 @@ abstract class AbstractRequest implements RequestInterface
      */
     public function setSenderAction(/* string */ $senderAction)
     {
+        if ($senderAction !== null) {
+            // Ensure the sender action has the right value
+            $allowedSenderActions = [
+                RequestInterface::SENDER_ACTION_MARK_SEEN,
+                RequestInterface::SENDER_ACTION_TYPING_OFF,
+                RequestInterface::SENDER_ACTION_TYPING_ON
+            ];
+            if (!in_array($senderAction, $allowedSenderActions)) {
+                throw new FacebookMessengerException(
+                    'Invalid sender action \'' . $senderAction . '\' ! The sender action can only be equal ' .
+                    'to \'' . RequestInterface::SENDER_ACTION_MARK_SEEN . '\', \'' .
+                    RequestInterface::SENDER_ACTION_TYPING_OFF . '\' or \'' .
+                    RequestInterface::SENDER_ACTION_TYPING_ON . '\'.'
+                );
+            }
+
+            // If the message is defined then the sender action cannot be defined
+            if (isset($this->message)) {
+                throw new FacebookMessengerException(
+                    'The sender action cannot be defined because a message has been associated to this request ! If ' .
+                    'you want to set a sender action then you must first set the message to \'null\'.'
+                );
+            }
+        }
+
+        // Sets the sender action
         $this->senderAction = $senderAction;
 
+        // Returns this instance
         return $this;
     }
+
+    /**
+     * Checks that the message associated to this request is of the right type.
+     *
+     * @param \Gomoob\FacebookMessenger\Model\MessageInterface $message the message to check.
+     *
+     * @throws \Gomoob\FacebookMessenger\Exception\FacebookMessengerException if the provided message has not the right
+     *         type.
+     */
+    abstract protected function doCheckMessageType(/* MessageInterface */ $message);
 }

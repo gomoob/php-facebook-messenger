@@ -35,4 +35,11 @@ namespace Gomoob\FacebookMessenger\Model\Request;
  */
 class ImageMessageRequest extends AbstractRequest
 {
+    /**
+     * {@inheritDoc}
+     */
+    protected function doCheckMessageType(/* MessageInterface */ $message)
+    {
+        // TODO
+    }
 }

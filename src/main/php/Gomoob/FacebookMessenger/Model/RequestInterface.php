@@ -36,6 +36,48 @@ namespace Gomoob\FacebookMessenger\Model;
 interface RequestInterface extends \JsonSerializable
 {
     /**
+     * A string which defines the `NO_PUSH` notification type.
+     *
+     * @var string
+     */
+    const NOTIFICATION_TYPE_NO_PUSH = 'NO_PUSH';
+
+    /**
+     * A string which defines the `REGULAR` notification type.
+     *
+     * @var string
+     */
+    const NOTIFICATION_TYPE_REGULAR = 'REGULAR';
+
+    /**
+     * A string which defines the `SILENT_PUSH` notification type.
+     *
+     * @var string
+     */
+    const NOTIFICATION_TYPE_SILENT_PUSH = 'SILENT_PUSH';
+
+    /**
+     * A string which defines the `mark_seen` sender action.
+     *
+     * @var string
+     */
+    const SENDER_ACTION_MARK_SEEN = 'mark_seen';
+
+    /**
+     * A string which defines the `typing_off` sender action.
+     *
+     * @var string
+     */
+    const SENDER_ACTION_TYPING_OFF = 'typing_off';
+
+    /**
+     * A string which defines the `typing_on` sender action.
+     *
+     * @var string
+     */
+    const SENDER_ACTION_TYPING_ON = 'typing_on';
+
+    /**
      * Gets the message associated to the request.
      *
      * @return \Gomoob\FacebookMessenger\Model\MessageInterface the message associated to the request.

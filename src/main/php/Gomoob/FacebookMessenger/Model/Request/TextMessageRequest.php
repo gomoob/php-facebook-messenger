@@ -28,6 +28,7 @@
 namespace Gomoob\FacebookMessenger\Model\Request;
 
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
+use Gomoob\FacebookMessenger\Model\Message\TextMessage;
 
 /**
  * Class which represents a Facebook Messenger request.
@@ -67,5 +68,18 @@ class TextMessageRequest extends AbstractRequest
             'recipient' => $this->recipient,
             //'senderAction' => $this->senderAction
         ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function doCheckMessageType(/* MessageInterface */ $message)
+    {
+        // The message must be an 'TextMessage'
+        if (!($message instanceof TextMessage)) {
+            throw new FacebookMessengerException(
+                'The \'message\' attached to a text message request must be intance of class \'TextMessage\' !'
+            );
+        }
     }
 }
