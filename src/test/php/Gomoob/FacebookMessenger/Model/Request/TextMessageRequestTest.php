@@ -74,31 +74,23 @@ class TextMessageRequestTest extends TestCase
      */
     public function testJsonSerialize()
     {
-        $textMessageRequest = new TextMessageRequest();
+        // Test with the sample on the Facebook Messenger documentation
+        $json = TextMessageRequest::create()
+            ->setRecipient(Recipient::create()->setId('USER_ID'))
+            ->setMessage(
+                TextMessage::create()->setText('hello, world !')
+            )->jsonSerialize();
 
-        // Test without the 'message' property
-        try {
-            $textMessageRequest->jsonSerialize();
-            $this->fail('Must have thrown a FacebookMessengerException !');
-        } catch (FacebookMessengerException $fmex) {
-            $this->assertSame('The \'message\' property is not set !', $fmex->getMessage());
-        }
-
-        // Test with valid settings
-        $textMessage = new TextMessage();
-        $textMessage->setText('TEXT');
-
-        $recipient = new Recipient();
-        $recipient->setPhoneNumber(0102030405);
-
-        $textMessageRequest->setMessage($textMessage);
-        $textMessageRequest->setRecipient($recipient);
-        $textMessageRequest->setNotificationType('REGULAR');
-
-        $json = $textMessageRequest->jsonSerialize();
-//         $this->assertCount(4, $json);
-//         $this->assertSame('REGULAR', $json['notificationType']);
-//         $this->assertSame('mark_seen', $json['senderAction']);
-        $this->assertSame('TEXT', $json['message']->getText());
+        $this->assertSame(
+            [
+                'recipient' => [
+                    'id' => 'USER_ID'
+                ],
+                'message' => [
+                    'text' => 'hello, world !'
+                ]
+            ],
+            $json
+        );
     }
 }

@@ -51,28 +51,6 @@ class TextMessageRequest extends AbstractRequest
     /**
      * {@inheritDoc}
      */
-    public function jsonSerialize()
-    {
-        // The 'text' property must have been defined
-        if (!isset($this->message)) {
-            throw new FacebookMessengerException('The \'message\' property is not set !');
-        }
-
-        if (!isset($this->recipient)) {
-            throw new FacebookMessengerException('The \'recipient\' property is not set !');
-        }
-
-        return [
-            'message' => $this->message,
-            //'notificationType' => $this->notificationType,
-            'recipient' => $this->recipient,
-            //'senderAction' => $this->senderAction
-        ];
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     protected function doCheckMessageType(/* MessageInterface */ $message)
     {
         // The message must be an 'TextMessage'
