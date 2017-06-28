@@ -28,8 +28,8 @@
 namespace Gomoob\FacebookMessenger\Model\Message;
 
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
-
 use Gomoob\FacebookMessenger\Model\ImageAttachmentMessageInterface;
+use Gomoob\FacebookMessenger\Model\Attachment\ImageAttachment;
 
 /**
  * Class which represents a a Facebook Messenger image attachment message.
@@ -40,14 +40,7 @@ use Gomoob\FacebookMessenger\Model\ImageAttachmentMessageInterface;
 class ImageAttachmentMessage extends AbstractAttachmentMessage implements ImageAttachmentMessageInterface
 {
     /**
-     * The attachment of the image message.
-     *
-     * @var \Gomoob\FacebookMessenger\Model\AttachmentInterface
-     */
-    private $attachment;
-
-    /**
-     * Utility function used to create a new instance of the <tt>ImageMessage</tt> class.
+     * Utility function used to create a new instance of the <tt>ImageAttachmentMessage</tt> class.
      *
      * @return \Gomoob\FacebookMessenger\Model\Message\ImageAttachmentMessage the new created instance.
      */
@@ -59,15 +52,14 @@ class ImageAttachmentMessage extends AbstractAttachmentMessage implements ImageA
     /**
      * {@inheritDoc}
      */
-    public function jsonSerialize()
+    protected function doCheckAttachmentType(/* AttachmentInterface */ $attachment)
     {
-        // The 'attachment' property must have been defined
-        if (!isset($this->attachment)) {
-            throw new FacebookMessengerException('The \'attachment\' property is not set !');
+        // The attachment must be an 'ImageAttachment'
+        if (!($attachment instanceof ImageAttachment)) {
+            throw new FacebookMessengerException(
+                'The \'attachment\' associated to an image attachment message must be intance of class ' .
+                '\'ImageAttachment\' !'
+            );
         }
-
-        return [
-            'attachment' => $this->attachment
-        ];
     }
 }

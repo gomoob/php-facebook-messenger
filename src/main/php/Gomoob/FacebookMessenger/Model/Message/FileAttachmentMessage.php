@@ -27,7 +27,9 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Message;
 
+use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 use Gomoob\FacebookMessenger\Model\FileAttachmentMessageInterface;
+use Gomoob\FacebookMessenger\Model\Attachment\FileAttachment;
 
 /**
  * Class which represents a a Facebook Messenger file attachment message.
@@ -35,13 +37,29 @@ use Gomoob\FacebookMessenger\Model\FileAttachmentMessageInterface;
  * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference/file-attachment
  */
-class AudioAttachmentMessage extends AbstractAttachmentMessage implements FileAttachmentMessageInterface
+class FileAttachmentMessage extends AbstractAttachmentMessage implements FileAttachmentMessageInterface
 {
+    /**
+     * Utility function used to create a new instance of the <tt>FileAttachmentMessage</tt> class.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\Message\FileAttachmentMessage the new created instance.
+     */
+    public static function create()
+    {
+        return new FileAttachmentMessage();
+    }
+
     /**
      * {@inheritDoc}
      */
-    public function jsonSerialize()
+    protected function doCheckAttachmentType(/* AttachmentInterface */ $attachment)
     {
-        // TODO
+        // The attachment must be an 'FileAttachment'
+        if (!($attachment instanceof FileAttachment)) {
+            throw new FacebookMessengerException(
+                'The \'attachment\' associated to a file attachment message must be intance of class ' .
+                '\'FileAttachment\' !'
+            );
+        }
     }
 }

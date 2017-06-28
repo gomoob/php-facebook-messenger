@@ -27,6 +27,11 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Message;
 
+use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
+use Gomoob\FacebookMessenger\Model\Attachment\ImageAttachment;
+use Gomoob\FacebookMessenger\Model\Attachment\VideoAttachment;
+use Gomoob\FacebookMessenger\Model\Payload\VideoAttachmentPayload;
+
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -37,5 +42,71 @@ use PHPUnit\Framework\TestCase;
  */
 class VideoAttachmentMessageTest extends TestCase
 {
+    /**
+     * Test method for the `create()` function.
+     */
+    public function testCreate()
+    {
+        $videoAttachmentMessage = VideoAttachmentMessage::create();
+        $this->assertNotNull($videoAttachmentMessage);
+    }
 
+    /**
+     * Test method for the `getAttachment()` and `setAttachment($attachment)` functions.
+     */
+    public function testGetSetAttachment()
+    {
+        $videoAttachmentMessage = VideoAttachmentMessage::create();
+
+        // Test with an attachment having a bad type
+        try {
+            $videoAttachmentMessage->setAttachment(ImageAttachment::create());
+            $this->fail('Must have thrown a FacebookMessengerException !');
+        } catch (FacebookMessengerException $fmex) {
+            $this->assertSame(
+                'The \'attachment\' associated to a video attachment message must be intance of class ' .
+                '\'VideoAttachment\' !',
+                $fmex->getMessage()
+            );
+        }
+
+        $attachment = VideoAttachment::create();
+
+        $this->assertNull($videoAttachmentMessage->getAttachment());
+        $this->assertSame($videoAttachmentMessage, $videoAttachmentMessage->setAttachment($attachment));
+        $this->assertSame($attachment, $videoAttachmentMessage->getAttachment());
+    }
+
+    /**
+     * Test method for the `jsonSerialize()` function.
+     */
+    public function testJsonSerialize()
+    {
+        $videoAttachmentMessage = VideoAttachmentMessage::create();
+
+        // Test without the 'attachment' property
+        try {
+            $videoAttachmentMessage->jsonSerialize();
+            $this->fail('Must have thrown a FacebookMessengerException !');
+        } catch (FacebookMessengerException $fmex) {
+            $this->assertSame('The \'attachment\' property is not set !', $fmex->getMessage());
+        }
+
+        // Test with valid settings
+        $videoAttachmentMessage->setAttachment(
+            VideoAttachment::create()->setPayload(VideoAttachmentPayload::create()->setUrl('URL'))
+        );
+
+        $json = $videoAttachmentMessage->jsonSerialize();
+        $this->assertCount(1, $json);
+        $this->assertSame(
+            [
+                'type' => 'video',
+                'payload' => [
+                    'url' => 'URL'
+                ]
+            ],
+            $json['attachment']
+        );
+    }
 }

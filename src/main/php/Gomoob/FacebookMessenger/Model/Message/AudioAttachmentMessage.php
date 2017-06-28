@@ -27,7 +27,9 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Message;
 
+use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 use Gomoob\FacebookMessenger\Model\AudioAttachmentMessageInterface;
+use Gomoob\FacebookMessenger\Model\Attachment\AudioAttachment;
 
 /**
  * Class which represents a a Facebook Messenger audio attachment message.
@@ -38,10 +40,26 @@ use Gomoob\FacebookMessenger\Model\AudioAttachmentMessageInterface;
 class AudioAttachmentMessage extends AbstractAttachmentMessage implements AudioAttachmentMessageInterface
 {
     /**
+     * Utility function used to create a new instance of the <tt>AudioAttachmentMessage</tt> class.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\Message\AudioAttachmentMessage the new created instance.
+     */
+    public static function create()
+    {
+        return new AudioAttachmentMessage();
+    }
+
+    /**
      * {@inheritDoc}
      */
-    public function jsonSerialize()
+    protected function doCheckAttachmentType(/* AttachmentInterface */ $attachment)
     {
-        // TODO
+        // The attachment must be an 'AudioAttachment'
+        if (!($attachment instanceof AudioAttachment)) {
+            throw new FacebookMessengerException(
+                'The \'attachment\' associated to an audio attachment message must be intance of class ' .
+                '\'AudioAttachment\' !'
+            );
+        }
     }
 }

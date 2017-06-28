@@ -27,6 +27,11 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Message;
 
+use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
+use Gomoob\FacebookMessenger\Model\Attachment\AudioAttachment;
+use Gomoob\FacebookMessenger\Model\Attachment\VideoAttachment;
+use Gomoob\FacebookMessenger\Model\Payload\AudioAttachmentPayload;
+
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -37,5 +42,71 @@ use PHPUnit\Framework\TestCase;
  */
 class AudioAttachmentMessageTest extends TestCase
 {
+    /**
+     * Test method for the `create()` function.
+     */
+    public function testCreate()
+    {
+        $audioAttachmentMessage = AudioAttachmentMessage::create();
+        $this->assertNotNull($audioAttachmentMessage);
+    }
 
+    /**
+     * Test method for the `getAttachment()` and `setAttachment($attachment)` functions.
+     */
+    public function testGetSetAttachment()
+    {
+        $audioAttachmentMessage = AudioAttachmentMessage::create();
+
+        // Test with an attachment having a bad type
+        try {
+            $audioAttachmentMessage->setAttachment(VideoAttachment::create());
+            $this->fail('Must have thrown a FacebookMessengerException !');
+        } catch (FacebookMessengerException $fmex) {
+            $this->assertSame(
+                'The \'attachment\' associated to an audio attachment message must be intance of class ' .
+                '\'AudioAttachment\' !',
+                $fmex->getMessage()
+            );
+        }
+
+        $attachment = AudioAttachment::create();
+
+        $this->assertNull($audioAttachmentMessage->getAttachment());
+        $this->assertSame($audioAttachmentMessage, $audioAttachmentMessage->setAttachment($attachment));
+        $this->assertSame($attachment, $audioAttachmentMessage->getAttachment());
+    }
+
+    /**
+     * Test method for the `jsonSerialize()` function.
+     */
+    public function testJsonSerialize()
+    {
+        $audioAttachmentMessage = AudioAttachmentMessage::create();
+
+        // Test without the 'attachment' property
+        try {
+            $audioAttachmentMessage->jsonSerialize();
+            $this->fail('Must have thrown a FacebookMessengerException !');
+        } catch (FacebookMessengerException $fmex) {
+            $this->assertSame('The \'attachment\' property is not set !', $fmex->getMessage());
+        }
+
+        // Test with valid settings
+        $audioAttachmentMessage->setAttachment(
+            AudioAttachment::create()->setPayload(AudioAttachmentPayload::create()->setUrl('URL'))
+        );
+
+        $json = $audioAttachmentMessage->jsonSerialize();
+        $this->assertCount(1, $json);
+        $this->assertSame(
+            [
+                'type' => 'audio',
+                'payload' => [
+                    'url' => 'URL'
+                ]
+            ],
+            $json['attachment']
+        );
+    }
 }

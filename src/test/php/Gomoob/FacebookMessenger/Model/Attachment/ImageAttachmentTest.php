@@ -29,6 +29,7 @@ namespace Gomoob\FacebookMessenger\Model\Attachment;
 
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 use Gomoob\FacebookMessenger\Model\Payload\ImageAttachmentPayload;
+use Gomoob\FacebookMessenger\Model\Payload\VideoAttachmentPayload;
 
 use PHPUnit\Framework\TestCase;
 
@@ -50,15 +51,15 @@ class ImageAttachmentTest extends TestCase
     }
 
     /**
-     * Test method for the `getAttachment()` and `setAttachment($attachment)` functions.
+     * Test method for the `getPayload()` and `setPayload($payload)` functions.
      */
-    public function testGetSetAttachment()
+    public function testGetSetPayload()
     {
         $imageAttachment = ImageAttachment::create();
 
-        // Test with an attachment having a bad typ
+        // Test with a payload having a bad type
         try {
-            $imageAttachment->setPayload(VideoAttachment::create());
+            $imageAttachment->setPayload(VideoAttachmentPayload::create());
             $this->fail('Must have thrown a FacebookMessengerException !');
         } catch (FacebookMessengerException $fmex) {
             $this->assertSame(

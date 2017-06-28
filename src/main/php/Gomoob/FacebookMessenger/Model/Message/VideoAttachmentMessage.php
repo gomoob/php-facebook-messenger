@@ -27,7 +27,9 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Message;
 
+use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 use Gomoob\FacebookMessenger\Model\VideoAttachmentMessageInterface;
+use Gomoob\FacebookMessenger\Model\Attachment\VideoAttachment;
 
 /**
  * Class which represents a a Facebook Messenger video attachment message.
@@ -38,10 +40,26 @@ use Gomoob\FacebookMessenger\Model\VideoAttachmentMessageInterface;
 class VideoAttachmentMessage extends AbstractAttachmentMessage implements VideoAttachmentMessageInterface
 {
     /**
+     * Utility function used to create a new instance of the <tt>VideoAttachmentMessage</tt> class.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\Message\VideoAttachmentMessage the new created instance.
+     */
+    public static function create()
+    {
+        return new VideoAttachmentMessage();
+    }
+
+    /**
      * {@inheritDoc}
      */
-    public function jsonSerialize()
+    protected function doCheckAttachmentType(/* AttachmentInterface */ $attachment)
     {
-        // TODO
+        // The attachment must be an 'VideoAttachment'
+        if (!($attachment instanceof VideoAttachment)) {
+            throw new FacebookMessengerException(
+                'The \'attachment\' associated to a video attachment message must be intance of class ' .
+                '\'VideoAttachment\' !'
+            );
+        }
     }
 }

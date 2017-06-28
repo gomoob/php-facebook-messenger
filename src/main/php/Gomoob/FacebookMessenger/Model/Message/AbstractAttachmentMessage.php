@@ -27,6 +27,7 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Message;
 
+use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 use Gomoob\FacebookMessenger\Model\AttachmentMessageInterface;
 
 /**
@@ -54,10 +55,40 @@ abstract class AbstractAttachmentMessage extends AbstractMessage implements Atta
     /**
      * {@inheritDoc}
      */
+    public function jsonSerialize()
+    {
+        // The 'attachment' property must have been defined
+        if (!isset($this->attachment)) {
+            throw new FacebookMessengerException('The \'attachment\' property is not set !');
+        }
+
+        return [
+            'attachment' => $this->attachment->jsonSerialize()
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setAttachment($attachment) /* : AttachmentMessageInterface */
     {
+        // First checks the attachment is of the right type
+        $this->doCheckAttachmentType($attachment);
+
+        // Sets the attachment
         $this->attachment = $attachment;
 
+        // Return this instance
         return $this;
     }
+
+    /**
+     * Checks that the attachment attached to the message is of the right type.
+     *
+     * @param \Gomoob\FacebookMessenger\Model\AttachmentInterface $attachment the attachment to check.
+     *
+     * @throws \Gomoob\FacebookMessenger\Exception\FacebookMessengerException if the provided attachment has not the
+     *         right type.
+     */
+    abstract protected function doCheckAttachmentType(/* AttachmentInterface */ $attachment);
 }
