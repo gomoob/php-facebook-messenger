@@ -40,6 +40,15 @@ use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 class RecipientTest extends TestCase
 {
     /**
+     * Test method for the `create()` function.
+     */
+    public function testCreate()
+    {
+        $recipient = Recipient::create();
+        $this->assertNotNull($recipient);
+    }
+
+    /**
      * Test method for the `getId()` and `setId($id)` functions.
      */
     public function testGetSetId()

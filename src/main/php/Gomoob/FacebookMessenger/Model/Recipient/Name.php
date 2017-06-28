@@ -53,6 +53,16 @@ class Name implements NameInterface
     private $lastName;
 
     /**
+     * Utility function used to create a new instance of the <tt>Name</tt>.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\Recipient\Name the new created instance.
+     */
+    public static function create()
+    {
+        return new Name();
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function jsonSerialize()

@@ -28,7 +28,12 @@
 namespace Gomoob\FacebookMessenger\Model\Request;
 
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
+use Gomoob\FacebookMessenger\Model\Attachment\AudioAttachment;
+use Gomoob\FacebookMessenger\Model\Message\AudioAttachmentMessage;
 use Gomoob\FacebookMessenger\Model\Message\VideoAttachmentMessage;
+use Gomoob\FacebookMessenger\Model\Payload\AudioAttachmentPayload;
+use Gomoob\FacebookMessenger\Model\Recipient\Recipient;
+use Gomoob\FacebookMessenger\Model\Recipient\Name;
 
 use PHPUnit\Framework\TestCase;
 
@@ -66,5 +71,64 @@ class AudioAttachmentRequestTest extends TestCase
                 $fmex->getMessage()
             );
         }
+    }
+
+    /**
+     * Test method for the `jsonSerialize()` function.
+     */
+    public function testJsonSerialize()
+    {
+        $audioAttachmentRequest = new AudioAttachmentRequest();
+        $recipient = Recipient::create()
+            ->setPhoneNumber('0102030405')
+            ->setName(Name::create()->setFirstName('John')->setLastName('Doe'));
+
+        // Test without the 'recipient' property
+        try {
+            $audioAttachmentRequest->jsonSerialize();
+            $this->fail('Must have thrown a FacebookMessengerException !');
+        } catch (FacebookMessengerException $fmex) {
+            $this->assertSame('The \'recipient\' property is not set !', $fmex->getMessage());
+        }
+
+        // Test without both a 'message' and a 'sender_action' property
+        $audioAttachmentRequest->setRecipient($recipient);
+        try {
+            $audioAttachmentRequest->jsonSerialize();
+            $this->fail('Must have thrown a FacebookMessengerException !');
+        } catch (FacebookMessengerException $fmex) {
+            $this->assertSame(
+                'Both the \'message\' and the \'senderAction\' properties are not set !',
+                $fmex->getMessage()
+            );
+        }
+
+        // Test with the sample on the Facebook Messenger documentation
+        $json = AudioAttachmentRequest::create()
+            ->setRecipient(Recipient::create()->setId('USER_ID'))
+            ->setMessage(
+                AudioAttachmentMessage::create()->setAttachment(
+                    AudioAttachment::create()->setPayload(
+                        AudioAttachmentPayload::create()->setUrl('https://petersapparel.com/bin/clip.mp3')
+                    )
+                )
+            )->jsonSerialize();
+
+        $this->assertSame(
+            [
+                'recipient' => [
+                    'id' => 'USER_ID'
+                ],
+                'message' => [
+                    'attachment' => [
+                        'type' => 'audio',
+                        'payload' => [
+                            'url' => 'https://petersapparel.com/bin/clip.mp3'
+                        ]
+                    ]
+                ]
+            ],
+            $json
+        );
     }
 }

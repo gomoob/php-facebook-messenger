@@ -40,6 +40,15 @@ use PHPUnit\Framework\TestCase;
 class NameTest extends TestCase
 {
     /**
+     * Test method for the `create()` function.
+     */
+    public function testCreate()
+    {
+        $name = Name::create();
+        $this->assertNotNull($name);
+    }
+
+    /**
      * Test method for the `getFirstName()` and `setFirstName($firstName)` functions.
      */
     public function testGetSetFirstName()

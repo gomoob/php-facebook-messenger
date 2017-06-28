@@ -102,12 +102,27 @@ abstract class AbstractRequest implements RequestInterface
      */
     public function jsonSerialize()
     {
-        return [
-            'message' => $this->message,
-            'notificationType' => $this->notificationType,
-            'recipient' => $this->recipient,
-            'senderAction' => $this->senderAction
+        // The 'recipient' property must have been defined
+        if (!isset($this->recipient)) {
+            throw new FacebookMessengerException('The \'recipient\' property is not set !');
+        }
+
+        // The 'message' or the 'sender_action' must have been defined
+        if (!isset($this->message) && !isset($this->senderAction)) {
+            throw new FacebookMessengerException(
+                'Both the \'message\' and the \'senderAction\' properties are not set !'
+            );
+        }
+
+        $json = [
+            'recipient' => $this->recipient->jsonSerialize()
         ];
+
+        isset($this->message) ? $json['message'] = $this->message->jsonSerialize() : false;
+        isset($this->senderAction) ? $json['sender_action'] = $this->senderAction : false;
+        isset($this->notificationType) ? $json['notification_type'] = $this->notificationType : false;
+
+        return $json;
     }
 
     /**
