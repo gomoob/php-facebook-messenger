@@ -28,27 +28,25 @@
 namespace Gomoob\FacebookMessenger\Model\Request;
 
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
-use Gomoob\FacebookMessenger\Model\Message\TextMessage;
 use Gomoob\FacebookMessenger\Model\Message\VideoAttachmentMessage;
-use Gomoob\FacebookMessenger\Model\Recipient\Recipient;
 
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test case used to test the `TextMessageRequest` class.
+ * Test case used to test the `AudioAttachmentRequest` class.
  *
- * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
- * @group TextMessageRequestTest
+ * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
+ * @group AudioAttachmentRequestTest
  */
-class TextMessageRequestTest extends TestCase
+class AudioAttachmentRequestTest extends TestCase
 {
     /**
      * Test method for the `create()` function.
      */
     public function testCreate()
     {
-        $textMessageRequest = TextMessageRequest::create();
-        $this->assertNotNull($textMessageRequest);
+        $audioAttachmentRequest = AudioAttachmentRequest::create();
+        $this->assertNotNull($audioAttachmentRequest);
     }
 
     /**
@@ -59,46 +57,14 @@ class TextMessageRequestTest extends TestCase
         // Test with a message having a bad type
         // Please note that other tests for `getMessage()` and `setMessage($text)` are written in `AbstractRequestTest`
         try {
-             TextMessageRequest::create()->setMessage(VideoAttachmentMessage::create());
-             $this->fail('Must have thrown a FacebookMessengerException !');
+            AudioAttachmentRequest::create()->setMessage(VideoAttachmentMessage::create());
+            $this->fail('Must have thrown a FacebookMessengerException !');
         } catch (FacebookMessengerException $fmex) {
             $this->assertSame(
-                'The \'message\' attached to a text message request must be intance of class \'TextMessage\' !',
+                'The \'message\' attached to an audio attachement request must be intance of class ' .
+                '\'AudioAttachementMessage\' !',
                 $fmex->getMessage()
             );
         }
-    }
-
-    /**
-     * Test method for the `jsonSerialize()` function.
-     */
-    public function testJsonSerialize()
-    {
-        $textMessageRequest = new TextMessageRequest();
-
-        // Test without the 'message' property
-        try {
-            $textMessageRequest->jsonSerialize();
-            $this->fail('Must have thrown a FacebookMessengerException !');
-        } catch (FacebookMessengerException $fmex) {
-            $this->assertSame('The \'message\' property is not set !', $fmex->getMessage());
-        }
-
-        // Test with valid settings
-        $textMessage = new TextMessage();
-        $textMessage->setText('TEXT');
-
-        $recipient = new Recipient();
-        $recipient->setPhoneNumber(0102030405);
-
-        $textMessageRequest->setMessage($textMessage);
-        $textMessageRequest->setRecipient($recipient);
-        $textMessageRequest->setNotificationType('REGULAR');
-
-        $json = $textMessageRequest->jsonSerialize();
-//         $this->assertCount(4, $json);
-//         $this->assertSame('REGULAR', $json['notificationType']);
-//         $this->assertSame('mark_seen', $json['senderAction']);
-        $this->assertSame('TEXT', $json['message']->getText());
     }
 }

@@ -27,19 +27,38 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Request;
 
+use Gomoob\FacebookMessenger\Model\Message\ImageAttachmentMessage;
+use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
+
 /**
  * Class which represents a Facebook Messenger request.
  *
  * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference#request
  */
-class ImageMessageRequest extends AbstractRequest
+class ImageAttachmentRequest extends AbstractRequest
 {
+    /**
+     * Utility function used to create a new instance of the <tt>ImageAttachmentRequest</tt>.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\Request\ImageAttachmentRequest the new created instance.
+     */
+    public static function create()
+    {
+        return new ImageAttachmentRequest();
+    }
+
     /**
      * {@inheritDoc}
      */
     protected function doCheckMessageType(/* MessageInterface */ $message)
     {
-        // TODO
+        // The message must be an 'ImageAttachementMessage'
+        if (!($message instanceof ImageAttachmentMessage)) {
+            throw new FacebookMessengerException(
+                'The \'message\' attached to an image attachement request must be intance of class ' .
+                '\'ImageAttachmentMessage\' !'
+            );
+        }
     }
 }

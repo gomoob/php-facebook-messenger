@@ -27,19 +27,38 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Request;
 
+use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
+use Gomoob\FacebookMessenger\Model\Message\VideoAttachmentMessage;
+
 /**
  * Class which represents a Facebook Messenger request.
  *
  * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference#request
  */
-class VideoMessageRequest extends AbstractRequest
+class VideoAttachmentRequest extends AbstractRequest
 {
+    /**
+     * Utility function used to create a new instance of the <tt>VideoAttachmentRequest</tt>.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\Request\VideoAttachmentRequest the new created instance.
+     */
+    public static function create()
+    {
+        return new VideoAttachmentRequest();
+    }
+
     /**
      * {@inheritDoc}
      */
     protected function doCheckMessageType(/* MessageInterface */ $message)
     {
-        // TODO
+        // The message must be a 'VideoAttachementMessage'
+        if (!($message instanceof VideoAttachmentMessage)) {
+            throw new FacebookMessengerException(
+                'The \'message\' attached to a video attachement request must be intance of class ' .
+                '\'VideoAttachmentMessage\' !'
+            );
+        }
     }
 }
