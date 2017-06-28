@@ -28,6 +28,7 @@
 namespace Gomoob\FacebookMessenger\Model\Attachment;
 
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
+use Gomoob\FacebookMessenger\Model\Payload\ImageAttachmentPayload;
 
 /**
  * Class which represents a Facebook Messenger image attachment.
@@ -68,6 +69,11 @@ class ImageAttachment extends AbstractAttachment
      */
     protected function doCheckPayloadType(/* PayloadInterface */ $payload)
     {
-        // TODO
+        // The payload must be an 'ImageAttachmentPayload'
+        if (!($payload instanceof ImageAttachmentPayload)) {
+            throw new FacebookMessengerException(
+                'The \'payload\' attached to an image attachment must be intance of class \'ImageAttachmentPayload\' !'
+            );
+        }
     }
 }

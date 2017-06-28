@@ -28,6 +28,7 @@
 namespace Gomoob\FacebookMessenger\Model\Attachment;
 
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
+use Gomoob\FacebookMessenger\Model\Payload\VideoAttachmentPayload;
 
 /**
  * Class which represents a Facebook Messenger video attachment.
@@ -68,6 +69,11 @@ class VideoAttachment extends AbstractAttachment
      */
     protected function doCheckPayloadType(/* PayloadInterface */ $payload)
     {
-        // TODO
+        // The payload must be an 'VideoAttachmentPayload'
+        if (!($payload instanceof VideoAttachmentPayload)) {
+            throw new FacebookMessengerException(
+                'The \'payload\' attached to a video attachment must be intance of class \'VideoAttachmentPayload\' !'
+            );
+        }
     }
 }

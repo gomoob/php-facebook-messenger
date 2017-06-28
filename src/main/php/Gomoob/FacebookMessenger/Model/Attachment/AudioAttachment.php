@@ -28,6 +28,7 @@
 namespace Gomoob\FacebookMessenger\Model\Attachment;
 
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
+use Gomoob\FacebookMessenger\Model\Payload\AudioAttachmentPayload;
 
 /**
  * Class which represents a Facebook Messenger audio attachment.
@@ -68,6 +69,11 @@ class AudioAttachment extends AbstractAttachment
      */
     protected function doCheckPayloadType(/* PayloadInterface */ $payload)
     {
-        // TODO
+        // The payload must be an 'AudioAttachmentPayload'
+        if (!($payload instanceof AudioAttachmentPayload)) {
+            throw new FacebookMessengerException(
+                'The \'payload\' attached to an audio attachment must be intance of class \'AudioAttachmentPayload\' !'
+            );
+        }
     }
 }
