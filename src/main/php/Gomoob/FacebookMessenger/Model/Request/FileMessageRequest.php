@@ -35,11 +35,4 @@ namespace Gomoob\FacebookMessenger\Model\Request;
  */
 class FileMessageRequest extends AbstractRequest
 {
-    public function getMessage()
-    {
-    }
-
-    public function setMessage($message)
-    {
-    }
 }

@@ -38,20 +38,6 @@ use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 class TextMessageRequest extends AbstractRequest
 {
     /**
-     * The message to send.
-     *
-     * @var \Gomoob\FacebookMessenger\Model\TextMessageInterface
-     */
-    private $message;
-
-    /**
-     * The access token where to send the message to.
-     *
-     * @var String the access token where to send the message to
-     */
-    private $pageAccessToken;
-
-    /**
      * Utility function used to create a new instance of the <tt>TextMessageRequest</tt>.
      *
      * @return \Gomoob\FacebookMessenger\Model\Request\TextMessageRequest the new created instance.
@@ -59,40 +45,6 @@ class TextMessageRequest extends AbstractRequest
     public static function create()
     {
         return new TextMessageRequest();
-    }
-
-    /**
-     * Get the message to send.
-     *
-     * @return \Gomoob\FacebookMessenger\Model\TextMessageInterface
-     */
-    public function getMessage()
-    {
-        return $this->message;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getNotificationType()
-    {
-        return $this->notificationType;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getRecipient()
-    {
-        return $this->recipient;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getSenderAction()
-    {
-        return $this->senderAction;
     }
 
     /**
@@ -115,47 +67,5 @@ class TextMessageRequest extends AbstractRequest
             'recipient' => $this->recipient,
             //'senderAction' => $this->senderAction
         ];
-    }
-
-    /**
-     * Set the message to send.
-     *
-     * @param TextMessageInterface $message
-     * @return \Gomoob\FacebookMessenger\Model\TextMessageInterface
-     */
-    public function setMessage($message)
-    {
-        $this->message = $message;
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setNotificationType(/* string */ $notificationType)
-    {
-        $this->notificationType = $notificationType;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setRecipient(/* RecipientInterface */ $recipient)
-    {
-        $this->recipient = $recipient;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setSenderAction(/* string */ $senderAction)
-    {
-        $this->senderAction = $senderAction;
-
-        return $this;
     }
 }

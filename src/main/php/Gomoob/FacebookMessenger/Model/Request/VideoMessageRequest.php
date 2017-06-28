@@ -35,11 +35,4 @@ namespace Gomoob\FacebookMessenger\Model\Request;
  */
 class VideoMessageRequest extends AbstractRequest
 {
-    public function getMessage()
-    {
-    }
-
-    public function setMessage($message)
-    {
-    }
 }

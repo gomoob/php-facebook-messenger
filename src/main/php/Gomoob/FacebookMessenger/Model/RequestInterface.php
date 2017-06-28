@@ -71,7 +71,7 @@ interface RequestInterface extends \JsonSerializable
      *
      * @return \Gomoob\FacebookMessenger\Model\RequestInterface this instance.
      */
-    public function setMessage(/* TemplateMessageInterface */ $message);
+    public function setMessage(/* MessageInterface */ $message) /* : RequestInterface */;
 
     /**
      * Set the notification type of the request.
@@ -80,7 +80,7 @@ interface RequestInterface extends \JsonSerializable
      *
      * @return \Gomoob\FacebookMessenger\Model\RequestInterface this instance.
      */
-    public function setNotificationType(/* string */ $notificationType);
+    public function setNotificationType(/* string */ $notificationType) /* : RequestInterface */;
 
     /**
      * Set the recipient of the message link to the request
@@ -90,7 +90,7 @@ interface RequestInterface extends \JsonSerializable
      *
      * @return \Gomoob\FacebookMessenger\Model\RequestInterface this instance.
      */
-    public function setRecipient(/* RecipientInterface */ $recipient);
+    public function setRecipient(/* RecipientInterface */ $recipient) /* : RequestInterface */;
 
     /**
      * Set the sender action of the request.
@@ -101,5 +101,5 @@ interface RequestInterface extends \JsonSerializable
      *
      * @return \Gomoob\FacebookMessenger\Model\RequestInterface this instance.
      */
-    public function setSenderAction(/* string */ $senderAction);
+    public function setSenderAction(/* string */ $senderAction) /* : RequestInterface */;
 }

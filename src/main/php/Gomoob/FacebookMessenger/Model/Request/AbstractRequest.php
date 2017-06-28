@@ -37,6 +37,13 @@ use Gomoob\FacebookMessenger\Model\RequestInterface;
 abstract class AbstractRequest implements RequestInterface
 {
     /**
+     * The message attached to the request.
+     *
+     * @var \Gomoob\FacebookMessenger\Model\MessageInterface
+     */
+    protected $message;
+
+    /**
      * The notification type of the request.
      *
      * @var string
@@ -60,7 +67,15 @@ abstract class AbstractRequest implements RequestInterface
     /**
      * {@inheritDoc}
      */
-    public function getNotificationType()
+    public function getMessage() /* : MessageInterface */
+    {
+        return $this->message;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getNotificationType() /* : string */
     {
         return $this->notificationType;
     }
@@ -68,7 +83,7 @@ abstract class AbstractRequest implements RequestInterface
     /**
      * {@inheritDoc}
      */
-    public function getRecipient()
+    public function getRecipient() /* : RecipientInterface */
     {
         return $this->recipient;
     }
@@ -76,7 +91,7 @@ abstract class AbstractRequest implements RequestInterface
     /**
      * {@inheritDoc}
      */
-    public function getSenderAction()
+    public function getSenderAction() /* : string */
     {
         return $this->senderAction;
     }
@@ -97,9 +112,9 @@ abstract class AbstractRequest implements RequestInterface
     /**
      * {@inheritDoc}
      */
-    public function setNotificationType(/* string */ $notificationType)
+    public function setMessage(/* MessageInterface */ $message) /* : RequestInterface */
     {
-        $this->notificationType = $notificationType;
+        $this->message = $message;
 
         return $this;
     }
@@ -107,9 +122,9 @@ abstract class AbstractRequest implements RequestInterface
     /**
      * {@inheritDoc}
      */
-    public function setSenderAction(/* string */ $senderAction)
+    public function setNotificationType(/* string */ $notificationType) /* : RequestInterface */
     {
-        $this->senderAction = $senderAction;
+        $this->notificationType = $notificationType;
 
         return $this;
     }
@@ -120,6 +135,16 @@ abstract class AbstractRequest implements RequestInterface
     public function setRecipient(/* RecipientInterface */ $recipient)
     {
         $this->recipient = $recipient;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setSenderAction(/* string */ $senderAction)
+    {
+        $this->senderAction = $senderAction;
 
         return $this;
     }
