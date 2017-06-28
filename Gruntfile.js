@@ -61,7 +61,8 @@ module.exports = function(grunt) {
 
                         var command = 'php ./vendor/squizlabs/php_codesniffer/bin/phpcs';
                         command += ' --cache'; 
-                        command += ' --filter=GitModified';
+                        command += ' --colors';
+                        //command += ' --filter=GitModified';
                         command += ' --parallel=16'; // Requires PHP to be compiled with PCNTL package
                         command += ' --standard=PSR2';
                         command += ' -v';
@@ -72,8 +73,8 @@ module.exports = function(grunt) {
                             command += ' --report-file=target/reports/phpcs/phpcs.xml'; 
                         }
 
-                        command += ' src/main/php';
-                        command += ' src/test/php/Gomoob';
+                        // command += ' src/main/php';
+                        command += ' src/test/php/Gomoob/FacebookMessenger/Model/Message';
 
                         return command;
 
@@ -85,7 +86,7 @@ module.exports = function(grunt) {
 
                         var command = 'php ./vendor/squizlabs/php_codesniffer/bin/phpcbf';
                         command += ' --cache'; 
-                        command += ' --filter=GitModified';
+                        //command += ' --filter=GitModified';
                         command += ' --parallel=16'; // Requires PHP to be compiled with PCNTL package
                         command += ' --standard=PSR2';
                         command += ' src/main/php';

@@ -27,36 +27,36 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Payload;
 
-use PHPUnit\Framework\TestCase;
-
-use Gomoob\FacebookMessenger\Model\Button\WebUrlButton;
 use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 
+use PHPUnit\Framework\TestCase;
+
 /**
- * Test case used to test the `ButtonTemplatePayload` class.
+ * Test case used to test the `VideoAttachmentPayload` class.
  *
- * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
- * @group ButtonTemplatePayloadTest
+ * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
+ * @group VideoAttachmentPayloadTest
  */
-class ButtonTemplatePayloadTest extends TestCase
+class VideoAttachmentPayloadTest extends TestCase
 {
     /**
-     * Test method for the `getTemplateType()` and `setTemplateType($templateType)` functions.
+     * Test method for the `create()` function.
      */
-    public function testGetSetTemplateType()
+    public function testCreate()
     {
-        $buttonTemplatePayload = new ButtonTemplatePayload();
-        $button = new WebUrlButton();
-        $button->setTitle("Voir le Moment");
-        $button->setUrl("www.google.com");
-        $button->setType("web_url");
+        $videoAttachmentPayload = VideoAttachmentPayload::create();
+        $this->assertNotNull($videoAttachmentPayload);
+    }
 
-        $buttonTemplatePayload->setText('Template message button test.');
-        $buttonTemplatePayload->setSharable(false);
-        $buttonTemplatePayload->setButtons($button);
-
-        $this->assertSame("Template message button test.", $buttonTemplatePayload->getText());
-        $this->assertSame(false, $buttonTemplatePayload->isSharable());
+    /**
+     * Test method for the `getUrl()` and `setUrl($url)` functions.
+     */
+    public function testGetSetUrl()
+    {
+        $videoAttachmentPayload = new VideoAttachmentPayload();
+        $this->assertNull($videoAttachmentPayload->getUrl());
+        $this->assertSame($videoAttachmentPayload, $videoAttachmentPayload->setUrl('URL'));
+        $this->assertSame('URL', $videoAttachmentPayload->getUrl());
     }
 
     /**
@@ -64,21 +64,21 @@ class ButtonTemplatePayloadTest extends TestCase
      */
     public function testJsonSerialize()
     {
+        $videoAttachmentPayload = new VideoAttachmentPayload();
 
-        $buttonTemplatePayload = new ButtonTemplatePayload();
+        // Test without the 'url' property
+        try {
+            $videoAttachmentPayload->jsonSerialize();
+            $this->fail('Must have thrown a FacebookMessengerException !');
+        } catch (FacebookMessengerException $fmex) {
+            $this->assertSame('The \'url\' property is not set !', $fmex->getMessage());
+        }
 
         // Test with valid settings
-        $button = new WebUrlButton();
-        $button->setTitle('Voir le moment');
-        $button->setType('web_url');
-        $button->setUrl("www.google.com");
+        $videoAttachmentPayload->setUrl('URL');
 
-        $buttonTemplatePayload->setText('ButtonTemplate payload test.');
-        $buttonTemplatePayload->setButtons($button);
-
-
-        $json = $buttonTemplatePayload->jsonSerialize();
-        $this->assertCount(3, $json);
-        $this->assertSame('Voir le moment', $json['buttons']->getTitle());
+        $json = $videoAttachmentPayload->jsonSerialize();
+        $this->assertCount(1, $json);
+        $this->assertSame('URL', $json['url']);
     }
 }

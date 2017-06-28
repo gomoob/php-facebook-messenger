@@ -33,13 +33,15 @@ namespace Gomoob\FacebookMessenger\Model\Payload;
  * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference/audio-attachment
  */
-class AudioAttachmentPayload extends AbstractPayload
+class AudioAttachmentPayload extends AbstractUrlPayload
 {
     /**
-     * {@inheritDoc}
+     * Utility function used to create a new instance of the <tt>AudioAttachmentPayload</tt> class.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\Payload\AudioAttachmentPayload the new created instance.
      */
-    public function jsonSerialize()
+    public static function create()
     {
-        // TODO
+        return new AudioAttachmentPayload();
     }
 }

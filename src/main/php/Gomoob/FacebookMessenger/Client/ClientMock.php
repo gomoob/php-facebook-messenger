@@ -51,12 +51,10 @@ class ClientMock implements ClientMockInterface
      *
      * @var array
      */
-    private $FacebookMessengerRequests = [];
+    private $facebookMessengerRequests = [];
 
     /**
-     *
      * {@inheritDoc}
-     * @see \Gomoob\FacebookMessenger\ClientInterface::getPageAccessToken()
      */
     public function getPageAccessToken()
     {
@@ -64,13 +62,11 @@ class ClientMock implements ClientMockInterface
     }
 
     /**
-     *
      * {@inheritDoc}
-     * @see \Gomoob\FacebookMessenger\ClientInterface::sendMessage()
      */
     public function sendMessage($request)
     {
-        $this->FacebookMessengerRequests[] = $request;
+        $this->facebookMessengerRequests[] = $request;
         return Response::create(
             json_decode('{
                 "recipient_id":"1506900809384015",
@@ -100,6 +96,6 @@ class ClientMock implements ClientMockInterface
      */
     public function getFacebookMessengerRequests()
     {
-        return $this->FacebookMessengerRequests;
+        return $this->facebookMessengerRequests;
     }
 }

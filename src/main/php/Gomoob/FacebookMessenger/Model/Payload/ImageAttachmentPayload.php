@@ -33,13 +33,15 @@ namespace Gomoob\FacebookMessenger\Model\Payload;
  * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
  * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference/image-attachment
  */
-class ImageAttachmentPayload extends AbstractPayload
+class ImageAttachmentPayload extends AbstractUrlPayload
 {
     /**
-     * {@inheritDoc}
+     * Utility function used to create a new instance of the <tt>ImageAttachmentPayload</tt> class.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\Payload\ImageAttachmentPayload the new created instance.
      */
-    public function jsonSerialize()
+    public static function create()
     {
-        // TODO
+        return new ImageAttachmentPayload();
     }
 }

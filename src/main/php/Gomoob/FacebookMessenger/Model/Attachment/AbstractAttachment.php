@@ -65,7 +65,7 @@ abstract class AbstractAttachment implements AttachmentInterface
 
         return [
             'type' => $this->type,
-            'payload' => $this->payload
+            'payload' => $this->payload->jsonSerialize()
         ];
     }
 

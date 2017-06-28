@@ -34,9 +34,9 @@ use Gomoob\FacebookMessenger\Model\Request\TemplateMessageRequest;
 use Gomoob\FacebookMessenger\Model\Message\TemplateMessage;
 use Gomoob\FacebookMessenger\Model\Button\WebUrlButton;
 use Gomoob\FacebookMessenger\Model\Payload\ButtonTemplatePayload;
-use Gomoob\FacebookMessenger\Model\Attachment\Attachment;
 
 use PHPUnit\Framework\TestCase;
+use Gomoob\FacebookMessenger\Model\Attachment\ButtonTemplateAttachment;
 
 /**
  * Test case used to test the `ClientTest` class.
@@ -63,6 +63,10 @@ class ClientTest extends TestCase
      */
     public function testSendMessage()
     {
+        $this->markTestSkipped(
+            'Re-enable this with a Guzzle Mock.'
+        );
+
         // Create a Facebook Messenger client
         $client = Client::create()->setPageAccessToken(
             'EAAZAZA7jhHbesBACsWYzdxcZAHJxArPoZBgMZCBFgsQo9Y0Om35KY5KZBA1Q1S47ZC5N4KYMUuzjluDdm2dTNN8vlbwFap70FcWJgHA' .
@@ -100,11 +104,10 @@ class ClientTest extends TestCase
         $buttons[] = $button2;
 
         $buttonTemplatePayload = ButtonTemplatePayload::create()
-            ->setTemplateType("button")
             ->setText('ButtonTemplate payload test.')
             ->setButtons($buttons);
 
-        $attachment = Attachment::create()->setType('template')->setPayload($buttonTemplatePayload);
+        $attachment = ButtonTemplateAttachment::create()->setPayload($buttonTemplatePayload);
 
         $templateMessageRequest = TemplateMessageRequest::create()
             ->setRecipient(Recipient::create()->setPhoneNumber('+33760647186'))

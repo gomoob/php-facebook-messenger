@@ -60,7 +60,7 @@ class Client implements ClientInterface
         $this->guzzleClient = new \GuzzleHttp\Client(
             [
                 'base_uri' => 'https://graph.facebook.com/v2.6/me/messages',
-                'timeout' => 2.0,
+                'timeout' => 10.0,
                 'verify' => __DIR__ . '/../../../../resources/cacert.pem',
                 'query'   => [
                     'access_token' => 'EAAZAZA7jhHbesBACsWYzdxcZAHJxArPoZBgMZCBFgsQo9Y0Om35KY5KZBA1Q1S47ZC5N4KYMUuzjl' .

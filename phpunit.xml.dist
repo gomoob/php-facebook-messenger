@@ -3,7 +3,7 @@
     stopOnError="true"
     stopOnFailure="true"
     stopOnIncomplete="true"
-    stopOnSkipped="true"
+    stopOnSkipped="false"
     verbose="true">
 
     <logging>

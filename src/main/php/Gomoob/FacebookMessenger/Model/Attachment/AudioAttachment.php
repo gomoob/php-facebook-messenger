@@ -27,6 +27,8 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Attachment;
 
+use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
+
 /**
  * Class which represents a Facebook Messenger audio attachment.
  *
@@ -35,6 +37,32 @@ namespace Gomoob\FacebookMessenger\Model\Attachment;
  */
 class AudioAttachment extends AbstractAttachment
 {
+    /**
+     * Utility function used to create a new instance of the <tt>AudioAttachment</tt> class.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\Attachment\AudioAttachment the new created instance.
+     */
+    public static function create()
+    {
+        return new AudioAttachment();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function jsonSerialize()
+    {
+        // The 'payload' property must have been defined
+        if (!isset($this->payload)) {
+            throw new FacebookMessengerException('The \'payload\' property is not set !');
+        }
+
+        return [
+            'type' => 'audio',
+            'payload' => $this->payload->jsonSerialize()
+        ];
+    }
+
     /**
      * {@inheritDoc}
      */

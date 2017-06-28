@@ -25,23 +25,31 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-namespace Gomoob\FacebookMessenger\Model\Payload;
+namespace Gomoob\FacebookMessenger\Model\Attachment;
+
+use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 
 /**
- * Class which represents a Facebook Messenger Video attachment payload.
+ * Abstract class common to all Facebook Messenger template attachments.
  *
  * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
- * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference/video-attachment
+ * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference/templates
  */
-class VideoAttachmentPayload extends AbstractUrlPayload
+abstract class AbstractTemplateAttachment extends AbstractAttachment
 {
     /**
-     * Utility function used to create a new instance of the <tt>VideoAttachmentPayload</tt> class.
-     *
-     * @return \Gomoob\FacebookMessenger\Model\Payload\VideoAttachmentPayload the new created instance.
+     * {@inheritDoc}
      */
-    public static function create()
+    public function jsonSerialize()
     {
-        return new VideoAttachmentPayload();
+        // The 'payload' property must have been defined
+        if (!isset($this->payload)) {
+            throw new FacebookMessengerException('The \'payload\' property is not set !');
+        }
+
+        return [
+            'type' => 'template',
+            'payload' => $this->payload->jsonSerialize()
+        ];
     }
 }

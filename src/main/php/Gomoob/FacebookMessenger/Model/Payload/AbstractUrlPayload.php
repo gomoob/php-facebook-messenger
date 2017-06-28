@@ -27,21 +27,58 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Payload;
 
+use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
+
 /**
- * Class which represents a Facebook Messenger Video attachment payload.
+ * Abstract class common to all Facebook Messenger payloads which transports an URL.
  *
- * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
- * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference/video-attachment
+ * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
  */
-class VideoAttachmentPayload extends AbstractUrlPayload
+abstract class AbstractUrlPayload extends AbstractPayload
 {
     /**
-     * Utility function used to create a new instance of the <tt>VideoAttachmentPayload</tt> class.
+     * The URL to the audio file.
      *
-     * @return \Gomoob\FacebookMessenger\Model\Payload\VideoAttachmentPayload the new created instance.
+     * @var string
      */
-    public static function create()
+    protected $url;
+
+    /**
+     * Gets the URL to the audio file.
+     *
+     * @return string the URL to the audio file.
+     */
+    public function getUrl() /* : string */
     {
-        return new VideoAttachmentPayload();
+        return $this->url;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function jsonSerialize()
+    {
+        // The 'url' property must have been defined
+        if (!isset($this->url)) {
+            throw new FacebookMessengerException('The \'url\' property is not set !');
+        }
+
+        return [
+            'url' => $this->url
+        ];
+    }
+
+    /**
+     * Sets the URL to the audio file.
+     *
+     * @param string $url the URL to the audio file.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\Payload\AudioAttachmentPayload this instance.
+     */
+    public function setUrl(/* string */ $url) /* : AudioAttachmentPayload */
+    {
+        $this->url = $url;
+
+        return $this;
     }
 }

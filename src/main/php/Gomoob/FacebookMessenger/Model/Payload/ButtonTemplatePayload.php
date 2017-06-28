@@ -107,14 +107,9 @@ class ButtonTemplatePayload extends AbstractTemplatePayload
             throw new FacebookMessengerException('None of the \'text\' and \'buttons\' properties are not set !');
         }
 
-        // The template type must have been defined
-        if ($this->getTemplateType() === null) {
-            throw new FacebookMessengerException('The \'templateType\' property is not set !');
-        }
-
         return [
             'text' => $this->text,
-            'template_type' => $this->getTemplateType(),
+            'template_type' => 'button',
             'buttons' => $this->buttons
         ];
     }
