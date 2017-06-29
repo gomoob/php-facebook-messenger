@@ -90,8 +90,8 @@ class ClientMockTest extends TestCase
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Create a request to send a Template Message                                                               //
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        $button = WebUrlButton::create()->setTitle('Voir le moment')->setType('web_url')->setUrl("www.google.com");
-        $button2 = WebUrlButton::create()->setTitle('Mon compte')->setType('web_url')->setUrl("www.google.com");
+        $button = WebUrlButton::create()->setTitle('Voir le moment')->setUrl("www.google.com");
+        $button2 = WebUrlButton::create()->setTitle('Mon compte')->setUrl("www.google.com");
 
         $buttons[] = $button;
         $buttons[] = $button2;

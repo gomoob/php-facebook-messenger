@@ -30,7 +30,6 @@ namespace Gomoob\FacebookMessenger\Model\Payload;
 use PHPUnit\Framework\TestCase;
 
 use Gomoob\FacebookMessenger\Model\Button\WebUrlButton;
-use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 
 /**
  * Test case used to test the `ButtonTemplatePayload` class.
@@ -49,7 +48,6 @@ class ButtonTemplatePayloadTest extends TestCase
         $button = new WebUrlButton();
         $button->setTitle("Voir le Moment");
         $button->setUrl("www.google.com");
-        $button->setType("web_url");
 
         $buttonTemplatePayload->setText('Template message button test.');
         $buttonTemplatePayload->setSharable(false);
@@ -64,13 +62,11 @@ class ButtonTemplatePayloadTest extends TestCase
      */
     public function testJsonSerialize()
     {
-
         $buttonTemplatePayload = new ButtonTemplatePayload();
 
         // Test with valid settings
         $button = new WebUrlButton();
         $button->setTitle('Voir le moment');
-        $button->setType('web_url');
         $button->setUrl("www.google.com");
 
         $buttonTemplatePayload->setText('ButtonTemplate payload test.');

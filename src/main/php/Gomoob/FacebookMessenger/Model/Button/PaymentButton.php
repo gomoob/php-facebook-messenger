@@ -27,13 +27,43 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Button;
 
-use Gomoob\FacebookMessenger\Model\ButtonInterface;
-
 /**
- * Abstract class common to all Facebook Messenger buttons.
+ * Class which define a Facebook Messenger payment button.
  *
- * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
+ * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
+ * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference/buy-button
  */
-abstract class AbstractButton implements ButtonInterface
+class PaymentButton extends AbstractButton
 {
+    /**
+     * The developer defined metadata about the purchase.
+     *
+     * @var string
+     */
+    private $payload;
+
+    /**
+     * Name of the buy button, must be `buy`.
+     *
+     * @var string
+     */
+    private $title;
+
+    /**
+     * Utility function used to create a new instance of the <tt>PaymentButton</tt> class.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\Button\PaymentButton the new created instance.
+     */
+    public static function create()
+    {
+        return new PaymentButton();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function jsonSerialize()
+    {
+        // TODO
+    }
 }

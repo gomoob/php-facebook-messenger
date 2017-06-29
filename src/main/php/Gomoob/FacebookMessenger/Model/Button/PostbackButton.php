@@ -27,13 +27,29 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Button;
 
-use Gomoob\FacebookMessenger\Model\ButtonInterface;
-
 /**
- * Abstract class common to all Facebook Messenger buttons.
+ * Class which define a Facebook Messenger postback button.
  *
- * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
+ * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
+ * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference/postback-button
  */
-abstract class AbstractButton implements ButtonInterface
+class PostbackButton extends AbstractButton
 {
+    /**
+     * Utility function used to create a new instance of the <tt>PostbackButton</tt> class.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\Button\PostbackButton the new created instance.
+     */
+    public static function create()
+    {
+        return new PostbackButton();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function jsonSerialize()
+    {
+        // TODO
+    }
 }

@@ -33,6 +33,7 @@ use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
  * Class which define a Facebook Messenger web url button.
  *
  * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
+ * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference/url-button
  */
 class WebUrlButton extends AbstractButton
 {

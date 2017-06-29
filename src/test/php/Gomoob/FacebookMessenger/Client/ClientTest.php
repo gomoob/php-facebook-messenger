@@ -37,6 +37,10 @@ use Gomoob\FacebookMessenger\Model\Payload\ButtonTemplatePayload;
 
 use PHPUnit\Framework\TestCase;
 use Gomoob\FacebookMessenger\Model\Attachment\ButtonTemplateAttachment;
+use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * Test case used to test the `ClientTest` class.
@@ -52,8 +56,8 @@ class ClientTest extends TestCase
     public function testGetSetPageAccessToken()
     {
         $client = Client::create();
-        $client->setPageAccessToken('1702809689738727|5v1Lg1Ysbln9hrYESZgS_GEWToA');
-        $this->assertSame('1702809689738727|5v1Lg1Ysbln9hrYESZgS_GEWToA', $client->getPageAccessToken());
+        $client->setPageAccessToken('PAGE_ACCESS_TOKEN');
+        $this->assertSame('PAGE_ACCESS_TOKEN', $client->getPageAccessToken());
     }
 
     /**
@@ -63,36 +67,42 @@ class ClientTest extends TestCase
      */
     public function testSendMessage()
     {
-        $this->markTestSkipped(
-            'Re-enable this with a Guzzle Mock.'
-        );
+        $client = Client::create();
 
-        // Create a Facebook Messenger client
-        $client = Client::create()->setPageAccessToken(
-            'EAAZAZA7jhHbesBACsWYzdxcZAHJxArPoZBgMZCBFgsQo9Y0Om35KY5KZBA1Q1S47ZC5N4KYMUuzjluDdm2dTNN8vlbwFap70FcWJgHA' .
-            'uujyQtIdWy0ZCRiODMZA8BLj4OiKsL5y2pPfuYTgZBrixRXT0SINWZAEZBbqEVd5lRLTaD6yfZAQZDZD'
-        );
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Create a request to send a simple Text Message                                                            //
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        $request = TextMessageRequest::create()
-            ->setRecipient(Recipient::create()->setPhoneNumber('+33760647186'))
-            ->setMessage(TextMessage::create()->setText('Hello World !'));
-
-        // Call the REST Web Service
-        $responseTextMessage = $client->sendMessage($request);
-
-        $this->assertSame(200, $responseTextMessage->getStatusCode());
-
-        // Check if text message response is ok
-        if ($responseTextMessage->isOk()) {
-            print 'Great, my text message has been sent !';
-        } else {
-            print 'Oups, the text message sent failed :-(';
-            print 'Status code : ' . $responseTextMessage->getStatusCode();
-            print 'Status message : ' . $responseTextMessage->getStatusMessage();
+        // Test with no 'pageAccessToken' property defined
+        try {
+            $client->sendMessage($this->createTextMessageRequest());
+            $this->fail('Must have thrown a FacebookMessengerException !');
+        } catch (FacebookMessengerException $fmex) {
+            $this->assertSame('The \'pageAccessToken\' property is not set !', $fmex->getMessage());
         }
+        $client->setPageAccessToken('PAGE_ACCESS_TOKEN');
+
+        // Test with a 'TextMessageRequest'
+        $request = $this->createTextMessageRequest();
+        $this->configureGuzzleClientToReturnFakeResponse(
+            $client,
+            new Response(
+                200,
+                [],
+                json_encode(
+                    [
+                            'recipient_id' => 'RECIPIENT_ID',
+                            'message_id' => 'MESSAGE_ID'
+                        ]
+                )
+            )
+        );
+
+        $response = $client->sendMessage($request);
+        $this->assertNotNull($response);
+        $this->assertSame('MESSAGE_ID', $response->getMessageId());
+        $this->assertSame('RECIPIENT_ID', $response->getRecipientId());
+        $this->assertSame(200, $response->getStatusCode());
+        $this->assertSame('OK', $response->getStatusMessage());
+        $this->assertTrue($response->isOk());
+
+        $this->markTestSkipped('Continue testing');
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Create a request to send a Template Message                                                               //
@@ -124,5 +134,43 @@ class ClientTest extends TestCase
             print 'Status code : ' . $responseTemplateMessage->getStatusCode();
             print 'Status message : ' . $responseTemplateMessage->getStatusMessage();
         }
+    }
+
+    /**
+     * Creates a testing `TextMessageRequest` to be using during testing.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\RequestInterface the created request.
+     */
+    private function createTextMessageRequest()
+    {
+        return TextMessageRequest::create()
+            ->setRecipient(Recipient::create()->setId('USER_ID'))
+            ->setMessage(TextMessage::create()->setText('hello, world !'));
+    }
+
+    /**
+     * Configure the Guzzle client associated Facebook Messenger to return an expected fake response.
+     *
+     * @param array $fakeResponse the fake response to return.
+     */
+    private function configureGuzzleClientToReturnFakeResponse(
+        /* \GuzzleHttp\Client */ $client,
+        /* \GuzzleHttp\Psr7\Response */ $fakeResponse
+    ) {
+    
+        // Creates the Mock Handler
+        $mock = new MockHandler([$fakeResponse]);
+
+        // Creates the testing Guzzle Client
+        $guzzleClient = new \GuzzleHttp\Client(
+            [
+                'handler' =>HandlerStack::create($mock)
+            ]
+        );
+
+        // Updates the Facebook Messenger client
+        $reflectionProperty = new \ReflectionProperty($client, 'guzzleClient');
+        $reflectionProperty->setAccessible(true);
+        $reflectionProperty->setValue($client, $guzzleClient);
     }
 }

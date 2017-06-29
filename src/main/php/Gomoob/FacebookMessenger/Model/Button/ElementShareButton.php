@@ -27,13 +27,27 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Button;
 
-use Gomoob\FacebookMessenger\Model\ButtonInterface;
-
 /**
- * Abstract class common to all Facebook Messenger buttons.
+ * Class which define a Facebook Messenger element share button.
  *
- * @author Arnaud Lavallée (arnaud.lavallee@gomoob.com)
+ * @author Baptiste GAILLARD (baptiste.gaillard@gomoob.com)
+ * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference/share-button
  */
-abstract class AbstractButton implements ButtonInterface
+class ElementShareButton extends AbstractButton
 {
+    /**
+     * The message that you wish the recipient of the share to see, if it is different from the one this button is
+     * attached to. The format follows that used in Send API, but must be a generic template with up to one URL button.
+     *
+     * @var \Gomoob\FacebookMessenger\Model\TemplateMessageInterface
+     */
+    private $shareContents;
+
+    /**
+     * {@inheritDoc}
+     */
+    public function jsonSerialize()
+    {
+        // TODO
+    }
 }

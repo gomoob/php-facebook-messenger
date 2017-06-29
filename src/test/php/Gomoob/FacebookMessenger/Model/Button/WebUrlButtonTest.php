@@ -41,16 +41,6 @@ use PHPUnit\Framework\TestCase;
 class WebUrlButtonTest extends TestCase
 {
     /**
-     * Test method for the `getType()` and `setType($type)` functions.
-     */
-    public function testGetSetType()
-    {
-        $webUrlButton = new WebUrlButton();
-        $webUrlButton->setType("web_url");
-        $this->assertSame("web_url", $webUrlButton->getType());
-    }
-
-    /**
      * Test method for the `jsonSerialize()` function.
      */
     public function testJsonSerialize()
@@ -66,7 +56,6 @@ class WebUrlButtonTest extends TestCase
         }
 
         // Test with valid settings
-        $webUrlButton->setType('web_url');
         $webUrlButton->setTitle("Vor le moment");
         $webUrlButton->setUrl("www.google.com");
 

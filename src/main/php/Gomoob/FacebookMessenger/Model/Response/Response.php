@@ -82,7 +82,7 @@ class Response implements ResponseInterface
         $createResponse = new Response();
         $createResponse->setMessageId($jsonBody['message_id']);
         $createResponse->setRecipientId($jsonBody['recipient_id']);
-        $createResponse->setStatusCode(200);
+        $createResponse->setStatusCode($statusCode);
         $createResponse->setStatusMessage($statusMessage);
 
         return $createResponse;

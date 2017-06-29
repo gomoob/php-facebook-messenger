@@ -29,6 +29,7 @@ namespace Gomoob\FacebookMessenger\Client;
 
 use Gomoob\FacebookMessenger\ClientInterface;
 use Gomoob\FacebookMessenger\Model\Response\Response;
+use Gomoob\FacebookMessenger\Exception\FacebookMessengerException;
 
 /**
  * Class which defines a Facebook Messenger client.
@@ -45,6 +46,8 @@ class Client implements ClientInterface
      */
     private $guzzleClient;
 
+    private $guzzleClientConfig;
+
     /**
      * The page access token used to send a request.
      *
@@ -57,28 +60,32 @@ class Client implements ClientInterface
      */
     public function __construct()
     {
-        $this->guzzleClient = new \GuzzleHttp\Client(
-            [
-                'base_uri' => 'https://graph.facebook.com/v2.6/me/messages',
-                'timeout' => 10.0,
-                'verify' => __DIR__ . '/../../../../resources/cacert.pem',
-                'query'   => [
-                    'access_token' => 'EAAZAZA7jhHbesBACsWYzdxcZAHJxArPoZBgMZCBFgsQo9Y0Om35KY5KZBA1Q1S47ZC5N4KYMUuzjl' .
-                                      'uDdm2dTNN8vlbwFap70FcWJgHAuujyQtIdWy0ZCRiODMZA8BLj4OiKsL5y2pPfuYTgZBrixRXT0SIN' .
-                                      'WZAEZBbqEVd5lRLTaD6yfZAQZDZD'
-                    ]
-            ]
-        );
+        $this->guzzleClientConfig = [
+            'base_uri' => 'https://graph.facebook.com/v2.6/me/messages',
+            'timeout' => 5.0,
+            'verify' => __DIR__ . '/../../../../resources/cacert.pem'
+        ];
+        $this->guzzleClient = new \GuzzleHttp\Client($this->guzzleClientConfig);
     }
 
     /**
-     * Utility function used to create a new instance of the <tt>TextMessageRequest</tt>.
+     * Utility function used to create a new instance of the <tt>Client</tt>.
      *
-     * @return \Gomoob\FacebookMessenger\Model\Request\TextMessageRequest the new created instance.
+     * @return \Gomoob\FacebookMessenger\ClientInterface the new created instance.
      */
     public static function create()
     {
         return new Client();
+    }
+
+    /**
+     * Gets the Guzzle client used to request the Facebook Graph Web Services.
+     *
+     * @return \GuzzleHttp\Client the Guzzle client used to request the Facebook Graph Web Services.
+     */
+    public function getGuzzleClient() /* : \GuzzleHttp\Client */
+    {
+        return $this->guzzleClient;
     }
 
     /**
@@ -94,13 +101,22 @@ class Client implements ClientInterface
      */
     public function sendMessage(/* RequestInterface */ $request)/* : Response */
     {
+        // The 'payload' property must have been defined
+        if (!isset($this->pageAccessToken)) {
+            throw new FacebookMessengerException('The \'pageAccessToken\' property is not set !');
+        }
+
+        // Calls the Facebook Messenger Web Service
         $guzzleResponse = $this->guzzleClient->post(null, ['json' => $request->jsonSerialize()]);
+
+        // Decode the Guzzle response
         $stringBody = (string)$guzzleResponse->getBody();
         $statusCode = $guzzleResponse->getStatusCode();
         $statusMessage = $guzzleResponse->getReasonPhrase();
 
         $jsonBody = json_decode($stringBody, true);
 
+        // Returns the request
         return Response::create($jsonBody, $statusCode, $statusMessage);
     }
 
@@ -110,6 +126,10 @@ class Client implements ClientInterface
     public function setPageAccessToken(/*string*/ $pageAccessToken)
     {
         $this->pageAccessToken = $pageAccessToken;
+
+        // Updates the Guzzle client configuration
+        $this->guzzleClientConfig['query'] = ['access_token' => $pageAccessToken];
+        $this->guzzleClient = new \GuzzleHttp\Client($this->guzzleClientConfig);
 
         return $this;
     }
