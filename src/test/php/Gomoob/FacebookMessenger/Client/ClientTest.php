@@ -157,7 +157,7 @@ class ClientTest extends TestCase
         /* \GuzzleHttp\Client */ $client,
         /* \GuzzleHttp\Psr7\Response */ $fakeResponse
     ) {
-    
+
         // Creates the Mock Handler
         $mock = new MockHandler([$fakeResponse]);
 

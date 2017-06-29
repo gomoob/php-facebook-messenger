@@ -15,11 +15,10 @@
 // Create a Facebook Messenger client
 $client = Client::create()->setPageAccessToken('XXXX-XXX');
 
-// Create a Facebook Messenger message to send
-$message = TextMessage::create()->setText('Hello World');
-
 // Create a request to send a simple Text Message
-$textMessageRequest = TextMessageRequest::create()->setMessage($message);
+$request = TextMessageRequest::create()
+    ->setRecipient(Recipient::create()->setId('USER_ID'))
+    ->setMessage(TextMessage::create()->setText('hello, world !'));
 
 // Call the REST Web Service
 $response = $client->sendMessage($textMessageRequest);
