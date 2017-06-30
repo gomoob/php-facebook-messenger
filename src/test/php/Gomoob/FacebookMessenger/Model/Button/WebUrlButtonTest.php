@@ -41,6 +41,15 @@ use PHPUnit\Framework\TestCase;
 class WebUrlButtonTest extends TestCase
 {
     /**
+     * Test method for the `create()` function.
+     */
+    public function testCreate()
+    {
+        $webUrlButton = WebUrlButton::create();
+        $this->assertNotNull($webUrlButton);
+    }
+
+    /**
      * Test method for the `jsonSerialize()` function.
      */
     public function testJsonSerialize()

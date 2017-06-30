@@ -27,6 +27,8 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Message;
 
+use Gomoob\FacebookMessenger\Model\Button\PhoneNumberButton;
+
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -37,5 +39,12 @@ use PHPUnit\Framework\TestCase;
  */
 class PhoneNumberButtonTest extends TestCase
 {
-
+    /**
+     * Test method for the `create()` function.
+     */
+    public function testCreate()
+    {
+        $phoneNumberButton = PhoneNumberButton::create();
+        $this->assertNotNull($phoneNumberButton);
+    }
 }

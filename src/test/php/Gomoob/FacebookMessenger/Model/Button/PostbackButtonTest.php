@@ -27,6 +27,8 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Message;
 
+use Gomoob\FacebookMessenger\Model\Button\PostbackButton;
+
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -37,5 +39,12 @@ use PHPUnit\Framework\TestCase;
  */
 class PostbackButtonTest extends TestCase
 {
-
+    /**
+     * Test method for the `create()` function.
+     */
+    public function testCreate()
+    {
+        $postbackButton = PostbackButton::create();
+        $this->assertNotNull($postbackButton);
+    }
 }

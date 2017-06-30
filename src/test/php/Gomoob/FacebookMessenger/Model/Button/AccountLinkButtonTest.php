@@ -27,6 +27,8 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Message;
 
+use Gomoob\FacebookMessenger\Model\Button\AccountLinkButton;
+
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -37,5 +39,12 @@ use PHPUnit\Framework\TestCase;
  */
 class AccountLinkButtonTest extends TestCase
 {
-
+    /**
+     * Test method for the `create()` function.
+     */
+    public function testCreate()
+    {
+        $accountLinkButton = AccountLinkButton::create();
+        $this->assertNotNull($accountLinkButton);
+    }
 }

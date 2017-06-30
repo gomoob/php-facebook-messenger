@@ -44,6 +44,16 @@ class ElementShareButton extends AbstractButton
     private $shareContents;
 
     /**
+     * Utility function used to create a new instance of the <tt>ElementShareButton</tt> class.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\Button\ElementShareButton the new created instance.
+     */
+    public static function create()
+    {
+        return new ElementShareButton();
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function jsonSerialize()

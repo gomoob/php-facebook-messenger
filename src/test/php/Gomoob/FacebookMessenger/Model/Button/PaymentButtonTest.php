@@ -27,6 +27,8 @@
  */
 namespace Gomoob\FacebookMessenger\Model\Message;
 
+use Gomoob\FacebookMessenger\Model\Button\PaymentButton;
+
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -37,5 +39,12 @@ use PHPUnit\Framework\TestCase;
  */
 class PaymentButtonTest extends TestCase
 {
-
+    /**
+     * Test method for the `create()` function.
+     */
+    public function testCreate()
+    {
+        $paymentButton = PaymentButton::create();
+        $this->assertNotNull($paymentButton);
+    }
 }
