@@ -120,8 +120,10 @@ class Recipient implements RecipientInterface
         $json = [];
 
         // One of the 'id' or 'phoneNumber' property must have been defined.
-        if (!isset($this->id) && !isset($this->phoneNumber)) {
-            throw new FacebookMessengerException('None of the \'id\' or \'phoneNumber\' properties are set !');
+        if (!isset($this->id) && !isset($this->phoneNumber) && !isset($this->userRef)) {
+            throw new FacebookMessengerException(
+                'None of the \'id\', \'phoneNumber\' or \'userRef\' properties are set !'
+            );
         }
 
         // The 'id' property is set

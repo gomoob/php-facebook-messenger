@@ -108,7 +108,10 @@ class RecipientTest extends TestCase
             $recipient->jsonSerialize();
             $this->fail('Must have thrown a FacebookMessengerException !');
         } catch (FacebookMessengerException $fmex) {
-            $this->assertSame('None of the \'id\' or \'phoneNumber\' properties are set !', $fmex->getMessage());
+            $this->assertSame(
+                'None of the \'id\', \'phoneNumber\' or \'userRef\' properties are set !',
+                $fmex->getMessage()
+            );
         }
 
         // Test with only the 'id'
@@ -125,6 +128,14 @@ class RecipientTest extends TestCase
         $json = $recipient->jsonSerialize();
         $this->assertCount(1, $json);
         $this->assertSame('0102030405', $json['phone_number']);
+
+        // Test with only the 'userRef'
+        $recipient = new Recipient();
+        $recipient->setUserRef('USER_REF');
+
+        $json = $recipient->jsonSerialize();
+        $this->assertCount(1, $json);
+        $this->assertSame('USER_REF', $json['user_ref']);
 
         // Test with the 'id' and 'phoneNumber'
         $recipient = new Recipient();
