@@ -65,6 +65,15 @@ interface RecipientInterface extends \JsonSerializable
     public function getPhoneNumber() /* : string */;
 
     /**
+     * Gets the user reference of the recipent.
+     * This identifier is usually generated and used with the facebook messenger checkbox plugin.
+     * This is a field used for the first call to the send API to get the recipient ID in return.
+     *
+     * @return string the page-scoped user ID of the recipient.
+     */
+    public function getUserRef() /* : string*/;
+
+    /**
      * Sets the page-scoped user ID of the recipent.
      *
      * This is the field most developers will commonly use to send messages.
@@ -98,4 +107,15 @@ interface RecipientInterface extends \JsonSerializable
      * @return \Gomoob\FacebookMessenger\Model\RecipientInterface this instance.
      */
     public function setPhoneNumber(/*string*/ $phoneNumber);
+
+    /**
+     * Sets the user reference of the recipent.
+     * This identifier is usually generated and used with the facebook messenger checkbox plugin.
+     * This is a field used for the first call to the send API to get the recipient ID in return.
+     *
+     * @param string $userRef the user reference of the recipent to set.
+     *
+     * @return \Gomoob\FacebookMessenger\Model\RecipientInterface this instance.
+     */
+    public function setUserRef(/* string */ $userRef);
 }

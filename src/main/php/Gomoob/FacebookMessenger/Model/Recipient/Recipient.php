@@ -61,6 +61,16 @@ class Recipient implements RecipientInterface
     private $phoneNumber;
 
     /**
+     * The user reference of the recipient. This identifier is usually generated and used with the facebook messenger
+     * checkbox plugin.
+     *
+     * This is a field used for the first call to the send API to get the recipient ID in return.
+     *
+     * @var string
+     */
+    private $userRef;
+
+    /**
      * Utility function used to create a new instance of the <tt>Recipient</tt>.
      *
      * @return \Gomoob\FacebookMessenger\Model\Recipient\Recipient the new created instance.
@@ -97,6 +107,14 @@ class Recipient implements RecipientInterface
     /**
      * {@inheritDoc}
      */
+    public function getUserRef() /* : string */
+    {
+        return $this->userRef;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function jsonSerialize()
     {
         $json = [];
@@ -119,6 +137,11 @@ class Recipient implements RecipientInterface
         // The 'name' property is set
         if (isset($this->name)) {
             $json['name'] = $this->name->jsonSerialize();
+        }
+
+        // The 'userRef' property is set
+        if (isset($this->userRef)) {
+            $json['user_ref'] = $this->userRef;
         }
 
         return $json;
@@ -150,6 +173,16 @@ class Recipient implements RecipientInterface
     public function setPhoneNumber(/* string */ $phoneNumber)
     {
         $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUserRef(/* string */ $userRef)
+    {
+        $this->userRef = $userRef;
 
         return $this;
     }

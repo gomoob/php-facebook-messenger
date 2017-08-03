@@ -86,6 +86,17 @@ class RecipientTest extends TestCase
     }
 
     /**
+     * Test method for the `getUserRef()` and `setUserRef($userRef)` functions.
+     */
+    public function testGetSetUserRef()
+    {
+        $recipient = new Recipient();
+        $this->assertNull($recipient->getUserRef());
+        $this->assertSame($recipient, $recipient->setUserRef('USER_REF'));
+        $this->assertSame('USER_REF', $recipient->getUserRef());
+    }
+
+    /**
      * Test method for the `jsonSerialize()` function.
      */
     public function testJsonSerialize()
@@ -136,5 +147,15 @@ class RecipientTest extends TestCase
         $this->assertSame('ID', $json['id']);
         $this->assertSame('0102030405', $json['phone_number']);
         $this->assertSame(['first_name' => 'John', 'last_name' => 'Doe'], $json['name']);
+
+        // Test with the 'id', 'phoneNumber', 'name' and 'userRef'
+        $recipient->setUserRef('USER_REF');
+
+        $json = $recipient->jsonSerialize();
+        $this->assertCount(4, $json);
+        $this->assertSame('ID', $json['id']);
+        $this->assertSame('0102030405', $json['phone_number']);
+        $this->assertSame(['first_name' => 'John', 'last_name' => 'Doe'], $json['name']);
+        $this->assertSame('USER_REF', $json['user_ref']);
     }
 }
