@@ -9,8 +9,7 @@
         "push",
         "pushwoosh"
     ],
-    "authors" : [
-        {
+    "authors" : [{
             "name" : "GoMoob",
             "email" : "contact@gomoob.com",
             "homepage" : "http://www.gomoob.com"

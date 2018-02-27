@@ -87,9 +87,8 @@ class ClientTest extends TestCase
                 [],
                 json_encode(
                     [
-                            'recipient_id' => 'RECIPIENT_ID',
-                            'message_id' => 'MESSAGE_ID'
-                        ]
+                        'message_id' => 'MESSAGE_ID'
+                    ]
                 )
             )
         );
@@ -97,7 +96,6 @@ class ClientTest extends TestCase
         $response = $client->sendMessage($request);
         $this->assertNotNull($response);
         $this->assertSame('MESSAGE_ID', $response->getMessageId());
-        $this->assertSame('RECIPIENT_ID', $response->getRecipientId());
         $this->assertSame(200, $response->getStatusCode());
         $this->assertSame('OK', $response->getStatusMessage());
         $this->assertTrue($response->isOk());

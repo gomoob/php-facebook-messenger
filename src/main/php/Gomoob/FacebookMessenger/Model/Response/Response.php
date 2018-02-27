@@ -45,12 +45,6 @@ class Response implements ResponseInterface
     private $messageId;
 
     /**
-     * Technical identifier of the user.
-     * @var string The technical identifier of the user.
-     */
-    private $recipientId;
-
-    /**
      * The Facebook Messenger status code, the Pushwoosh API can return the following create message status codes :
      *  - 200    : (HTTP Status Code = 200) Message succesfully created.
      *  - 210    : (HTTP Status Code = 200) Argument error. See statusMessage for more info.
@@ -71,9 +65,9 @@ class Response implements ResponseInterface
     /**
      * Utility function used to create a new instance of the <tt>Response</tt> class.
      *
-     * @param $jsonBody the body of the guzzle response
-     * @param $statusCode the Facebook Messenger status code.
-     * @param $statusMessage the Facebook Messenger status message.
+     * @param String $jsonBody the body of the guzzle response
+     * @param String $statusCode the Facebook Messenger status code.
+     * @param String $statusMessage the Facebook Messenger status message.
      *
      * @return \Gomoob\FacebookMessenger\Model\Response\Response the new created instance.
      */
@@ -81,7 +75,6 @@ class Response implements ResponseInterface
     {
         $createResponse = new Response();
         $createResponse->setMessageId($jsonBody['message_id']);
-        $createResponse->setRecipientId($jsonBody['recipient_id']);
         $createResponse->setStatusCode($statusCode);
         $createResponse->setStatusMessage($statusMessage);
 
@@ -94,14 +87,6 @@ class Response implements ResponseInterface
     public function getMessageId()
     {
         return $this->messageId;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getRecipientId()
-    {
-        return $this->recipientId;
     }
 
     /**
@@ -133,12 +118,11 @@ class Response implements ResponseInterface
      */
     public function jsonSerialize()
     {
-        if (!isset($this->recipientId) || !isset($this->messageId)) {
-            throw new FacebookMessengerException('The \'recipientId\' or \'messageId\' property is not set !');
+        if (!isset($this->messageId)) {
+            throw new FacebookMessengerException('The \'messageId\' property is not set !');
         }
 
         return [
-            'recipient_id' => $this->recipientId,
             'message_id' => $this->messageId
         ];
     }
@@ -149,16 +133,6 @@ class Response implements ResponseInterface
     public function setMessageId(/*string*/ $messageId)
     {
         $this->messageId = $messageId;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setRecipientId(/*string*/ $recipientId)
-    {
-        $this->recipientId = $recipientId;
 
         return $this;
     }

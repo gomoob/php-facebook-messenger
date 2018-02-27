@@ -43,13 +43,6 @@ interface ResponseInterface extends \JsonSerializable
     public function getMessageId() /* : string */;
 
     /**
-     * Gets the technical identifier of the Facebook Messenger recipient.
-     *
-     * @return string the technical identifier of the Facebook Messenger recipient.
-     */
-    public function getRecipientId() /* : string */;
-
-    /**
      * Gets the Facebook messenger status code, , the Facebook messenger API can return the following create message
      * status codes :
      *  - 200    : (HTTP Status Code = 200) Message succesfully created.
@@ -83,15 +76,6 @@ interface ResponseInterface extends \JsonSerializable
      * @return \Gomoob\FacebookMessenger\Model\ResponseInterface this instance.
      */
     public function setMessageId(/* string */ $messageId);
-
-    /**
-     * Sets the technicak identifier of the Facebook messenger recipient.
-     *
-     * @param int $recipientId the technicak identifier of the Facebook messenger recipient.
-     *
-     * @return \Gomoob\FacebookMessenger\Model\ResponseInterface this instance.
-     */
-    public function setRecipientId(/* string */ $recipientId);
 
     /**
      * Sets the Facebook messenger status code, the Facebook messenger API can return the following create message

@@ -70,7 +70,7 @@ class WebUrlButton extends AbstractButton
     /**
      * Height of the web view.
      *
-     * @var enum
+     * @var string
      */
     private $webViewHeightRatio;
 
@@ -165,6 +165,7 @@ class WebUrlButton extends AbstractButton
 
     /**
      * Set the fallback url.
+     *
      * @param string $fallbackUrl the fallback url.
      */
     public function setFallbackUrl($fallbackUrl)
@@ -177,8 +178,7 @@ class WebUrlButton extends AbstractButton
     /**
      * Set true if messenger extension are used.
      *
-     * @param unknown $messengerExtension
-     * @return boolean true if messenger extension are used.
+     * @param boolean true if messenger extension are used.
      */
     public function setMessengerExtension($messengerExtension)
     {

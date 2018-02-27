@@ -40,19 +40,6 @@ use PHPUnit\Framework\TestCase;
 class ResponseTest extends TestCase
 {
     /**
-     * Test method for the `getRecipientId()` and `setRecipientId($recipientId)` functions.
-     */
-    public function testGetSetRecipientIdAndMessageId()
-    {
-        $response = new Response();
-
-        $this->assertNull($response->getRecipientId());
-
-        $this->assertSame($response, $response->setRecipientId('1008372609250235'));
-        $this->assertSame('1008372609250235', $response->getRecipientId());
-    }
-
-    /**
      * Test method for the `jsonSerialize()` function.
      */
     public function testJsonSerialize()
@@ -64,16 +51,14 @@ class ResponseTest extends TestCase
             $response->jsonSerialize();
             $this->fail('Must have thrown a FacebookMessengerException !');
         } catch (FacebookMessengerException $fmex) {
-            $this->assertSame('The \'recipientId\' or \'messageId\' property is not set !', $fmex->getMessage());
+            $this->assertSame('The \'messageId\' property is not set !', $fmex->getMessage());
         }
 
         // Test with valid settings
-        $response->setRecipientId('1008372609250235');
         $response->setMessageId('mid.1456970487936:c34767dfe57ee6e339');
 
         $json = $response->jsonSerialize();
-        $this->assertCount(2, $json);
-        $this->assertSame('1008372609250235', $json['recipient_id']);
+        $this->assertCount(1, $json);
         $this->assertSame('mid.1456970487936:c34767dfe57ee6e339', $json['message_id']);
     }
 }
